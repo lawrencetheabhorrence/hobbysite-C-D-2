@@ -11,3 +11,8 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Post.objects.all()
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "forum/post_detail.html"

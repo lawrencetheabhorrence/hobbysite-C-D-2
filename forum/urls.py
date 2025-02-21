@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("threads", views.IndexView.as_view(), name="index"),
-    path("thread/<int:pk>", views.thread_detail, name="thread_detail"),
+    path("thread/<int:pk>", views.PostDetailView.as_view(), name="thread_detail"),
 ]

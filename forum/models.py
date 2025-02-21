@@ -5,6 +5,9 @@ class PostCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255)

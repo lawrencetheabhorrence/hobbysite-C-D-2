@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from django.views import generic
 
 # Create your views here.
-from .models import Post, PostCategory
+from .models import Post
 
 
 class IndexView(generic.ListView):
@@ -10,12 +9,7 @@ class IndexView(generic.ListView):
     context_object_name = "post_list"
 
     def get_queryset(self):
-        return PostCategory.objects.all()
-
-
-def PostByCategoryView(request, category):
-    posts = Post.objects.filter(category__name=category)
-    return render(request, "forum/post_list.html", {"post_list": posts})
+        return Post.objects.all()
 
 
 class PostDetailView(generic.DetailView):

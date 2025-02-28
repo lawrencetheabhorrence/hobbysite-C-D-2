@@ -1,0 +1,16 @@
+[% extends 'forum/base.html' %}
+{% block content %}
+<main>
+	<section class="post-heading">
+		<h1>{{ post.title }}</h1>
+		<section class="post-metadata">
+			<p>{{ post.category }}</p>
+			<p>Created on: {{ post.created_on | date }}</p>
+			<p>Updated on: {{ post.created_on | date }}</p>
+		</section>
+	</section>
+	<section class="post-entry">
+		<p>{{ post.entry }}</p>
+	</section>
+</main>
+{% endblock %}

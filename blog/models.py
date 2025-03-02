@@ -1,6 +1,7 @@
 from django.db import models
 
 class ArticleCategory(models.Model):
+    
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -8,6 +9,7 @@ class ArticleCategory(models.Model):
         return f'{self.name}'
 
 class Article(models.Model):
+
     title = models.CharField(max_length=255)
     category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL)
     entry = models.TextField()

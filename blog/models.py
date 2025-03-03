@@ -6,10 +6,10 @@ class ArticleCategory(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"
     
     class Meta():
-        ordering = ['name']
+        ordering = ["name"]
 
 class Article(models.Model):
 
@@ -20,4 +20,4 @@ class Article(models.Model):
     updated_on = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.title}, {self.category}, {self.entry}, {self.created_on}, {self.updated_on}'
+        return f"{self.title}, {self.category}, {self.entry}, {self.created_on}, {self.updated_on}"

@@ -1,17 +1,10 @@
-from django.views import generic
-
-# Create your views here.
+from django.shortcuts import render
 from .models import Post
 
 
-class IndexView(generic.ListView):
-    template_name = "forum/index.html"
-    context_object_name = "post_list"
-
-    def get_queryset(self):
-        return Post.objects.all()
+def index_view(request):
+    return render(request, "forum/index.html", {"post_list": Post.objects.all()})
 
 
-class PostDetailView(generic.DetailView):
-    model = Post
-    template_name = "forum/post_detail.html"
+def detail_view(request, pk):
+    return render(request, "forum/post_detail.html", {"post": Post.objects.get(id=pk)})

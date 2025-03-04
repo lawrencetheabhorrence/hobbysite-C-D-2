@@ -1,14 +1,14 @@
-{% extends 'forum/base.html' %}
+{% extends 'article/base.html' %}
 {% block content %}
 <main>
 	<ul>
-		{% for post in post_list %}
+		{% for article in articles %}
 		<li>
-			<article class="post-heading">
-				<a href="{% url 'forum:thread_detail' post.id %}"><h1>{{ post.title }}</h1></a>
-				<p>{{ post.category }}</p>
-				<p>Created on: {{ post.created_on | date }}</p>
-				<p>Updated on: {{ post.created_on | date }}</p>
+			<article class="article-heading">
+				<a href="{% url 'article:article_detail' article.id %}"><h1>{{ article.title }}</h1></a>
+				<p>{{ article.category }}</p>
+				<p>Created on: {{ article.created_on | date }}</p>
+				<p>Updated on: {{ article.updated_on | date }}</p>
 			</article>
 		</li>
 		{% endfor %}

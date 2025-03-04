@@ -8,3 +8,11 @@ def ArticleListView(request):
     }
 
     return render(request, "article_list.html", context)
+
+def ArticleDetailView(request, id):
+    article = Article.objects.get(id=id)
+    context = {
+        "article" : article
+    }
+
+    return render(request, "article_detail.html", context)

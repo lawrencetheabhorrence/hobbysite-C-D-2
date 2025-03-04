@@ -7,7 +7,7 @@ def index_view(request):
         "articles": articles
     }
 
-    return render(request, "blog/article_list.html", context)
+    return render(request, "blog/index.html", context)
 
 def detail_view(request, id):
     article = Article.objects.get(id=id)

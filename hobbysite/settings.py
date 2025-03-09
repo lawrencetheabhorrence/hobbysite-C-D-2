@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "forum",
-    "merchstore"
+    "merchstore",
     "wiki",
 ]
 

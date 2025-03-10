@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+
 class ProductType(models.Model):
     productTypeID = models.IntegerField(primary_key=True,default=0,editable=True)
     name = models.CharField(max_length=255)
@@ -11,6 +12,7 @@ class ProductType(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
 
     class Meta:
         ordering = ['name']
@@ -31,6 +33,7 @@ class Product(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
 
     class Meta:
         ordering = ['name']

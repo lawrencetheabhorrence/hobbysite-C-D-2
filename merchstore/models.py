@@ -3,6 +3,7 @@ from django.urls import reverse
 
 
 class ProductType(models.Model):
+
     productTypeID = models.IntegerField(primary_key=True,default=0,editable=True)
     name = models.CharField(max_length=255)
     description = models.TextField(default="Some variety of items sold in this merch store.")
@@ -22,6 +23,7 @@ class ProductType(models.Model):
 
 
 class Product(models.Model):
+
     productID = models.IntegerField(primary_key=True,default=0,editable=True)
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(ProductType, null=True, on_delete = models.SET_NULL, related_name = 'ProductType')

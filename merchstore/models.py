@@ -16,7 +16,7 @@ class ProductType(models.Model):
         verbose_name = 'ProductType'
         verbose_name_plural = 'ProductTypes'
 
-    description = models.TextField(default=str(name)+", some variety of items sold in this merch store.")
+    description = models.TextField(default="Some variety of items sold in this merch store.")
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -35,4 +35,4 @@ class Product(models.Model):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
 
-    description = models.TextField(default=str(name)+", a buyable item of this merch store.")
+    description = models.TextField(default="A buyable item of this merch store.")

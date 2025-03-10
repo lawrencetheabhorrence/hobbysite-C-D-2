@@ -4,9 +4,6 @@ from django.urls import reverse
 class ProductType(models.Model):
     name = models.CharField(max_length=255)
 
-    def get_absolute_url(self):
-        return reverse("ledger:recipeEntry",kwargs={"num":int(self.name[7:])})
-
     def __str__(self):
         return '{}'.format(self.name)
 
@@ -24,7 +21,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7,decimal_places=2)
 
     def get_absolute_url(self):
-        return reverse("merchstore:merchstoreItem",kwargs={"num":int(self.id)})
+        return reverse("merchstoreItem",kwargs={"num":int(self.id)})
 
     def __str__(self):
         return '{}'.format(self.name)

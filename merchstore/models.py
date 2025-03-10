@@ -12,14 +12,14 @@ class ProductType(models.Model):
         return reverse("merchstoreSublist",kwargs={"product_type":str(self.name)})
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return "{}".format(self.name)
 
 
     class Meta:
-        ordering = ['name']
-        unique_together = ['name']
-        verbose_name = 'ProductType'
-        verbose_name_plural = 'ProductTypes'
+        ordering = ["name"]
+        unique_together = ["name"]
+        verbose_name = "ProductType"
+        verbose_name_plural = "ProductTypes"
 
 
 class Product(models.Model):
@@ -34,11 +34,11 @@ class Product(models.Model):
         return reverse("merchstoreItem",kwargs={"num":int(self.productID)})
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return "{}".format(self.name)
 
 
     class Meta:
-        ordering = ['name']
-        unique_together = ['name']
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
+        ordering = ["name"]
+        unique_together = ["name"]
+        verbose_name = "Product"
+        verbose_name_plural = "Products"

@@ -5,7 +5,7 @@ from .models import ProductType, Product
 
 def merchstoreList(request):
 
-    context = {'inventory': []}
+    context = {"inventory": []}
 
     for product_type in ProductType.objects.all():
 

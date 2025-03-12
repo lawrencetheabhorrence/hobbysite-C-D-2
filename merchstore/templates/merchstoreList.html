@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load merchstore_extra_tags %}
 <html lang = "en-US">
 
 <head>
@@ -16,9 +17,9 @@
 		{% for aisle in inventory %}
 			<details>
 				<summary>
-					<a href="{{aisle.product_kind.get_absolute_url}}"><b>{{ aisle.product_kind.name }}</b></a>
+					<a href="{{aisle.get_absolute_url}}"><b>{{ aisle.name }}</b></a>
 				</summary>
-				{% for item in aisle.items %}
+				{% for item in aisle|products %}
 					<ul>
 						<a href="{{item.get_absolute_url}}">{{ item.name }}</a>	
 					</ul>

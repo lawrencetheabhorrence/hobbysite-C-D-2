@@ -4,22 +4,7 @@ from django.template import loader
 from .models import ProductType, Product
 
 def merchstoreList(request):
-
-    context = {"inventory": []}
-
-    for product_type in ProductType.objects.all():
-
-        product_kind={"product_kind": product_type}
-        items=[]
-        products_under_kind = Product.objects.filter(product_type__name=product_type.__str__())
-
-        for product in products_under_kind:
-            items.append(product)
-
-        product_kind["items"]=items
-        context["inventory"].append(product_kind)
-
-    return render(request, "merchstoreList.html", context)
+    return render(request, "merchstoreList.html", {"inventory": ProductType.objects.all()})
 
 def merchstoreSublist(request, product_type=""):
 

@@ -9,7 +9,7 @@ class ProductType(models.Model):
     description = models.TextField(default="Some variety of items sold in this merch store.")
 
     def get_absolute_url(self):
-        return reverse("merchstoreSublist", product_type=self.name)
+        return reverse("merchstoreSublist", kwargs={"product_type":self.name})
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class Product(models.Model):
     description = models.TextField(default="A buyable item of this merch store.")
     
     def get_absolute_url(self):
-        return reverse("merchstoreItem", num=self.productID)
+        return reverse("merchstoreItem", kwargs={"num":self.productID})
 
     def __str__(self):
         return self.name

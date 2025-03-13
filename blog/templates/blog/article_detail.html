@@ -1,16 +1,21 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <main>
-	<section class="article-heading">
-		<h1>{{ article.title }}</h1>
-		<section class="article-metadata">
-			<p>{{ article.category }}</p>
-			<p>Created on: {{ article.created_on | date }}</p>
-			<p>Updated on: {{ article.updated_on | date }}</p>
+	<h1 class="title">{{ article.title }}</h1>
+	<section class="article-metadata">
+		<section class="category">
+			<p><b>Categery:</b> {{ article.category }}</p>
+			<hr>
 		</section>
-	</section>
-	<section class="article-entry">
-		<p>{{ article.entry }}</p>
+		<section class="entry">
+			<p><b>Entry:</b></p>
+			<p class="text">{{ article.entry }}</p>
+			<hr>
+		</section>
+		<section class="dates">
+			<p><b>Created on:</b> {{ article.created_on | date }}</p>
+			<p><b>Updated on:</b> {{ article.updated_on | date }}</p>
+		</section>
 	</section>
 </main>
 {% endblock %}

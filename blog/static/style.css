@@ -3,7 +3,7 @@
 
 body {
     background-color: #FFFCF3;
-    padding: 5% 20%;
+    padding: 20px 20%;
 }
 
 .title {
@@ -32,10 +32,14 @@ body {
     margin: 20px 0px;
 }
 
-hr {
-    margin: 20px 0px;
+
+hr{
     border: 1px solid black;
     border-radius: 5px;
+}
+
+.article-list .article-heading hr, .article-metadata section hr  {
+    margin: 20px 0px;
 }
 
 article {
@@ -43,7 +47,6 @@ article {
     flex-direction: column;
     align-items: flex-start;
 }
-
 
 article a {
     font-weight: bold;
@@ -69,10 +72,6 @@ article .category {
 .article-metadata .dates {
     color: #2D728F;
     padding: 10px 0px;
-}
-
-.article-metadata * hr {
-    margin: 20px 0px;
 }
 
 .article-metadata .entry .text {

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "blog",
     "forum",
     "commissions",
+    "forum.apps.ForumConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -1,15 +1,17 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <main>
-	<ul>
+	<h1 class="title">blog araticles</h1>
+	<ul class="article-list">
 		{% for article in articles %}
-		<li>
-			<article class="article-heading">
+		<li class="araticle-heading">
+			<article>
 				<a href="{% url 'blog:article_detail' article.id %}"><h1>{{ article.title }}</h1></a>
 				<p>{{ article.category }}</p>
 				<p>Created on: {{ article.created_on | date }}</p>
 				<p>Updated on: {{ article.updated_on | date }}</p>
 			</article>
+			<hr>
 		</li>
 		{% endfor %}
 	</ul>

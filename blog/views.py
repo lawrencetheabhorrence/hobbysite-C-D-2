@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Article, ArticleCategory
 
 def index_view(request):
-    articles = Article.objects.all()
+    articles = get_list_or_404(Article)
     context = {
         "articles": articles
     }
@@ -10,7 +10,7 @@ def index_view(request):
     return render(request, "blog/index.html", context)
 
 def detail_view(request, id):
-    article = Article.objects.get(id=id)
+    article = get_object_or_404(Article, id=id)
     context = {
         "article" : article
     }

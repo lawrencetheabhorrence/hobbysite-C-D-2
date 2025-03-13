@@ -31,6 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "merchstore",
+    "wiki",
+    "blog",
+    "forum",
+    "commissions",
     "forum.apps.ForumConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -38,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "wiki",
 ]
 
 MIDDLEWARE = [

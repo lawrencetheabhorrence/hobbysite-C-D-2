@@ -1,7 +1,8 @@
 from django import template
-from .models import Product
+from ..models import Product
 
 register = template.Library()
+
 
 @register.filter
 def products(product_type):

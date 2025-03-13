@@ -3,14 +3,17 @@
 
 body {
     background-color: #FFFCF3;
-    padding: 10% 20%;
+    padding: 5% 20%;
 }
+
 .title {
     font-family: 'Major Mono Display', monospace;
     font-size: 64px;
     color: #2D728F;
 }
-.article-list {
+
+.article-list,
+.article-metadata {
     list-style-type: none;
     background-color: #EFFBFF;
     border: 3px solid #AB3428;
@@ -18,7 +21,8 @@ body {
     border-radius: 20px;
 }
 
-.article-list * {
+.article-list *,
+.article-metadata * {
     font-family: 'Inter', sans-serif;
     padding: 0px;
     margin: 0px;
@@ -28,7 +32,7 @@ body {
     margin: 20px 0px;
 }
 
-.article-heading hr {
+hr {
     margin: 20px 0px;
     border: 1px solid black;
     border-radius: 5px;
@@ -41,7 +45,7 @@ article {
 }
 
 
-article a{
+article a {
     font-weight: bold;
     font-size: 40px;
     text-decoration: none;
@@ -54,4 +58,23 @@ article .category {
     padding: 5px;
     border-radius: 30px;
     font-weight: bold;
+}
+
+.article-metadata {
+    display: flex;
+    flex-direction: column;
+}
+
+.article-metadata .category,
+.article-metadata .dates {
+    color: #2D728F;
+    padding: 10px 0px;
+}
+
+.article-metadata * hr {
+    margin: 20px 0px;
+}
+
+.article-metadata .entry .text {
+    padding-bottom: 7%;
 }

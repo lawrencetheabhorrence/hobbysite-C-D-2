@@ -16,7 +16,7 @@ class ProductType(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("merchstoreSublist", kwargs={"product_type":self.name})
+        return reverse("merchstore_variety", kwargs={"product_type":self.name})
 
 
 class Product(models.Model):
@@ -35,4 +35,4 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("merchstoreItem", kwargs={"num":self.id})
+        return reverse("merchstore_item", kwargs={"num":self.id})

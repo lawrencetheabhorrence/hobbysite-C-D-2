@@ -4,9 +4,9 @@ from django.template import loader
 from .models import ProductType, Product
 
 def merchstoreList(request):
-    return render(request, "merchstore/merchstoreList.html", {"inventory": ProductType.objects.all()})
+    return render(request, "merchstore/merchstore_list.html", {"inventory": ProductType.objects.all()})
 
-def merchstoreSublist(request, product_type=""):
+def merchstoreVariety(request, product_type=""):
 
     try:
         chosen_product_type = get_object_or_404(ProductType, name=product_type)
@@ -16,7 +16,7 @@ def merchstoreSublist(request, product_type=""):
     except:
         return HttpResponseNotFound(loader.get_template("merchstore/404.html").render())
 
-    return render(request, "merchstore/merchstoreSublist.html", context)
+    return render(request, "merchstore/merchstore_variety.html", context)
 
 def merchstoreItem(request, num=0):
     try:
@@ -25,4 +25,4 @@ def merchstoreItem(request, num=0):
     except:
         return HttpResponseNotFound(loader.get_template("merchstore/404.html").render())
 
-    return render(request, "merchstore/merchstoreItem.html", {"product": product})
+    return render(request, "merchstore/merchstore_item.html", {"product": product})

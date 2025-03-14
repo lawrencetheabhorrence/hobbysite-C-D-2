@@ -1,17 +1,26 @@
 {% extends 'forum/base.html' %}
+{% load static %}
+{% block headcontent %}
+	<link rel="stylesheet" href="{% static 'forum/style.css' %}">
+{% endblock %}
 {% block content %}
 <main>
-	<ul>
-		{% for post in post_list %}
-		<li>
-			<article class="post-heading">
-				<a href="{% url 'forum:thread_detail' post.id %}"><h1>{{ post.title }}</h1></a>
-				<p>{{ post.category }}</p>
-				<p>Created on: {{ post.created_on | date }}</p>
-				<p>Updated on: {{ post.updated_on | date }}</p>
-			</article>
-		</li>
-		{% endfor %}
-	</ul>
+	<h1>FORUM</h1>
+	<section class="post-list">
+		<ul>
+			{% for post in post_list %}
+			<li>
+				<article class="post-heading">
+					<a href="{% url 'forum:thread_detail' post.id %}"><h2>{{ post.title }}</h2></a>
+					<p class="category-chip">{{ post.category }}</p>
+					<p class="sample-text">{{ post.entry }}</p>
+					<section class="date">
+							<p>Created {{ post.created_on | date }}. Last updated {{ post.updated_on | date }}</p>
+					</section>
+				</article>
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
 </main>
 {% endblock %}

@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Commission Detail</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Commission Detail{% endblock %}
+{% block content %}
     <h1>{{ commission.title }}</h1>
     <p>{{ commission.description }}</p>
     <p>People Required: {{ commission.people_required }}</p>
@@ -17,5 +14,4 @@
     </ul>
 
     <a href="/commissions/list/">Back to List</a>
-</body>
-</html>
+{% endblock %}

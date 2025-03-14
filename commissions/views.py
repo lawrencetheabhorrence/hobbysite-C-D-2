@@ -3,7 +3,7 @@ from .models import Commission, Comment
 
 
 def commission_list(request):
-    commissions = Commission.objects.all().order_by("-created_on")
+    commissions = get_list_or_404(Commission)
 
     return render(request, "commissions_list.html", {"commissions": commissions})
 

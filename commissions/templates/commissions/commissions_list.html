@@ -2,19 +2,15 @@
 {% block title %}Commission List{% endblock %}
 {% block content %}
     <h1>Commissions</h1>
-    <ul>
-        {% if commissions %}
-        <ul>
-            {% for commission in commissions %}
-                <li>
-                    <a href="{% url 'commissions:commission_detail' commission.id %}">
-                        {{ commission.title }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No commissions available.</p>
-    {% endif %}
-    </ul>
+    <ul class="commission-list">
+        {% for commission in commissions %}
+            <li>
+                <a href="{% url 'commissions:commission_detail' commission.id %}">
+                    {{ commission.title }}
+                </a>
+                <p><b>People Required: </b> {{ commission.people_required }} </p>
+                <p><b>Created On: </b> {{ commission.created_on }} </p>
+            </li>
+            <hr>
+        {% endfor %}     
 {% endblock %}

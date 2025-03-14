@@ -1,24 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Commission List</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <h1>Commissions</h1>
-    <ul>
+    <ul class="commission-list">
         {% if commissions %}
-        <ul>
             {% for commission in commissions %}
                 <li>
-                    <a href="{% url 'commission_detail' commission.id %}">
+                    <a href="{% url "commission_detail" commission.id %}">
                         {{ commission.title }}
                     </a>
                 </li>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>No commissions available.</p>
-    {% endif %}
+        {% else %}
+            <p>No commissions available.</p>
+        {% endif %}
     </ul>
 </body>
 </html>

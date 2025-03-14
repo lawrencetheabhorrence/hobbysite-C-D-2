@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    background-color:#F5F5F5;
+    padding: 20px 20%;
+}
+
+h1 {
+    color: #F49E4C;
+    font-family: 'Major Mono Display', monospace;
+    font-size: 64px;
+}
+
+.commission-list {
+    list-style-type: none;
+    background-color: #FFF6E1;
+    border: 1px solid #F49E4C;
+    padding: 20px 30px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+}

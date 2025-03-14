@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ article.title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>{{ article.title }}</h1>
     <p><strong>Category:</strong> {{ article.category }}</p>
     <p>{{ article.entry }}</p>
     <p><small>Created on: {{ article.created_on }}</small></p>
-</body>
-</html>
+{% endblock %}

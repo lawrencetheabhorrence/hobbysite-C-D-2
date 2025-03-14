@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load merchstore_extra_tags %}
+<html lang = "en-US">
+
+<head>
+	<title>Merch Store: Inventory!</title>
+</head>
+
+<body>
+	<div id="headsup">
+		<h1>Merch Store: Inventory</h1>
+	</div>
+	<div id="content">
+		<h4>Good day! Welcome to the merch store!</h4>
+		<br>
+		<h5>Here's what we have for today...</h5>
+		{% for product_type in inventory %}
+			<details>
+				<summary>
+					<a href="{{product_type.get_absolute_url}}"><b>{{ product_type.name }}</b></a>
+				</summary>
+				{% for item in product_type|products %}
+					<ul>
+						<a href="{{item.get_absolute_url}}">{{ item.name }}</a>	
+					</ul>
+				{% endfor %}
+			</details>
+			<br>
+		{% endfor %}
+
+	</div>
+
+</body>
+</html>

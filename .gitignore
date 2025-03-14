@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+**/__pycache__
 *.py[cod]
 *$py.class
 
@@ -169,3 +170,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore migrations
+**/migrations/
+**/migrations/*.py
+!**/migrations/__init__.py  # Keeps the __init__.py file so Django recognizes the module
+
+# Ignore Python cache files
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+

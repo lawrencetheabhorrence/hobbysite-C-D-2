@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Wiki Articles</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Wiki Articles</h1>
     <ul>
         {% for article in articles %}
             <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

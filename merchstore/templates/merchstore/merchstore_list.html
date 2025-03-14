@@ -12,7 +12,9 @@
 			<li>
 				<article class="product-details">
 					<a href="{% url 'merchstore:merchstore_item' product.id %}"><h2>{{ product.name }}</h2></a>
-					<p class="category-chip">{{ product.product_type }}</p>
+					{% if product.product_type %}
+						<p class="category-chip">{{ product.product_type }}</p>
+					{% endif %}
 					<p class="price">{{ product.price }}</p>
 				</article>
 			</li>

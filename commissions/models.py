@@ -10,6 +10,9 @@ class Commission(models.Model):
 
     class Meta:
         ordering = ["created_on"]
+    
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -20,6 +23,9 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ["-created_on"]
+    
+    def __str__(self):
+        return self.entry
 
 
 # Create your models here.

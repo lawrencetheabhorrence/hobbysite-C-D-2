@@ -1,17 +1,17 @@
 {% extends 'merchstore/base.html' %}
-{% load static %}
-{% block headcontent %}
-<link rel="stylesheet" href="{% static 'merchstore/style.css' %}" />
-{% endblock %}
 {% block title %}Merch Store: {{product.name}}{% endblock %}
 {% block content %}
 	<main>
-		<h1>merch store</h1>
+		<h1>{{ product.name }}</h1>
 		<section class="content">
-			<p>Name: {{product.name}}</p>
-			<p>Description: {{product.description}}</p>
-			<p>Product Type: {{product.product_type.name}}</p>
-			<p>Price: {{product.price}}</p>
+			<h2 class="type"><b>Product Type:</b> {{product.product_type.name}}</h3>
+			<hr>
+			<article class="description">
+				<h3><b>Description:</b></h3>
+				<p>{{product.description}}</p>
+			</article>
+			<hr>
+			<h2><b>Price:</b> {{product.price}}</p>
 		</section>
 	</main>
 {% endblock %}

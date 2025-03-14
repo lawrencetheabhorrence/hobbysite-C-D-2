@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 body {
-    background-color:#F5F5F5;
+    background-color:#FFF9ED;
     padding: 20px 20%;
 }
 
@@ -19,4 +19,11 @@ h1 {
     padding: 20px 30px;
     border-radius: 20px;
     font-family: 'Inter', sans-serif;
+}
+
+.commission-list li a {
+    font-weight: bold;
+    font-size: 40px;
+    text-decoration: none;
+    color: #3B8EA5;
 }

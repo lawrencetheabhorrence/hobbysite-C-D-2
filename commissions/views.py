@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Commission, Comment
 
 
@@ -9,9 +9,8 @@ def commission_list(request):
 
 
 def commission_detail(request, commission_id):
-    commission = Commission.objects.filter(id=commission_id)
-    comments = Comment.objects.filter(commission=commission).order_by("-created_on")
-
+    commission = get_object_or_404(Commission, id=commission_id)
+    comments = Comment.objects.filter(commission=commission)
     return render(
         request,
         "commissions_detail.html",

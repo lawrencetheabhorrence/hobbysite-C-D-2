@@ -1,26 +1,23 @@
 {% extends 'merchstore/base.html' %}
-{% load merchstore_extra_tags %}
-{% block title %}Merch Store: Inventory!{% block %}
+{% load static %}
+{% block headcontent %}
+	<link rel="stylesheet" href="{% static 'merchstore/style.css' %}">
+{% endblock %}
 {% block content %}
-	<div id="headsup">
-		<h1>Merch Store: Inventory</h1>
-	</div>
-	<div id="content">
-		<h4>Good day! Welcome to the merch store!</h4>
-		<br>
-		<h5>Here's what we have for today...</h5>
-		{% for product_type in inventory %}
-			<details>
-				<summary>
-					<a href="{{product_type.get_absolute_url}}"><b>{{ product_type.name }}</b></a>
-				</summary>
-				{% for item in product_type|products %}
-					<ul>
-						<a href="{{item.get_absolute_url}}">{{ item.name }}</a>	
-					</ul>
-				{% endfor %}
-			</details>
-			<br>
-		{% endfor %}
-	</div>
+<main>
+	<h1>Merchstore</h1>
+	<section class="product-list">
+		<ul>
+			{% for product in product_list %}
+			<li>
+				<article class="product-details">
+					<a href="{% url 'merchstore:merchstore_item' product.id %}"><h2>{{ product.name }}</h2></a>
+					<p class="category-chip">{{ product.product_type }}</p>
+					<p class="price">{{ product.price }}</p>
+				</article>
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
+</main>
 {% endblock %}

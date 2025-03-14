@@ -6,7 +6,7 @@ def merchstoreList(request):
     return render(
         request,
         "merchstore/merchstore_list.html",
-        {"product_list": ProductType.objects.all()},
+        {"product_list": Product.objects.all()},
     )
 
 

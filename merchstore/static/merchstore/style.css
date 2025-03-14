@@ -18,11 +18,11 @@ h1 {
 	margin-bottom: 10px;
 }
 
-section.post-list {
+section.product-list {
 	border: 1px solid black;
 	border-radius: 15px;
 	padding: 20px;
-	background-color: #f0f4ee;
+	background-color: #fff5e8;
 }
 
 ul {
@@ -67,18 +67,6 @@ p.category-chip {
 	color: white;
 }
 
-section.date {
-	margin-top: 10px;
-}
-section.date > p {
-	margin: 5px 0;
-	font-size: 12px;
-}
-
-p.sample-text {
-	text-overflow: ellipsis;
-}
-
 section.post-heading > h2 {
 	font-size: 48px;
 	font-weight: 800;
@@ -91,7 +79,7 @@ section.post-metadata *{
 	margin-top: 5px;
 }
 
-section.post-content {
+section.content {
 	background: white;
 	padding: 20px;
 	border: solid 10px #ab3428;

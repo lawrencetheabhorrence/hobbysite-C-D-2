@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block headcontent %}
+    <link rel="stylesheet" href="{% static 'wiki/style.css' %}">
+{% endblock%}
 {% block title %}Wiki{% endblock %}
-
-{% block content %}
-    {% block wiki_content %}{% endblock %}
-{% endblock %}

@@ -4,7 +4,6 @@ from django.urls import reverse
 
 class ProductType(models.Model):
 
-    id = models.IntegerField(primary_key=True,default=0,editable=True)
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(default="Some variety of items sold in this merch store.")
 
@@ -22,8 +21,7 @@ class ProductType(models.Model):
 
 class Product(models.Model):
 
-    id = models.IntegerField(primary_key=True,default=0,editable=True)
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     product_type = models.ForeignKey(ProductType, null=True, on_delete = models.SET_NULL, related_name = 'ProductType')
     price = models.DecimalField(max_digits=7,decimal_places=2)
     description = models.TextField(default="A buyable item of this merch store.")
@@ -37,4 +35,4 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("merchstoreItem", kwargs={"num":self.productID})
+        return reverse("merchstoreItem", kwargs={"num":self.id})

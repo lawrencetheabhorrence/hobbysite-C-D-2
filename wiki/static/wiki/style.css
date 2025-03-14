@@ -77,3 +77,7 @@ article .category {
 .article-metadata .entry .text {
     padding-bottom: 7%;
 }
+
+.article-metadata {
+    background-color: white;
+}

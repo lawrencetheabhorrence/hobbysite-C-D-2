@@ -6,7 +6,7 @@ class ArticleCategory(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        
+
         return f"{self.name}"
 
     class Meta():
@@ -28,4 +28,3 @@ class Article(models.Model):
     class Meta():
 
         ordering = ["-created_on"]
-

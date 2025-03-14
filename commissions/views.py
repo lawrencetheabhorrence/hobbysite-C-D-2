@@ -10,7 +10,6 @@ def commission_list(request):
         "commissions/commissions_list.html", 
         {"commissions": commissions})
 
-
 def commission_detail(request, commission_id):
     commission = get_object_or_404(Commission, id=commission_id)
     comments = Comment.objects.filter(commission=commission)

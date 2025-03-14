@@ -1,6 +1,10 @@
 {% extends 'wiki/base.html' %}
 
+{% load static %}
 {% block title %}{{ article.title }}{% endblock %}
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'wiki/style.css' %}" />
+{% endblock %}
 
 {% block content %}
     <h1>{{ article.title }}</h1>

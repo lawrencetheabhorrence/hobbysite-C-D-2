@@ -15,8 +15,8 @@ body {
 .article-list,
 .article-metadata {
     list-style-type: none;
-    background-color: #EFFBFF;
-    border: 3px solid #AB3428;
+    background-color: #FFFBE7;
+    border: 3px solid #FFF04A;
     padding: 20px 30px;
     border-radius: 20px;
 }
@@ -56,7 +56,7 @@ article a {
 }
 
 article .category {
-    background-color: #AB3428;
+    background-color: #3B8EA5;
     color: #FFFFFF;
     padding: 5px;
     border-radius: 30px;
@@ -76,4 +76,8 @@ article .category {
 
 .article-metadata .entry .text {
     padding-bottom: 7%;
+}
+
+.article-metadata {
+    background-color: white;
 }

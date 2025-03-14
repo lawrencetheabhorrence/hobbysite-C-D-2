@@ -1,11 +1,7 @@
 {% extends 'merchstore/base.html' %}
-{% load static %}
-{% block headcontent %}
-	<link rel="stylesheet" href="{% static 'merchstore/style.css' %}">
-{% endblock %}
 {% block content %}
 <main>
-	<h1>Merchstore</h1>
+	<h1>merchstore</h1>
 	<section class="product-list">
 		<ul>
 			{% for product in product_list %}

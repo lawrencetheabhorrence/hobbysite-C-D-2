@@ -14,6 +14,8 @@
                     <a href="{% url 'commissions:commission_detail' commission.id %}">
                         {{ commission.title }}
                     </a>
+                    <p><b>People Required: </b> {{ commission.people_required }} </p>
+                    <p><b>Created On: </b> {{ commission.created_on }} </p>
                 </li>
             {% endfor %}     
     {% else %}

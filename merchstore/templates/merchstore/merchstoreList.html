@@ -14,12 +14,12 @@
 		<h4>Good day! Welcome to the merch store!</h4>
 		<br>
 		<h5>Here's what we have for today...</h5>
-		{% for aisle in inventory %}
+		{% for product_type in inventory %}
 			<details>
 				<summary>
-					<a href="{{aisle.get_absolute_url}}"><b>{{ aisle.name }}</b></a>
+					<a href="{{product_type.get_absolute_url}}"><b>{{ product_type.name }}</b></a>
 				</summary>
-				{% for item in aisle|products %}
+				{% for item in product_type|products %}
 					<ul>
 						<a href="{{item.get_absolute_url}}">{{ item.name }}</a>	
 					</ul>

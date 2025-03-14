@@ -8,21 +8,15 @@ def merchstoreList(request):
 
 def merchstoreVariety(request, product_type=""):
 
-    try:
-        chosen_product_type = get_object_or_404(ProductType, name=product_type)
-        available_items = get_list_or_404(Product, product_type=chosen_product_type)
-        context = {"product_kind": chosen_product_type,
+    chosen_product_type = get_object_or_404(ProductType, name=product_type)
+    available_items = get_list_or_404(Product, product_type=chosen_product_type)
+
+    context = {"product_kind": chosen_product_type,
                    "items": available_items}
-    except:
-        return HttpResponseNotFound(loader.get_template("merchstore/404.html").render())
 
     return render(request, "merchstore/merchstore_variety.html", context)
 
-def merchstoreItem(request, num=0):
-    try:
-        product = get_object_or_404(Product, pk=num)
-
-    except:
-        return HttpResponseNotFound(loader.get_template("merchstore/404.html").render())
+def merchstoreItem(request, itemID):
+    product = get_object_or_404(Product, pk=itemID)
 
     return render(request, "merchstore/merchstore_item.html", {"product": product})

@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Commission List</title>
-</head>
-<body>
+{% extends 'commissions/base.html' %}
+{% block title %}Commission List{% endblock %}
+{% block content %}
     <h1>Commissions</h1>
     <ul>
         {% if commissions %}
@@ -20,5 +17,4 @@
         <p>No commissions available.</p>
     {% endif %}
     </ul>
-</body>
-</html>
+{% endblock %}

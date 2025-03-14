@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
     model = Product
 
     list_display = ("name","product_type","price",)
-    list_filter = ("product_type","price","name")
+    list_filter = ("product_type","price","name",)
     search_fields = ["product_type__name","name"]
 
 

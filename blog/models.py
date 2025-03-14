@@ -1,7 +1,8 @@
 from django.db import models
 
+
 class ArticleCategory(models.Model):
-    
+
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -9,9 +10,10 @@ class ArticleCategory(models.Model):
 
         return f"{self.name}"
 
-    class Meta():
+    class Meta:
 
         ordering = ["name"]
+
 
 class Article(models.Model):
 
@@ -22,9 +24,9 @@ class Article(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        
+
         return f"{self.title}, {self.category}, {self.entry}, {self.created_on}, {self.updated_on}"
 
-    class Meta():
+    class Meta:
 
         ordering = ["-created_on"]

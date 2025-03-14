@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang = "en-US">
-
-<head>
-	<title>Merch Store: {{product.name}}</title>
-</head>
-
-<body>
+{% extends 'merchstore/base.html' %}
+{% block title %}Merch Store: {{product.name}}{% endblock %}
+{% block content %}
 	<div id="headsup">
 		<h1>Merch Store: {{product.name}}</h1>
 	</div>
@@ -17,5 +12,4 @@
 		<h4>Price: <b>{{product.price}}</b></h4>
 		<br>
 	</div>
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -8,7 +9,8 @@ class Commission(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['created_on']  
+        ordering = ["created_on"]
+
 
 class Comment(models.Model):
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE)
@@ -17,6 +19,7 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-created_on']  
-    
+        ordering = ["-created_on"]
+
+
 # Create your models here.

@@ -1,12 +1,7 @@
-<!DOCTYPE html>
+{% extends 'merchstore/base.html' %}
 {% load merchstore_extra_tags %}
-<html lang = "en-US">
-
-<head>
-	<title>Merch Store: Inventory!</title>
-</head>
-
-<body>
+{% block title %}Merch Store: Inventory!{% block %}
+{% block content %}
 	<div id="headsup">
 		<h1>Merch Store: Inventory</h1>
 	</div>
@@ -27,8 +22,5 @@
 			</details>
 			<br>
 		{% endfor %}
-
 	</div>
-
-</body>
-</html>
+{% endblock %}

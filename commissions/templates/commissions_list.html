@@ -11,7 +11,7 @@
         {% if commissions %}
             {% for commission in commissions %}
                 <li>
-                    <a href="{% url "commission_detail" commission.id %}">
+                    <a href="{% url "commissions:commission_detail" commission.id %}">
                         {{ commission.title }}
                     </a>
                 </li>

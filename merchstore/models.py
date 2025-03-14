@@ -5,9 +5,7 @@ from django.urls import reverse
 class ProductType(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
-    description = models.TextField(
-        default="Some variety of items sold in this merch store."
-    )
+    description = models.TextField()
 
     class Meta:
         ordering = ["name"]

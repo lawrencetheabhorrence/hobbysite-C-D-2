@@ -78,3 +78,34 @@ section.date > p {
 p.sample-text {
 	text-overflow: ellipsis;
 }
+
+section.post-heading > h2 {
+	font-size: 48px;
+	font-weight: 800;
+	margin-top: 5px;
+}
+
+section.post-metadata *{
+	font-size: 14px;
+	margin-bottom: 0;
+	margin-top: 5px;
+}
+
+section.post-content {
+	background: white;
+	padding: 20px;
+	border: solid 10px #ab3428;
+	border-radius: 15px;
+	font-size: 18px;
+}
+
+section.post-entry {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 5px 0;
+	margin-top: 20px;
+}
+
+section.post-entry p {
+	margin: 5px;
+}

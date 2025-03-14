@@ -1,17 +1,7 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Wiki{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'wiki/style.css' %}">
-</head>
+{% block title %}Wiki{% endblock %}
 
-<body>
-    {% block content %}
-    {% endblock %}
-</body>
-
-</html>
+{% block content %}
+    {% block wiki_content %}{% endblock %}
+{% endblock %}

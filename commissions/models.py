@@ -33,4 +33,18 @@ class Job(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-status", "role"]
+        ordering = ["status", "-manpower_required", "role"]
+
+
+class JobApplication(models.Model):
+    class ApplicationStatusOptions(models.TextChoices):
+        PENDING = "Pending"
+        ACCEPTED = "Accepted"
+        REJECTED = "Rejected"
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    # applicant = models.ForeignKey(Profile, on_delte=models.CASCADE)
+    applied_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["status", "-applied_on"]

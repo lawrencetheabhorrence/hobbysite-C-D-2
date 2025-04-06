@@ -20,14 +20,17 @@ class Commission(models.Model):
         ordering = ["created_on"]
 
 
-class Comment(models.Model):
+class Job(models.Model):
+    class JobStatusOptions(models.TextChoices):
+        OPEN = "Open"
+        FULL = "Full"
+
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE)
-    entry = models.TextField()
+    role = models.TextField(max_length=255)
+    manpower_required = models.PositiveIntegerField()
+    status = models.CharField(default=JobStatusOptions.OPEN, choices=JobStatusOptions)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-created_on"]
-
-
-# Create your models here.
+        ordering = ["-status", "role"]

@@ -1,7 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-
-class PostCategory(models.Model):
+class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -12,12 +12,12 @@ class PostCategory(models.Model):
         return self.name
 
 
-class Post(models.Model):
+class Thread(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(
-        PostCategory, null=True, on_delete=models.SET_NULL, related_name="category"
-    )
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="threads")
+    category = models.ForeignKey(ThreadCategory, null=True, on_delete=models.SET_NULL, related_name="threads")
     entry = models.TextField()
+    image = models.ImageField(upload_to='thread_images/', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -26,3 +26,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_on"]  
+
+    def __str__(self):
+        return f"Comment by {self.author.username} on {self.thread.title}"

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from .models import Profile
 
-def update(request, id):
+def update(request):
     
-    profile = Profile.objects.get(id=id)
+    profile = Profile.objects.get(user=request.user)
     
     if request.method == 'POST':
         
@@ -13,4 +13,4 @@ def update(request, id):
     
     context = {'profile': profile}
     
-    return render(request, 'update.html', context)
+    return render(request, 'user_management/update.html', context)

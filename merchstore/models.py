@@ -41,7 +41,7 @@ class Product(models.Model):
     '''
     description = models.TextField(default="A buyable item of this merch store.")
     price = models.DecimalField(max_digits=24, decimal_places=2)
-    stock = models.PositiveIntegerField()
+    stock = models.PositiveIntegerField(default=0)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="Out of Stock")
 
     class Meta:

@@ -1,2 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block headcontent %}
+	<link rel="stylesheet" href="{% static 'merchstore/style.css' %}">
+{% endblock %}
 {% block title %}Merchstore{% endblock %}

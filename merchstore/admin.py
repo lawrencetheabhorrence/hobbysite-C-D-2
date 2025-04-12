@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductType, Product
+from .models import ProductType, Product, Transaction
 
 
 class ProductTypeAdmin(admin.ModelAdmin):
@@ -15,10 +15,20 @@ class ProductAdmin(admin.ModelAdmin):
 
     model = Product
 
-    list_display = ["name", "product_type", "price"]
-    list_filter = ["product_type", "price", "name"]
+    list_display = ["name", "product_type", "price", "owner", "status"]
+    list_filter = ["product_type", "name", "owner", "status"]
     search_fields = ["product_type__name", "name"]
+
+
+class TransactionAdmin(admin.ModelAdmin):
+
+    model = Transaction
+
+    list_display = ["buyer", "product", "amount", "status"]
+    list_filter = ["buyer", "product"]
+    search_fields = ["buyer", "product"]
 
 
 admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Transaction, TransactionAdmin)

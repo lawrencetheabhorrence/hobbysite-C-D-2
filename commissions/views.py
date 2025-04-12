@@ -6,9 +6,9 @@ def commission_list(request):
     commissions = get_list_or_404(Commission)
 
     return render(
-        request, 
-        "commissions/commissions_list.html", 
-        {"commissions": commissions})
+        request, "commissions/commissions_list.html", {"commissions": commissions}
+    )
+
 
 def commission_detail(request, commission_id):
     commission = get_object_or_404(Commission, id=commission_id)

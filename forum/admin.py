@@ -13,7 +13,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ["title", "category"]
     list_filter = ["category"]
 
-
-# Register your models here.
 admin.site.register(Post, PostAdmin)
-admin.site.register(PostCategoryAdmin, PostCategory)
+# admin.site.register(PostCategoryAdmin, PostCategory)
+admin.site.register(PostCategory, PostCategoryAdmin) # attempt to fix TypeError: 'MediaDefiningClass' object is not iterable

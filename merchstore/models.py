@@ -8,10 +8,12 @@ class ProductType(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
+
     class Meta:
         ordering = ["name"]
-        verbose_name = "ProductType"
-        verbose_name_plural = "ProductTypes"
+        verbose_name = "Product Type"
+        verbose_name_plural = "Product Types"
+
 
     def __str__(self):
         return self.name
@@ -44,10 +46,12 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default=0)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="Out of Stock")
 
+
     class Meta:
         ordering = ["name"]
         verbose_name = "Product"
         verbose_name_plural = "Products"
+
 
     def __str__(self):
         return self.name
@@ -75,3 +79,12 @@ class Transaction(models.Model):
     amount = models.PositiveIntegerField()
     status = models.CharField(max_length=12, choices=STATUS_CHOICES)
     created_on = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        #ordering = ["buyer"]
+        verbose_name = "Transaction"
+        verbose_name_plural = "Transactions"
+
+    def __str__(self):
+        return "Buyer's "+str(self.amount)+" "+self.product.name+" currently "+self.status

@@ -15,7 +15,9 @@ class Commission(models.Model):
         default=CommissionStatusOptions.OPEN, choices=CommissionStatusOptions
     )
     # The list view requires us to track commissions created by the User but they don't have a creator field
-    creator = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="commissions")
+    creator = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name="commissions"
+    )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -46,7 +48,10 @@ class JobApplication(models.Model):
         ACCEPTED = "Accepted"
         REJECTED = "Rejected"
 
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    status = models.CharField(
+        default=ApplicationStatusOptions.PENDING, choices=ApplicationStatusOptions
+    )
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applications")
     applicant = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="applications"
     )

@@ -1,4 +1,5 @@
 from django.db import models
+from user_management.models import Profile
 
 
 class Commission(models.Model):
@@ -44,7 +45,9 @@ class JobApplication(models.Model):
         REJECTED = "Rejected"
 
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    applicant = models.ForeignKey(Profile, on_delte=models.CASCADE)
+    applicant = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name="applications"
+    )
     applied_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:

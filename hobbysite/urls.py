@@ -24,5 +24,5 @@ urlpatterns = [
     path("forum/", include("forum.urls")),
     path("blog/", include("blog.urls")),
     path("merchstore/", include("merchstore.urls")),
-    path("commissions/", include("commissions.urls"))
+    path("commissions/", include("commissions.urls")),
 ]

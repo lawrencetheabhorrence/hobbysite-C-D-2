@@ -7,6 +7,7 @@ class PostCategory(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = "PostCategories"
 
     def __str__(self):
         return self.name

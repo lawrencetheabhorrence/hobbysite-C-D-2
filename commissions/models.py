@@ -32,8 +32,6 @@ class Job(models.Model):
     role = models.TextField(max_length=255)
     manpower_required = models.PositiveIntegerField()
     status = models.CharField(default=JobStatusOptions.OPEN, choices=JobStatusOptions)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
@@ -46,7 +44,7 @@ class JobApplication(models.Model):
         REJECTED = "Rejected"
 
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    # applicant = models.ForeignKey(Profile, on_delte=models.CASCADE)
+    applicant = models.ForeignKey(Profile, on_delte=models.CASCADE)
     applied_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:

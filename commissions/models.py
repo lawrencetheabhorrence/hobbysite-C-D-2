@@ -14,6 +14,8 @@ class Commission(models.Model):
     status = models.CharField(
         default=CommissionStatusOptions.OPEN, choices=CommissionStatusOptions
     )
+    # The list view requires us to track commissions created by the User but they don't have a creator field
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

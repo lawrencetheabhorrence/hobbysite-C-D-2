@@ -3,7 +3,6 @@ from .models import ProductType, Product
 
 
 class ProductTypeAdmin(admin.ModelAdmin):
-
     model = ProductType
 
     list_display = ["name"]
@@ -12,7 +11,6 @@ class ProductTypeAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-
     model = Product
 
     list_display = ["name", "product_type", "price"]

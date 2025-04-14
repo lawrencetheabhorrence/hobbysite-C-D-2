@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic.detail import DetailView
 from .models import Commission, Comment
 
 
@@ -10,14 +11,6 @@ def commission_list(request):
     )
 
 
-def commission_detail(request, commission_id):
-    commission = get_object_or_404(Commission, id=commission_id)
-    comments = Comment.objects.filter(commission=commission)
-    return render(
-        request,
-        "commissions/commissions_detail.html",
-        {"commission": commission, "comments": comments},
-    )
-
-
-# Create your views here.
+class CommissionDetailView(DetailView):
+    model = Commission
+    template_name = "commissions/commissions_detail.html"

@@ -1,17 +1,11 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic.list import ListView
 from .models import Commission, Comment
 
 
-@login_required
-def commission_list(request):
-    profile = request.user.profile
-    own_commissions = get_list_or_404(profile.commissions)
-    applications = get_list_or_404(profile.applications)
-    commissions = get_list_or_404(Commission.objects.exclude(creator=profile))
-
-    return render(
-        request, "commissions/commissions_list.html", {"commissions": commissions}
-    )
+class CommissionListView(ListView):
+    model = Commission
+    template_name = "commissions/commissions_list.html"
 
 
 def commission_detail(request, commission_id):

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -9,6 +10,7 @@ class ArticleCategory(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
@@ -24,7 +26,8 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.author}"
-    
+
+
 class Comment(models.Model):
     # author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)

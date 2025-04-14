@@ -13,5 +13,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ["title", "category"]
     list_filter = ["category"]
 
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(PostCategory, PostCategoryAdmin)

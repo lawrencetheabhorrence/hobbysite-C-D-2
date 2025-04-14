@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-#from user_management.models import Profile
+from user_management.models import Profile
 
 
 class ProductType(models.Model):
@@ -24,11 +24,9 @@ class Product(models.Model):
     product_type = models.ForeignKey(
         ProductType, null=True, on_delete=models.SET_NULL, related_name="ProductType"
         )
-    '''
     owner = models.ForeignKey(
-        Profile, null=False, on_delete=models.CASCADE, related_name="Owner"
+        Profile, null=False, on_delete=models.CASCADE, related_name="Owner", default=""
         )
-    '''
     description = models.TextField(
         default="A buyable item of this merch store."
         )
@@ -63,11 +61,9 @@ class Product(models.Model):
 
 
 class Transaction(models.Model):
-    '''
     buyer = models.ForeignKey(
         Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"
         )
-    '''
     product = models.ForeignKey(
         Product, null=True, on_delete=models.SET_NULL, related_name="Product"
         )
@@ -91,9 +87,9 @@ class Transaction(models.Model):
 
 
     class Meta:
-        #ordering = ["buyer"]
+        ordering = ["buyer"]
         verbose_name = "Transaction"
         verbose_name_plural = "Transactions"
 
     def __str__(self):
-        return "Buyer's "+str(self.amount)+" "+self.product.name+" currently "+self.status
+        return self.buyer.name+"'s "+str(self.amount)+" "+self.product.name+" currently "+self.status

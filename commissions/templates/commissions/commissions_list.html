@@ -2,22 +2,34 @@
 {% block title %}Commission List{% endblock %}
 {% block content %}
 <main>
-    <section>
+    {% if user.is_authenticated %}
         <section>
-            <h1>Your Commissions</h1>
-            <ul>
-                {% for commission in commissions %}
-                    <li>{{ commission }}</li>
-                {% endfor %}
-            </ul>
+            <section>
+                <h1>Your Commissions</h1>
+                <ul>
+                    {% for commission in user.profile.commissions %}
+                        <li>{{ commission }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <section>
+                <h1>Your Applications</h1>
+                <ul>
+                    {% for application in user.profile.applications %}
+                        <li>{{ application }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
         </section>
-        <section>
-            <h1>Your Applications</h1>
-        </section>
-    </section>
+    {% endif %}
+
     <section>
         <h1>All Commissions</h1>
-        <ul></ul>
+        <ul>
+            {% for commission in object_list %}
+                <li>{{ commission }}</li>
+            {% endfor %}
+        </ul>
     </section>
 </main>
 {% endblock %}

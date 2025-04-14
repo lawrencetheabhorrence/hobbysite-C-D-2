@@ -33,7 +33,9 @@ class Job(models.Model):
         OPEN = "Open"
         FULL = "Full"
 
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE)
+    commission = models.ForeignKey(
+        Commission, on_delete=models.CASCADE, related_name="jobs"
+    )
     role = models.TextField(max_length=255)
     manpower_required = models.PositiveIntegerField()
     status = models.CharField(default=JobStatusOptions.OPEN, choices=JobStatusOptions)

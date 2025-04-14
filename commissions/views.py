@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic import DetailView
 from .models import Commission, Comment
 
 
@@ -20,4 +21,6 @@ def commission_detail(request, commission_id):
     )
 
 
-# Create your views here.
+class JobView(DetailView):
+    model = Job
+    template_name = "commissions/job_detail.html"

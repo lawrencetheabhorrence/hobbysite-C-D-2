@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    background-color: #FFFCF3;
+    padding: 20px 20%;
+}
+
+.title {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 64px;
+    color: #2D728F;
+}
+
+.article-list,
+.article-metadata {
+    list-style-type: none;
+    background-color: #FFFBE7;
+    border: 3px solid #FFF04A;
+    padding: 20px 30px;
+    border-radius: 20px;
+}
+
+.article-list * ,
+.article-metadata * {
+    font-family: 'Inter', sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+.article-list .article-heading {
+    margin: 20px 0px;
+}
+
+hr {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.article-list .article-heading hr,
+.article-metadata section hr {
+    margin: 20px 0px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+article a {
+    font-weight: bold;
+    font-size: 40px;
+    text-decoration: none;
+    color: #2D728F;
+}
+
+article .category {
+    background-color: #3B8EA5;
+    color: #FFFFFF;
+    padding: 5px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.article-metadata {
+    display: flex;
+    flex-direction: column;
+}
+
+.article-metadata .category,
+.article-metadata .dates {
+    color: #2D728F;
+    padding: 10px 0px;
+}
+
+.article-metadata .entry .text {
+    padding-bottom: 7%;
+}
+
+.article-metadata {
+    background-color: white;
+}

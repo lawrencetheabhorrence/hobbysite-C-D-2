@@ -1,0 +1,17 @@
+{% extends 'merchstore/base.html' %}
+{% block title %}Merch Store: {{product_kind.name}}{% endblock %}
+{% block content %}
+	<div id="headsup">
+		<h1>Merch Store: {{product_kind.name}}</h1>
+	</div>
+	<div id="content">
+		<h4>Description: {{product_kind.description}}</h4>
+		<br>
+		<h5>Here's what we have for today...</h5>
+		{% for item in items %}
+			<ul>
+				<a href="{{item.get_absolute_url}}">{{ item.name }}</a>	
+			</ul>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'forum/style.css' %}" />
+{% endblock %}
+{% block content %}
+<main>
+	<h1>POST TITLE:</h1>
+	<section class="post-content">
+		<section class="post-heading">
+			<h2>{{ post.title }}</h2>
+			<section class="post-metadata">
+				<p class="category-chip">{{ post.category }}</p>
+				<p>Created {{ post.created_on | date }}. Last updated {{ post.updated_on | date }}</p>
+			</section>
+		</section>
+		<section class="post-entry">
+			<p><strong>Entry:</strong></p>
+			<p>{{ post.entry }}</p>
+		</section>
+	</section>
+</main>
+{% endblock %}

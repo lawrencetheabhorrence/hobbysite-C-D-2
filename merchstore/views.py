@@ -1,42 +1,28 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import ProductType, Product
 
+
 def merchstoreList(request):
-    context = {'inventory': []}
+    return render(
+        request,
+        "merchstore/merchstore_list.html",
+        {"product_list": Product.objects.all()},
+    )
 
-    for product_type in ProductType.objects.all():
-        product_kind={"product_kind": product_type}
-        items=[]
 
-        for product in Product.objects.filter(product_type__name=product_type.__str__()):
-            items.append(product)
+def merchstoreVariety(request, product_type=""):
+    # This function is deprecated
+    # Shows products of a certain type
 
-        product_kind["items"]=items
-        context["inventory"].append(product_kind)
-        
-    return render(request, "merchstoreList.html", context)
+    chosen_product_type = get_object_or_404(ProductType, name=product_type)
+    available_items = get_list_or_404(Product, product_type=chosen_product_type)
 
-def merchstoreSublist(request, product_type=""):
-    available_types = {}
+    context = {"product_kind": chosen_product_type, "items": available_items}
 
-    for product_type_item in ProductType.objects.all():
-        available_types[product_type_item.__str__()]=product_type_item
-    
-    if product_type in available_types:
-        context={"product_kind": ProductType.objects.get(name=product_type)}
-        items=[]
+    return render(request, "merchstore/merchstore_variety.html", context)
 
-        for product in Product.objects.filter(product_type__name=product_type.__str__()):
-            items.append(product)
 
-        context["items"]=items
-        return render(request, "merchstoreSublist.html", context)
-    
-    return HttpResponse(loader.get_template("404.html").render())
+def merchstoreItem(request, itemID):
+    product = get_object_or_404(Product, pk=itemID)
 
-def merchstoreItem(request, num=0):
-    if num in range(1,len(Product.objects.all())+1):
-        product = Product.objects.get(productID=num)
-        return render(request, "merchstoreItem.html", {"product": product})
-    return HttpResponse(loader.get_template("404.html").render())
+    return render(request, "merchstore/merchstore_item.html", {"product": product})

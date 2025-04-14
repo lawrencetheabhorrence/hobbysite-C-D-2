@@ -14,6 +14,5 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ["category"]
 
 
-# Register your models here.
 admin.site.register(Post, PostAdmin)
-admin.site.register(PostCategoryAdmin, PostCategory)
+admin.site.register(PostCategory, PostCategoryAdmin)

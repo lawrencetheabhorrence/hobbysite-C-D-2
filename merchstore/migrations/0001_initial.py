@@ -8,36 +8,67 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ProductType',
+            name="ProductType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, unique=True)),
-                ('description', models.TextField(default='Some variety of items sold in this merch store.')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, unique=True)),
+                (
+                    "description",
+                    models.TextField(
+                        default="Some variety of items sold in this merch store."
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'ProductType',
-                'verbose_name_plural': 'ProductTypes',
-                'ordering': ['name'],
+                "verbose_name": "ProductType",
+                "verbose_name_plural": "ProductTypes",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=7)),
-                ('description', models.TextField(default='A buyable item of this merch store.')),
-                ('product_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='ProductType', to='merchstore.producttype')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=7)),
+                (
+                    "description",
+                    models.TextField(default="A buyable item of this merch store."),
+                ),
+                (
+                    "product_type",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="ProductType",
+                        to="merchstore.producttype",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Product',
-                'verbose_name_plural': 'Products',
-                'ordering': ['name'],
+                "verbose_name": "Product",
+                "verbose_name_plural": "Products",
+                "ordering": ["name"],
             },
         ),
     ]

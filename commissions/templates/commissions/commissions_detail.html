@@ -1,21 +1,27 @@
 {% extends 'commissions/base.html' %}
 {% block title %}Commission Detail{% endblock %}
 {% block content %}
-    <h1>{{ commission.title }}</h1>
-    <article class="commission-metadata">
-        <section class="description">
-            <h2><b>Description</b></h2>
-            <p>{{ commission.description }}</p>
-            <p><b>People Required:</b> {{ commission.people_required }}</p>
-            <p><b>Created On:</b> {{ commission.created_on }}</p>
-        </section>
-        <hr>
-        <h2>Comments</h2>
+<main>
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+    <p class="status">{{ object.status }}</p>
+    {% if user.is_authenticated and object.creator == user.profile %}
+        <a href="">
+            <p>Edit Commission</p>
+        </a>
+    {% endif %}
+    <section>
+        <h2>Jobs</h2>
         <ul>
-            {% for comment in comments %}
-                <li>{{ comment.entry }} ({{ comment.created_on }})</li>
+            {% for job in object.jobs %}
+                <li>{{ job }}</li>
+                {% if user.is_authenticated and object.status == "Open" and object.creator != user.profile %}
+                    <a href="">
+                        <p>Apply to Job</p>
+                    </a>
+                {% endif %}
             {% endfor %}
         </ul>
-    </article>
-    <a href="/commissions/list/">Back to List</a>
+    </section>
+</main>
 {% endblock %}

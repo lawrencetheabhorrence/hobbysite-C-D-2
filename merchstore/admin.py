@@ -28,6 +28,7 @@ class TransactionAdmin(admin.ModelAdmin):
     list_filter = ["product", "buyer"]
     search_fields = ["product", "buyer"]
 
+
 admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Transaction, TransactionAdmin)

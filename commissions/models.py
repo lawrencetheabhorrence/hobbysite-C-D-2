@@ -44,7 +44,6 @@ class Job(models.Model):
         ordering = ["status", "-manpower_required", "role"]
 
 
-
 class JobApplication(models.Model):
     class ApplicationStatusOptions(models.TextChoices):
         PENDING = "Pending"

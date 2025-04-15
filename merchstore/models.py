@@ -18,6 +18,14 @@ class ProductType(models.Model):
 
 
 class Product(models.Model):
+
+
+    class ProductStatusChoices(models.TextChoices):
+            AVAILABLE = "Available"
+            ON_SALE = "On Sale"
+            OUT_OF_STOCK = "Out of Stock"
+
+
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
         ProductType, null=True, on_delete=models.SET_NULL, related_name="ProductType"
@@ -28,12 +36,6 @@ class Product(models.Model):
     description = models.TextField(default="A buyable item of this merch store.")
     price = models.DecimalField(max_digits=24, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
-
-    class ProductStatusChoices(models.TextChoices):
-        AVAILABLE = "Available"
-        ON_SALE = "On Sale"
-        OUT_OF_STOCK = "Out of Stock"
-
     status = models.CharField(
         max_length=12,
         choices=ProductStatusChoices,
@@ -53,13 +55,7 @@ class Product(models.Model):
 
 
 class Transaction(models.Model):
-    buyer = models.ForeignKey(
-        Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"
-    )
-    product = models.ForeignKey(
-        Product, null=True, on_delete=models.SET_NULL, related_name="Product"
-    )
-    amount = models.PositiveIntegerField()
+
 
     class TransactionStatusChoices(models.TextChoices):
         ON_CART = "On Cart"
@@ -68,6 +64,14 @@ class Transaction(models.Model):
         TO_RECEIVE = "To Receive"
         DELIVERED = "Delivered"
 
+
+    buyer = models.ForeignKey(
+        Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"
+    )
+    product = models.ForeignKey(
+        Product, null=True, on_delete=models.SET_NULL, related_name="Product"
+    )
+    amount = models.PositiveIntegerField()
     status = models.CharField(
         max_length=12,
         choices=TransactionStatusChoices,

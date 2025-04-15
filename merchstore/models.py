@@ -19,12 +19,10 @@ class ProductType(models.Model):
 
 class Product(models.Model):
 
-
     class ProductStatusChoices(models.TextChoices):
-            AVAILABLE = "Available"
-            ON_SALE = "On Sale"
-            OUT_OF_STOCK = "Out of Stock"
-
+        AVAILABLE = "Available"
+        ON_SALE = "On Sale"
+        OUT_OF_STOCK = "Out of Stock"
 
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
@@ -56,14 +54,12 @@ class Product(models.Model):
 
 class Transaction(models.Model):
 
-
     class TransactionStatusChoices(models.TextChoices):
         ON_CART = "On Cart"
         TO_PAY = "To Pay"
         TO_SHIP = "To Ship"
         TO_RECEIVE = "To Receive"
         DELIVERED = "Delivered"
-
 
     buyer = models.ForeignKey(
         Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"

@@ -11,7 +11,7 @@ class ArticleListView(ListView):
         return Article.objects.select_related("category", "author")
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs=)
+        context = super().get_context_data(**kwargs)
         user_articles = []
         categorized_articles = defaultdict(list)
         articles = self.get_queryset()

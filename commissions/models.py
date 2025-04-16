@@ -72,4 +72,4 @@ class JobApplication(models.Model):
         ordering = ["status", "-applied_on"]
 
     def __str__(self):
-        return self.job + " - " + self.job.applicant
+        return f"{self.job} - {self.applicant}"

@@ -100,3 +100,10 @@ ul {
 	padding: 0;
 	margin: 0;
 }
+
+.card {
+	background: #eff9f8;
+	border: 3px solid #c6d3dc;
+	padding: 20px;
+	border-radius: 20px;
+}

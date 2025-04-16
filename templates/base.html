@@ -26,9 +26,16 @@
 					</ul>
 				</section>
 				<section class="login-section">
-					<a href="">
-						<p>Login</p>
-					</a>
+					{% if user.is_authenticated %}
+						<p>{{ user.username }}</p>
+						<a href="">
+							<p>Logout</p>
+						</a>
+					{% else %}
+						<a href="">
+							<p>Login</p>
+						</a>
+					{% endif %}
 				</section>
 			</nav>
 		</header>

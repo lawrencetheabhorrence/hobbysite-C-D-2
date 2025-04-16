@@ -12,7 +12,9 @@ class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(
-        default=CommissionStatusOptions.OPEN, choices=CommissionStatusOptions
+        max_length=15,
+        default=CommissionStatusOptions.OPEN,
+        choices=CommissionStatusOptions,
     )
     # The list view requires us to track commissions created by the User but they don't have a creator field
     creator = models.ForeignKey(
@@ -38,7 +40,9 @@ class Job(models.Model):
     )
     role = models.TextField(max_length=255)
     manpower_required = models.PositiveIntegerField()
-    status = models.CharField(default=JobStatusOptions.OPEN, choices=JobStatusOptions)
+    status = models.CharField(
+        max_length=15, default=JobStatusOptions.OPEN, choices=JobStatusOptions
+    )
 
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
@@ -51,7 +55,9 @@ class JobApplication(models.Model):
         REJECTED = "Rejected"
 
     status = models.CharField(
-        default=ApplicationStatusOptions.PENDING, choices=ApplicationStatusOptions
+        max_length=15,
+        default=ApplicationStatusOptions.PENDING,
+        choices=ApplicationStatusOptions,
     )
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applications")
     applicant = models.ForeignKey(

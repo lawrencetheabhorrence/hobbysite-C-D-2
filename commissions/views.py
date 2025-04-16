@@ -6,6 +6,7 @@ from .models import Commission, Comment
 class CommissionListView(ListView):
     model = Commission
     template_name = "commissions/commissions_list.html"
+    context_object_name = "commissions"
 
 
 def commission_detail(request, commission_id):

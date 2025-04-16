@@ -8,4 +8,5 @@ urlpatterns = [
     path(
         "detail/<int:commission_id>/", views.commission_detail, name="commission_detail"
     ),
+    path("add/", views.CommissionCreateView.as_view(), name="add_commission"),
 ]

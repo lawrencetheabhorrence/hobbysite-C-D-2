@@ -117,3 +117,42 @@ ul {
 	padding: 20px;
 	border-radius: 20px;
 }
+
+input[type="text"], select {
+  border-radius: 5px;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid #486e7a;
+  box-shadow: inset 0 0 0.5px 2px rgba(87,134,192,0.11);
+  font-family: "Inclusive Sans", sans-serif;
+  color: #405d66;
+}
+
+input.with-icon {
+  padding-left: 28px;
+  background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat 5px;
+  background-size: 18px;
+}
+
+.field-group {
+  margin: 10px;
+  display: flex;
+  max-width: 250px;
+  flex-direction: column;
+  font-family: "Inclusive Sans", sans-serif;
+  gap: 3px;
+}
+
+.field-group label {
+  font-size: 0.8em;
+  color: #405d66;
+}
+
+button {
+  padding: 10px 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #4a556d;
+  color: white;
+  font-family: "Fredoka One", sans-serif;
+}

@@ -12,7 +12,7 @@ class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(
-        max_length="15",
+        max_length=15,
         default=CommissionStatusOptions.OPEN,
         choices=CommissionStatusOptions,
     )
@@ -55,7 +55,7 @@ class JobApplication(models.Model):
         REJECTED = "Rejected"
 
     status = models.CharField(
-        max_length="15",
+        max_length=15,
         default=ApplicationStatusOptions.PENDING,
         choices=ApplicationStatusOptions,
     )

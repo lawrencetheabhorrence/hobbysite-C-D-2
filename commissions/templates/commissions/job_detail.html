@@ -4,16 +4,16 @@
 <main>
     <h1>{{ job.role }}</h1>
     <section>
-        {{ commission }}
+        {{ job.commission }}
     </section>
     <section>
         <ul>
-            {% for applicant in object.applicants %}
+            {% for applicant in job.applicants %}
             <p>{{ applicant.name }}</p>
-            <form method="POST" action="">
+            <form method="POST" action="{% url 'commissions:job_view' job.id %}">
                 {% csrftoken %}
-                <button>Accept</button>
-                <button>Reject</button>
+                <button name="accept" type="submit">Accept</button>
+                <button name="reject" type="submit">Reject</button>
             </form>
             {% endfor %}
         </ul>

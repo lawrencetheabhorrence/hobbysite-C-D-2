@@ -8,4 +8,5 @@ urlpatterns = [
     path(
         "detail/<int:commission_id>/", views.commission_detail, name="commission_detail"
     ),
+    path("job/<int:pk>", views.JobView.as_view(), name="job_view"),
 ]

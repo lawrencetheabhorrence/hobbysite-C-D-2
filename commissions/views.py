@@ -23,3 +23,4 @@ def commission_detail(request, commission_id):
 class JobView(DetailView):
     model = Job
     template_name = "commissions/job_detail.html"
+    context_object_name = "job"

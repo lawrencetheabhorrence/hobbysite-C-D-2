@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from user_management.models import Profile
+
 
 class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
@@ -14,7 +15,7 @@ class ThreadCategory(models.Model):
 
 class Thread(models.Model):
     title = models.CharField(max_length=255)
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="threads")
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name="threads")
     category = models.ForeignKey(ThreadCategory, null=True, on_delete=models.SET_NULL, related_name="threads")
     entry = models.TextField()
     image = models.ImageField(upload_to='thread_images/', null=True, blank=True)
@@ -29,7 +30,7 @@ class Thread(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -39,4 +40,4 @@ class Comment(models.Model):
         ordering = ["created_on"]  
 
     def __str__(self):
-        return f"Comment by {self.author.username} on {self.thread.title}"
+        return f"Comment by {self.author.display_name} on {self.thread.title}"

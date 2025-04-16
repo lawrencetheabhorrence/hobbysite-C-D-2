@@ -29,11 +29,21 @@
 					{% if user.is_authenticated %}
 						<p>{{ user.username }}</p>
 						<a href="">
-							<p>Logout</p>
+							<div class="login-link">
+								<div class="icon">
+								<img src="static/Male User.png" alt="">
+								</div>
+								<p>Logout</p>
+							</div>
 						</a>
 					{% else %}
 						<a href="">
-							<p>Login</p>
+							<div class="login-link">
+								<div class="icon">
+								<img src="static/Male User.png" alt="">
+								</div>
+								<p>Login</p>
+							</div>
 						</a>
 					{% endif %}
 				</section>

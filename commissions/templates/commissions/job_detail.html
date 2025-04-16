@@ -11,7 +11,7 @@
             {% for applicant in job.applicants %}
             <p>{{ applicant.name }}</p>
             <form method="POST" action="{% url 'commissions:job_view' job.id %}">
-                {% csrftoken %}
+                {% csrf_token %}
                 <button name="accept" type="submit">Accept</button>
                 <button name="reject" type="submit">Reject</button>
             </form>

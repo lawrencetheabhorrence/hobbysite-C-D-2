@@ -105,11 +105,14 @@ footer {
 	align-items: center;
 	margin: 0 -5vw;
 	background: #fbf3eb;
-	color: #ba569e;
 	font-family: "Fredoka", sans-serif;
 	font-size: 1.2em;
 	border-top: 3px dashed #e4b2b2;
 	padding: 20px;
+}
+
+footer a {
+	color: #ba569e;
 }
 
 ul {
@@ -166,4 +169,11 @@ button {
 	background-color: #4a556d;
 	color: white;
 	font-family: "Fredoka One", sans-serif;
+}
+
+.paper {
+	border-radius: 2px;
+	background: #fffdf4;
+	border: 1px solid var(--card-stroke);
+	box-shadow: 0 0 9px 5px rgba(61,45,62,0.03);
 }

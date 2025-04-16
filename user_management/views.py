@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Profile
+from django.views.generic.edit import CreateView
+from .models import Profile, ProfileCreationForm
 
 
 def update(request):
@@ -15,3 +16,8 @@ def update(request):
     context = {"profile": profile}
 
     return render(request, "user_management/update.html", context)
+
+
+class ProfileCreateView(CreateView):
+    template_name = "registration/register.html"
+    form_class = ProfileCreationForm

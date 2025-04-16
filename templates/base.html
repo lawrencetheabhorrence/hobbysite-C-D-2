@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+	{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hobby Site</title>
+		{% block headcontent %}{% endblock %}
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hobby Site - {% block title %}{% endblock %}</title>
-	{% block headcontent %}{% endblock %}
-</head>
-
-<body>
-	{% block content %}
-	{% endblock %}
-</body>
+	<body>
+		<header>
+			<nav>
+				<section>
+					<ul>
+						<li>Home</li>
+						<li>Merch</li>
+						<li>Commissions</li>
+						<li>Forum</li>
+						<li>Wiki</li>
+						<li>Blog</li>
+					</ul>
+				</section>
+				<section>
+					<a href="">
+						<p>Login</p>
+					</a>
+				</section>
+			</nav>
+		</header>
+		{% block content %}
+		{% endblock %}
+		<footer>
+			<h1>Hobby Site</h1>
+			<h2>Made by Group 2</h2>
+			<ul>
+				<li>Home</li>
+				<li>Merch</li>
+				<li>Commissions</li>
+				<li>Forum</li>
+				<li>Wiki</li>
+				<li>Blog</li>
+			</ul>
+		</footer>
+	</body>
 
 </html>

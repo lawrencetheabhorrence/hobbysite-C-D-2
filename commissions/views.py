@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.views.generic.list import ListView
+from django.views.generic import ListView, UpdateView
 from .models import Commission
 
 
@@ -17,3 +17,9 @@ def commission_detail(request, commission_id):
         "commissions/commissions_detail.html",
         {"commission": commission, "comments": comments},
     )
+
+
+class CommissionUpdateView(UpdateView):
+    model = Commission
+    fields = ["title", "description", "status"]
+    template_name_suffix = "_update_form"

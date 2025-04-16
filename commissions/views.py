@@ -14,3 +14,4 @@ def commission_list(request):
 class CommissionDetailView(DetailView):
     model = Commission
     template_name = "commissions/commissions_detail.html"
+    context_object_name = "commission"

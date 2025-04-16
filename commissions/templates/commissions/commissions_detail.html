@@ -2,10 +2,10 @@
 {% block title %}Commission Detail{% endblock %}
 {% block content %}
 <main>
-    <h1>{{ object.title }}</h1>
-    <p>{{ object.description }}</p>
-    <p class="status">{{ object.status }}</p>
-    {% if user.is_authenticated and object.creator == user.profile %}
+    <h1>{{ commission.title }}</h1>
+    <p>{{ commission.description }}</p>
+    <p class="status">{{ commission.status }}</p>
+    {% if user.is_authenticated and commission.creator == user.profile %}
         <a href="">
             <p>Edit Commission</p>
         </a>
@@ -13,9 +13,9 @@
     <section>
         <h2>Jobs</h2>
         <ul>
-            {% for job in object.jobs %}
+            {% for job in commission.jobs.all %}
                 <li>{{ job }}</li>
-                {% if user.is_authenticated and object.status == "Open" and object.creator != user.profile %}
+                {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
                     <a href="">
                         <p>Apply to Job</p>
                     </a>

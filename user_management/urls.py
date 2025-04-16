@@ -4,5 +4,6 @@ from . import views
 
 app_name = "user_management"
 urlpatterns = [
-    path("", views.update, name="update"),
+    path("update/", views.update, name="update"),
+    path("register/", views.update, name="register"),
 ]

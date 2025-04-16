@@ -8,8 +8,8 @@
     </section>
     <section>
         <ul>
-            {% for applicant in job.applicants %}
-            <p>{{ applicant.name }}</p>
+            {% for applicantion in job.applications.all %}
+            <p>{{ application.applicant.name }}</p>
             <form method="POST" action="{% url 'commissions:job_view' job.id %}">
                 {% csrf_token %}
                 <button name="accept" type="submit">Accept</button>

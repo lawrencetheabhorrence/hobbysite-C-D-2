@@ -5,23 +5,24 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Hobby Site</title>
+		<link rel="stylesheet" href="{% static 'base.css' %}" />
 		{% block headcontent %}{% endblock %}
 	</head>
 
 	<body>
 		<header>
 			<nav>
-				<section>
+				<section class="nav-links">
 					<ul>
-						<li>Home</li>
-						<li>Merch</li>
-						<li>Commissions</li>
-						<li>Forum</li>
-						<li>Wiki</li>
-						<li>Blog</li>
+						<li><a href="{% url 'homepage' %}">Home</a></li>
+						<li><a href="{% url 'merchstore:merchstore_list' %}">Merch</a></li>
+						<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
+						<li><a href="{% url 'forum:index' %}">Forum</a></li>
+						<li><a href="{% url 'wiki:article-list' %}">Wiki</a></li>
+						<li><a href="{% url 'blog:index' %}">Blog</a></li>
 					</ul>
 				</section>
-				<section>
+				<section class="login-section">
 					<a href="">
 						<p>Login</p>
 					</a>
@@ -31,8 +32,6 @@
 		{% block content %}
 		{% endblock %}
 		<footer>
-			<h1>Hobby Site</h1>
-			<h2>Made by Group 2</h2>
 			<ul>
 				<li>Home</li>
 				<li>Merch</li>

@@ -20,7 +20,7 @@ from django.urls import include, path
 from .views import HomePageView
 
 urlpatterns = [
-    path("", HomePageView.as_view, name="homepage"),
+    path("", HomePageView.as_view(), name="homepage"),
     path("admin/", admin.site.urls),
     path("wiki/", include("wiki.urls")),
     path("forum/", include("forum.urls")),

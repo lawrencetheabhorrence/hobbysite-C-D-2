@@ -8,12 +8,12 @@
     </section>
     <section>
         <ul>
-            {% for applicantion in job.applications.all %}
+            {% for application in job.applications.all %}
             <p>{{ application.applicant.name }}</p>
-            <form method="POST" action="{% url 'commissions:job_view' job.id %}">
+            <form method="POST" action="">
                 {% csrf_token %}
-                <button name="accept" type="submit">Accept</button>
-                <button name="reject" type="submit">Reject</button>
+                <button name="accept" type="submit" value="{{ application.id }}">Accept</button>
+                <button name="reject" type="submit" value="{{ application.id }}">Reject</button>
             </form>
             {% endfor %}
         </ul>

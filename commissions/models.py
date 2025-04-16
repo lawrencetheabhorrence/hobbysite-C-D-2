@@ -47,6 +47,9 @@ class Job(models.Model):
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
 
+    def __str__(self):
+        return self.role
+
 
 class JobApplication(models.Model):
     class ApplicationStatusOptions(models.TextChoices):
@@ -67,3 +70,6 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["status", "-applied_on"]
+
+    def __str__(self):
+        return self.job + " - " + self.job.applicant

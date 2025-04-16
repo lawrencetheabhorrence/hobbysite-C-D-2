@@ -23,3 +23,4 @@ def commission_detail(request, commission_id):
 class CommissionCreateView(CreateView):
     model = Commission
     fields = ["title", "description", "status"]
+    template_name_suffix = "_create_form"

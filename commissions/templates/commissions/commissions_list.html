@@ -7,7 +7,7 @@
             <section>
                 <h1>Your Commissions</h1>
                 <ul>
-                    {% for commission in user.profile.commissions %}
+                    {% for commission in user.profile.commissions.all %}
                         <li>{{ commission }}</li>
                     {% endfor %}
                 </ul>
@@ -15,7 +15,7 @@
             <section>
                 <h1>Your Applications</h1>
                 <ul>
-                    {% for application in user.profile.applications %}
+                    {% for application in user.profile.applications.all %}
                         <li>{{ application }}</li>
                     {% endfor %}
                 </ul>

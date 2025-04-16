@@ -30,4 +30,4 @@ class JobApplicationAdmin(admin.ModelAdmin):
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
-admin.site.register(Job, JobApplicationAdmin)
+admin.site.register(JobApplication, JobApplicationAdmin)

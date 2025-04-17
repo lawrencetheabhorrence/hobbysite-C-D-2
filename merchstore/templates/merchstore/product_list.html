@@ -1,0 +1,46 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+<main>
+	<h1>merchstore</h1>
+	{% if user.is_authenticated %}
+		<h3>Items of {{ user.profile.name }}</h3>
+		<section class="product-list">
+			<ul>
+				{% for product in product_list %}
+					{% if product.owner == user.profile %}
+						<li>
+							<article class="product-details">
+								<a href="{% url 'merchstore:product_detail' product.id %}"><h2>{{ product.name }}</h2></a>
+								{% if product.product_type %}
+									<p class="category-chip">{{ product.product_type }}</p>
+								{% endif %}
+								<p class="price">{{ product.price }}</p>
+							</article>
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</section>
+		<h3>Other Products</h3>
+	{% else %}
+		<h3>All Products</h3>
+	{% endif %}
+	<section class="product-list">
+		<ul>
+			{% for product in product_list %}
+				{% if product.owner != user.profile %}
+					<li>
+						<article class="product-details">
+							<a href="{% url 'merchstore:product_detail' product.id %}"><h2>{{ product.name }}</h2></a>
+							{% if product.product_type %}
+								<p class="category-chip">{{ product.product_type }}</p>
+							{% endif %}
+							<p class="price">{{ product.price }}</p>
+						</article>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</section>
+</main>
+{% endblock %}

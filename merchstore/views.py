@@ -25,7 +25,7 @@ def merchstoreVariety(request, product_type=""):
 def productDetail(request, itemID):
     product = get_object_or_404(Product, pk=itemID)
 
-    return render(request, "merchstore/merchstore_item.html", {"product": product})
+    return render(request, "merchstore/product_detail.html", {"product": product})
 
 '''
 def productCreate(request):

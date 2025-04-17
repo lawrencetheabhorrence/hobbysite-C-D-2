@@ -10,7 +10,7 @@ class Profile(models.Model):
     email_address - email field
     """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     name = models.CharField(max_length=63)
     email_address = models.EmailField(unique=True)
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import FormView
 from .models import Profile, ProfileCreationForm
 
 
@@ -18,6 +18,10 @@ def update(request):
     return render(request, "user_management/update.html", context)
 
 
-class ProfileCreateView(CreateView):
+class ProfileCreateView(FormView):
     template_name = "registration/register.html"
     form_class = ProfileCreationForm
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

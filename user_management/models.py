@@ -48,3 +48,4 @@ class ProfileCreationForm(UserCreationForm):
             name=self.cleaned_data.get("name"),
             email_address=self.cleaned_data.get("email"),
         )
+        return user

@@ -27,7 +27,7 @@ class ProfileCreationForm(UserCreationForm):
     """
 
     class Meta(UserCreationForm.Meta):
-        model = CustomUser
+        model = Profile
         fields = UserCreationForm.Meta.fields + (
             "name",
             "email_address",

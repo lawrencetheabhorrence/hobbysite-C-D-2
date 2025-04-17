@@ -5,16 +5,15 @@ from django.urls import reverse
 
 
 class ProfileCreateCase(TestCase):
-    def create_user(self):
+    def test_create_user(self):
         client = Client()
-        c.post(
+        client.post(
             reverse("user_management:register"),
             {
-                username: "testuser",
-                password: "password",
-                name: "Test User",
-                email_address: "test@testing.com",
+                "username": "testuser",
+                "password": "password",
+                "name": "Test User",
+                "email_address": "test@testing.com",
             },
         )
-
-        self.assertIsNotNone(Profile.objects.get(username="testuser"))
+        self.assertIsNotNone(Profile.objects.get(name="Test User"))

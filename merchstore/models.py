@@ -26,10 +26,10 @@ class Product(models.Model):
 
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
-        ProductType, null=True, on_delete=models.SET_NULL, related_name="ProductType"
+        ProductType, null=True, on_delete=models.SET_NULL, related_name="products"
     )
     owner = models.ForeignKey(
-        Profile, null=False, on_delete=models.CASCADE, related_name="Owner", default=""
+        Profile, null=False, on_delete=models.CASCADE, related_name="products", default=""
     )
     description = models.TextField(default="A buyable item of this merch store.")
     price = models.DecimalField(max_digits=24, decimal_places=2)
@@ -62,10 +62,10 @@ class Transaction(models.Model):
         DELIVERED = "Delivered"
 
     buyer = models.ForeignKey(
-        Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"
+        Profile, null=True, on_delete=models.SET_NULL, related_name="transaction"
     )
     product = models.ForeignKey(
-        Product, null=True, on_delete=models.SET_NULL, related_name="Product"
+        Product, null=True, on_delete=models.SET_NULL, related_name="transaction"
     )
     amount = models.PositiveIntegerField()
     status = models.CharField(
@@ -90,3 +90,4 @@ class Transaction(models.Model):
             + " currently "
             + self.status
         )
+        #Ex: Dino's 5 Chicken Nuggets currently Delivered

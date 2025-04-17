@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic.list import ListView
 from .models import ProductType, Product  # , Transaction
 
 
-def productList(request):
-    return render(
-        request,
-        "merchstore/product_list.html",
-        {"product_list": Product.objects.all()},
-    )
+class ProductListView(ListView):
+    model = Product
+    template_name = "merchstore/product_list.html"
+    context_object_name = "products"
 
 
 """

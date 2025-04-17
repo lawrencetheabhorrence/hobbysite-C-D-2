@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import ProductType, Product #, Transaction
 
 
-def merchstoreList(request):
+def productList(request):
     return render(
         request,
-        "merchstore/merchstore_list.html",
+        "merchstore/product_list.html",
         {"product_list": Product.objects.all()},
     )
 
@@ -22,7 +22,18 @@ def merchstoreVariety(request, product_type=""):
     return render(request, "merchstore/merchstore_variety.html", context)
 '''
 
-def merchstoreItem(request, itemID):
+def productDetail(request, itemID):
     product = get_object_or_404(Product, pk=itemID)
 
     return render(request, "merchstore/merchstore_item.html", {"product": product})
+
+'''
+def productCreate(request):
+
+def productUpdate(request, itemID):
+
+def cartContents(request):
+
+def transactionList(request):
+
+'''

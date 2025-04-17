@@ -27,9 +27,11 @@ def productDetail(request, itemID):
 
     return render(request, "merchstore/product_detail.html", {"product": product})
 
-'''
-def productCreate(request):
 
+def productCreate(request):
+    return render(request, "merchstore/product_create.html", {})
+
+'''
 def productUpdate(request, itemID):
 
 def cartContents(request):

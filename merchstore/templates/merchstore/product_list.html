@@ -2,7 +2,10 @@
 {% load merchstore_extra_tags %}
 {% block content %}
 <main>
-	<h1>merchstore</h1>
+	{% if user.is_authenticated %}
+		<a href="{% url 'merchstore:product_create' %}"><h4>Add your product here</h4></a>
+	{% endif %}
+	<h1>Merchstore</h1>
 	{% if user.is_authenticated and user.profile|count_owner_products > 0 %}
 		<h3>Items of {{ user.profile.name }}</h3>
 		<section class="product-list">

@@ -43,9 +43,10 @@ class ProfileCreationForm(UserCreationForm):
         # First, save the user
         user = super().save(*args, **kwargs)
         # Then, create the profile
-        Profile.objects.create(
+        profile = Profile.objects.create(
             user=user,
             name=self.cleaned_data.get("name"),
-            email_address=self.cleaned_data.get("email"),
+            email_address=self.cleaned_data.get("email_address"),
         )
+
         return user

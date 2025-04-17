@@ -19,7 +19,7 @@ def commission_detail(request, commission_id):
     )
 
 
-class CommissionUpdateView(UpdateView):
+class CommissionUpdateView(LoginRequiredView, UpdateView):
     model = Commission
     fields = ["title", "description", "status"]
     template_name_suffix = "_update_form"

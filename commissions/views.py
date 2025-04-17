@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import CreateView
 from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Commission
 
 
@@ -20,7 +21,7 @@ def commission_detail(request, commission_id):
     )
 
 
-class CommissionCreateView(CreateView):
+class CommissionCreateView(LoginRequiredMixin, CreateView):
     model = Commission
     fields = ["title", "description", "status"]
     template_name_suffix = "_create_form"

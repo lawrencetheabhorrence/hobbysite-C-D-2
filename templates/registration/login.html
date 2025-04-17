@@ -14,7 +14,11 @@
 {% block content %}
 <main>
 	<section class="card">
-		{{ form.as_p }}
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Login</button>
+		</form>
 	</section>
 </main>
 {% endblock %}

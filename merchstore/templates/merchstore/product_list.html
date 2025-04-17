@@ -1,0 +1,62 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+<main>
+	<h1>Merchstore</h1>
+	{% if user.is_authenticated %}
+		<a href="{% url 'merchstore:product_create' %}"><h4>Add your product here</h4></a>
+	{% endif %}
+	{% if user.is_authenticated and user.profile.products.all %}
+		<h3>Your ({{ user.profile.name }}) Items</h3>
+		<section class="product-list">
+			<ul>
+				{% for product in user.profile.products.all %}
+					<li>
+						<article class="product-details">
+							<a href="{% url 'merchstore:product_detail' product.id %}">
+								<h2>{{ product.name }}</h2>
+							</a>
+							{% if product.product_type %}
+								<p class="category-chip">{{ product.product_type }}</p>
+							{% endif %}
+							{% if product.status %}
+								<p class="category-chip">{{ product.status }}</p>
+							{% endif %}
+							<p class="price">Price: P {{ product.price }}</p>
+						</article>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+		<h3>Other Products</h3>
+	{% else %}
+		<h3>All Products</h3>
+	{% endif %}
+	<section class="product-list">
+		<ul>
+			{% for product in products %}
+				{% if product.owner != user.profile %}
+					<li>
+						<article class="product-details">
+							<a href="{% url 'merchstore:product_detail' product.id %}">
+								<h2>
+									{{ product.name }}
+									{% if product.owner %}
+									<h3> by {{ product.owner.name }}</h3>
+									{% endif %}
+								</h2>
+							</a>
+							{% if product.product_type %}
+								<p class="category-chip">{{ product.product_type }}</p>
+							{% endif %}
+							{% if product.status %}
+								<p class="category-chip">{{ product.status }}</p>
+							{% endif %}
+							<p class="price">Price: P {{ product.price }}</p>
+						</article>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</section>
+</main>
+{% endblock %}

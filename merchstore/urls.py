@@ -1,8 +1,14 @@
 from django.urls import path
-from .views import merchstoreList, merchstoreItem
+from . import views
+from .views import productDetail, productCreate
 
 app_name = "merchstore"
+
 urlpatterns = [
-    path("items/", merchstoreList, name="merchstore_list"),
-    path("item/<int:itemID>/", merchstoreItem, name="merchstore_item"),
+    path("items/", views.ProductListView.as_view(), name="product_list"),
+    path("item/<int:itemID>/", productDetail, name="product_detail"),
+    path("item/add", productCreate, name="product_create"),
+    # path("item/<int:itemID>/edit", productUpdate, name="product_update"),
+    # path("cart", cartContents, name="cart_contents"),
+    # path("transactions", transactionList, name="transaction_list"),
 ]

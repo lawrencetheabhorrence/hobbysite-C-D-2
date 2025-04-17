@@ -1,15 +1,15 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import ProductType, Product
+from django.views.generic.list import ListView
+from .models import ProductType, Product  # , Transaction
 
 
-def merchstoreList(request):
-    return render(
-        request,
-        "merchstore/merchstore_list.html",
-        {"product_list": Product.objects.all()},
-    )
+class ProductListView(ListView):
+    model = Product
+    template_name = "merchstore/product_list.html"
+    context_object_name = "products"
 
 
+"""
 def merchstoreVariety(request, product_type=""):
     # This function is deprecated
     # Shows products of a certain type
@@ -20,9 +20,24 @@ def merchstoreVariety(request, product_type=""):
     context = {"product_kind": chosen_product_type, "items": available_items}
 
     return render(request, "merchstore/merchstore_variety.html", context)
+"""
 
 
-def merchstoreItem(request, itemID):
+def productDetail(request, itemID):
     product = get_object_or_404(Product, pk=itemID)
 
-    return render(request, "merchstore/merchstore_item.html", {"product": product})
+    return render(request, "merchstore/product_detail.html", {"product": product})
+
+
+def productCreate(request):
+    return render(request, "merchstore/product_create.html", {})
+
+
+"""
+def productUpdate(request, itemID):
+
+def cartContents(request):
+
+def transactionList(request):
+
+"""

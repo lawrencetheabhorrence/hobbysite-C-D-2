@@ -1,0 +1,22 @@
+{% extends 'commissions/base.html' %}
+{% block title %}Job Detail{% endblock %}
+{% block content %}
+<main>
+    <h1>{{ job.role }}</h1>
+    <section>
+        {{ job.commission }}
+    </section>
+    <section>
+        <ul>
+            {% for application in job.applications.all %}
+            <p>{{ application.applicant.name }}</p>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <button name="accept" type="submit" value="{{ application.id }}">Accept</button>
+                <button name="reject" type="submit" value="{{ application.id }}">Reject</button>
+            </form>
+            {% endfor %}
+        </ul>
+    </section>
+</main>
+{% endblock %}

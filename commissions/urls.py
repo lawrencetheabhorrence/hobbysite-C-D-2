@@ -6,7 +6,9 @@ app_name = "commissions"
 urlpatterns = [
     path("list/", views.CommissionListView.as_view(), name="commission_list"),
     path(
-        "detail/<int:commission_id>/", views.commission_detail, name="commission_detail"
+        "detail/<int:pk>/",
+        views.CommissionDetailView.as_view(),
+        name="commission_detail",
     ),
     path("job/<int:pk>", views.JobView.as_view(), name="job_view"),
 ]

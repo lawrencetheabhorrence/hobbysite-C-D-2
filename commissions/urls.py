@@ -10,5 +10,8 @@ urlpatterns = [
         views.CommissionDetailView.as_view(),
         name="commission_detail",
     ),
+    path(
+        "<int:pk>/edit/", views.CommissionUpdateView.as_view(), name="update_commission"
+    ),
     path("job/<int:pk>", views.JobView.as_view(), name="job_view"),
 ]

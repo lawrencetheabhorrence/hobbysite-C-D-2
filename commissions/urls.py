@@ -10,4 +10,5 @@ urlpatterns = [
         views.CommissionDetailView.as_view(),
         name="commission_detail",
     ),
+    path("job/<int:pk>", views.JobView.as_view(), name="job_view"),
 ]

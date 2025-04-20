@@ -1,7 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.views.generic import ListView, UpdateView
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Commission, Job, JobApplication
 
@@ -12,14 +10,10 @@ class CommissionListView(ListView):
     context_object_name = "commissions"
 
 
-def commission_detail(request, commission_id):
-    commission = get_object_or_404(Commission, id=commission_id)
-    comments = Comment.objects.filter(commission=commission)
-    return render(
-        request,
-        "commissions/commissions_detail.html",
-        {"commission": commission, "comments": comments},
-    )
+class CommissionDetailView(DetailView):
+    model = Commission
+    template_name = "commissions/commissions_detail.html"
+    context_object_name = "commission"
 
 
 class CommissionUpdateView(LoginRequiredView, UpdateView):

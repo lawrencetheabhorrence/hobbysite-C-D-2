@@ -16,6 +16,12 @@ class CommissionDetailView(DetailView):
     context_object_name = "commission"
 
 
+class CommissionUpdateView(LoginRequiredView, UpdateView):
+    model = Commission
+    fields = ["title", "description", "status"]
+    template_name_suffix = "_update_form"
+
+
 class CommissionCreateView(LoginRequiredMixin, CreateView):
     model = Commission
     fields = ["title", "description", "status"]

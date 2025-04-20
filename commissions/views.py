@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic import ListView, UpdateView
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Commission, Job, JobApplication
@@ -19,6 +20,12 @@ def commission_detail(request, commission_id):
         "commissions/commissions_detail.html",
         {"commission": commission, "comments": comments},
     )
+
+
+class CommissionUpdateView(LoginRequiredView, UpdateView):
+    model = Commission
+    fields = ["title", "description", "status"]
+    template_name_suffix = "_update_form"
 
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):

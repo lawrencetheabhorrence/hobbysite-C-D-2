@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import UpdateView, CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Commission, Job, JobApplication
 

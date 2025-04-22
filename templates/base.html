@@ -24,24 +24,24 @@
 				</section>
 				<section class="login-section">
 					{% if user.is_authenticated %}
-						<p>{{ user.username }}</p>
-						<a href="">
-							<div class="login-link">
-								<div class="icon">
+					<p>{{ user.username }}</p>
+					<a href="">
+						<div class="login-link">
+							<div class="icon">
 								<img src="static/Male User.png" alt="">
-								</div>
-								<p>Logout</p>
 							</div>
-						</a>
+							<p>Logout</p>
+						</div>
+					</a>
 					{% else %}
-						<a href="">
-							<div class="login-link">
-								<div class="icon">
+					<a href="">
+						<div class="login-link">
+							<div class="icon">
 								<img src="static/Male User.png" alt="">
-								</div>
-								<p>Login</p>
 							</div>
-						</a>
+							<p>Login</p>
+						</div>
+					</a>
 					{% endif %}
 				</section>
 			</nav>

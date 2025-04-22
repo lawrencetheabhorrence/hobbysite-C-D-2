@@ -1,7 +1,8 @@
 {% extends 'commissions/base.html' %}
+{% load static %}
     {% block title %}Commission List{% endblock %}
     {% block headcontent %}
-    <link rel="stylesheet" href="commission_list.css">
+    <link rel="stylesheet" href="{% static 'commissions/commission_list.css' %}">
     {% endblock %}
     {% block content %}
     <main>
@@ -13,12 +14,10 @@
                     {% for commission in user.profile.commissions.all %}
                     <li>
                         <section>
-                            <section>
-                                <h2>{{ commission.title }}</h2>
-                                <p>{{ commission.created_on | date }}</p>
-                            </section>
-                            <p>{{ commission.status }}</p>
+                            <h2>{{ commission.title }}</h2>
+                            <p>{{ commission.created_on | date }}</p>
                         </section>
+                        <p class="status-chip">{{ commission.status }}</p>
                     </li>
                     {% endfor %}
                 </ul>
@@ -29,12 +28,10 @@
                     {% for application in user.profile.applications.all %}
                     <li>
                         <section>
-                            <section>
-                                <h2>{{ application.job.commission.title }}</h2>
-                                <p>{{ application.job.commission.created_on | date }}</p>
-                            </section>
-                            <p>{{ application.job.commission.status }}</p>
+                            <h2>{{ application.job.commission.title }}</h2>
+                            <p>{{ application.job.commission.created_on | date }}</p>
                         </section>
+                        <p class="status-chip">{{ application.job.commission.status }}</p>
                     </li>
                     {% endfor %}
                 </ul>
@@ -42,18 +39,16 @@
         </section>
         {% endif %}
 
-        <section class="card">
+        <section class="card all-commissions">
             <h1>All Commissions</h1>
             <ul>
                 {% for commission in commissions.all %}
                 <li>
                     <section>
-                        <section>
-                            <h2>{{ commission.title }}</h2>
-                            <p>{{ commission.created_on | date }}</p>
-                        </section>
-                        <p>{{ commission.status }}</p>
+                        <h2>{{ commission.title }}</h2>
+                        <p>{{ commission.created_on | date }}</p>
                     </section>
+                    <p class="status-chip">{{ commission.status }}</p>
                 </li>
                 {% endfor %}
             </ul>

@@ -1,0 +1,57 @@
+main {
+	display: flex;
+	flex-flow: row wrap;
+	height: 100%;
+	gap: 20px;
+}
+
+section.all-commissions {
+	flex-grow: 1;
+}
+
+section.card ul {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+}
+
+section.card ul li {
+	font-family: "Fredoka", sans-serif;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px dashed var(--dark-teal);
+	border-radius: 5px;
+	padding: 0 5px 10px 5px;
+	color: var(--dark-teal)
+}
+
+
+section.card ul li > section * {
+	padding: 0;
+	margin: 0;
+}
+
+section.card ul li > section h2 {
+	margin-bottom: 5px;
+	font-weight: 
+}
+
+h1 {
+	font-family: "Fredoka One", sans-serif;
+	font-size: 1.3em;
+	color: var(--dark-teal);
+}
+
+p.status-chip {
+	color: white;
+	background-color: var(--dark-teal);
+	font-weight: 600;
+	border-radius: 30px;
+	min-width: 80px;
+	padding: 5px 15px;
+	font-size: 0.8em;
+	text-align: center;
+}

@@ -1,35 +1,62 @@
 {% extends 'commissions/base.html' %}
-{% block title %}Commission List{% endblock %}
-{% block content %}
-<main>
-    {% if user.is_authenticated %}
-        <section>
+    {% block title %}Commission List{% endblock %}
+    {% block headcontent %}
+    <link rel="stylesheet" href="commission_list.css">
+    {% endblock %}
+    {% block content %}
+    <main>
+        {% if user.is_authenticated %}
+        <section class="card">
             <section>
                 <h1>Your Commissions</h1>
                 <ul>
                     {% for commission in user.profile.commissions.all %}
-                        <li>{{ commission }}</li>
+                    <li>
+                        <section>
+                            <section>
+                                <h2>{{ commission.title }}</h2>
+                                <p>{{ commission.created_on | date }}</p>
+                            </section>
+                            <p>{{ commission.status }}</p>
+                        </section>
+                    </li>
                     {% endfor %}
                 </ul>
             </section>
             <section>
-                <h1>Your Applications</h1>
+                <h1>Commissions You Applied To</h1>
                 <ul>
                     {% for application in user.profile.applications.all %}
-                        <li>{{ application }}</li>
+                    <li>
+                        <section>
+                            <section>
+                                <h2>{{ application.job.commission.title }}</h2>
+                                <p>{{ application.job.commission.created_on | date }}</p>
+                            </section>
+                            <p>{{ application.job.commission.status }}</p>
+                        </section>
+                    </li>
                     {% endfor %}
                 </ul>
             </section>
         </section>
-    {% endif %}
+        {% endif %}
 
-    <section>
-        <h1>All Commissions</h1>
-        <ul>
-            {% for commission in commissions %}
-                <li>{{ commission }}</li>
-            {% endfor %}
-        </ul>
-    </section>
-</main>
-{% endblock %}
+        <section class="card">
+            <h1>All Commissions</h1>
+            <ul>
+                {% for commission in commissions.all %}
+                <li>
+                    <section>
+                        <section>
+                            <h2>{{ commission.title }}</h2>
+                            <p>{{ commission.created_on | date }}</p>
+                        </section>
+                        <p>{{ commission.status }}</p>
+                    </section>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    {% endblock %}

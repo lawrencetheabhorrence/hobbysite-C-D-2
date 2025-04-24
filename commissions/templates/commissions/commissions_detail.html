@@ -1,27 +1,34 @@
 {% extends 'commissions/base.html' %}
-{% block title %}Commission Detail{% endblock %}
-{% block content %}
-<main>
-    <h1>{{ commission.title }}</h1>
-    <p>{{ commission.description }}</p>
-    <p class="status">{{ commission.status }}</p>
-    {% if user.is_authenticated and commission.creator == user.profile %}
+    {% block title %}Commission Detail{% endblock %}
+    {% block content %}
+    <main>
+        <h1>{{ commission.title }}</h1>
+        <p>{{ commission.description }}</p>
+        <p class="status">{{ commission.status }}</p>
+        {% if user.is_authenticated and commission.creator == user.profile %}
         <a href="">
             <p>Edit Commission</p>
         </a>
-    {% endif %}
-    <section>
-        <h2>Jobs</h2>
-        <ul>
-            {% for job in commission.jobs.all %}
-                <li>{{ job }}</li>
-                {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
-                    <a href="">
-                        <p>Apply to Job</p>
-                    </a>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </section>
-</main>
-{% endblock %}
+        {% endif %}
+        <section>
+            <h2>Jobs for {{ commission.name }}</h2>
+            <ul>
+                {% for job in commission.jobs.all %}
+                <li>
+                    <p>{{ job.role }}</p>
+                    <section>
+                        <p>{{ job.status }}</p>
+                        <p>{{ job.manpower_required }}</p>
+                    </section>
+                    <section>
+                        <p>{{ job.manpower_required }}</p>
+                        {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
+                        <button type="submit">Apply to Job</button>
+                        {% endif %}
+                    </section>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    {% endblock %}

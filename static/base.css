@@ -174,7 +174,7 @@ input.with-icon {
 	color: #405d66;
 }
 
-button {
+button, .button {
 	padding: 10px 40px;
 	border-radius: 10px;
 	border: none;

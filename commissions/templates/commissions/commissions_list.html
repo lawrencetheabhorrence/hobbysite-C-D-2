@@ -35,6 +35,9 @@
                     </li>
                     {% endfor %}
                 </ul>
+                <a href="{% url "commissions:add_commission" %}">
+                    <p class="button">+ Add new Commission</p>
+                </a>
             </section>
         </section>
         {% endif %}

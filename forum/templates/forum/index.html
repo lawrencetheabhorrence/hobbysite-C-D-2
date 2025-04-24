@@ -15,14 +15,7 @@
 			<ul>
 				{% for thread in user_threads %}
 				<li>
-					<article class="post-heading">
-						<a href="{% url 'forum:thread_detail' thread.id %}"><h2>{{ thread.title }}</h2></a>
-						<p class="category-chip">{{ thread.category }}</p>
-						<p class="sample-text">{{ thread.entry }}</p>
-						<section class="date">
-							<p>Created {{ thread.created_on | date }}. Last updated {{ thread.updated_on | date }}</p>
-						</section>
-					</article>
+					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
 				</li>
 				{% empty %}
 				<li>No threads created by you.</li>
@@ -30,7 +23,7 @@
 			</ul>
 		</section>
 	{% endif %}
-	
+
 	<section class="post-list">
 		<h2>All Threads</h2>
 		{% for category in categories %}
@@ -39,14 +32,7 @@
 				{% for thread in category.thread_set.all %}
 					{% if not user.is_authenticated or thread.author != user.profile %}
 					<li>
-						<article class="post-heading">
-							<a href="{% url 'forum:thread_detail' thread.id %}"><h2>{{ thread.title }}</h2></a>
-							<p class="category-chip">{{ thread.category }}</p>
-							<p class="sample-text">{{ thread.entry }}</p>
-							<section class="date">
-								<p>Created {{ thread.created_on | date }}. Last updated {{ thread.updated_on | date }}</p>
-							</section>
-						</article>
+						<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
 					</li>
 					{% endif %}
 				{% empty %}

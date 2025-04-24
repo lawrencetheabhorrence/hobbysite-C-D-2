@@ -14,10 +14,10 @@ section.card ul {
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: stretch;
+	padding: 0;
 }
 
 section.card ul li {
-	font-family: "Fredoka", sans-serif;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
@@ -25,7 +25,16 @@ section.card ul li {
 	border-bottom: 2px dashed var(--dark-teal);
 	border-radius: 5px;
 	padding: 0 5px 10px 5px;
-	color: var(--dark-teal)
+	color: var(--dark-teal);
+	margin: 0;
+}
+
+section.card ul li * {
+	font-family: "Fredoka", sans-serif;
+}
+
+section.card ul li h2 {
+	font-weight: 500;
 }
 
 
@@ -54,4 +63,8 @@ p.status-chip {
 	padding: 5px 15px;
 	font-size: 0.8em;
 	text-align: center;
+}
+
+footer {
+	display: none;
 }

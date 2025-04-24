@@ -10,44 +10,46 @@
 	</head>
 
 	<body>
-		<header>
-			<nav>
-				<section class="nav-links">
-					<ul>
-						<li><a href="{% url 'homepage' %}">Home</a></li>
-						<li><a href="{% url 'merchstore:merchstore_list' %}">Merch</a></li>
-						<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
-						<li><a href="{% url 'forum:index' %}">Forum</a></li>
-						<li><a href="{% url 'wiki:article-list' %}">Wiki</a></li>
-						<li><a href="{% url 'blog:index' %}">Blog</a></li>
-					</ul>
-				</section>
-				<section class="login-section">
-					{% if user.is_authenticated %}
-					<p>{{ user.username }}</p>
-					<a href="">
-						<div class="login-link">
-							<div class="icon">
-								<img src="static/Male User.png" alt="">
+		<section class="padding with-content">
+			<header>
+				<nav>
+					<section class="nav-links">
+						<ul>
+							<li><a href="{% url 'homepage' %}">Home</a></li>
+							<li><a href="{% url 'merchstore:merchstore_list' %}">Merch</a></li>
+							<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
+							<li><a href="{% url 'forum:index' %}">Forum</a></li>
+							<li><a href="{% url 'wiki:article-list' %}">Wiki</a></li>
+							<li><a href="{% url 'blog:index' %}">Blog</a></li>
+						</ul>
+					</section>
+					<section class="login-section">
+						{% if user.is_authenticated %}
+						<p>{{ user.username }}</p>
+						<a href="">
+							<div class="login-link">
+								<div class="icon">
+									<img src="static/Male User.png" alt="">
+								</div>
+								<p>Logout</p>
 							</div>
-							<p>Logout</p>
-						</div>
-					</a>
-					{% else %}
-					<a href="">
-						<div class="login-link">
-							<div class="icon">
-								<img src="static/Male User.png" alt="">
+						</a>
+						{% else %}
+						<a href="">
+							<div class="login-link">
+								<div class="icon">
+									<img src="static/Male User.png" alt="">
+								</div>
+								<p>Login</p>
 							</div>
-							<p>Login</p>
-						</div>
-					</a>
-					{% endif %}
-				</section>
-			</nav>
-		</header>
-		{% block content %}
-		{% endblock %}
+						</a>
+						{% endif %}
+					</section>
+				</nav>
+			</header>
+			{% block content %}
+			{% endblock %}
+		</section>
 		<footer>
 			<ul>
 				<li><a href="{% url 'homepage' %}">Home</a></li>
@@ -59,5 +61,4 @@
 			</ul>
 		</footer>
 	</body>
-
 </html>

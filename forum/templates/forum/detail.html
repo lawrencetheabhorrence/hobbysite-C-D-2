@@ -14,7 +14,8 @@
 			<h2>{{ thread.title }}</h2>
 			<section class="post-metadata">
 				<p class="category-chip">{{ thread.category }}</p>
-				<p>Created {{ thread.created_on | date }}. Last updated {{ thread.updated_on | date }}</p>
+				<p>Created On: {{ thread.created_on | date }}</p>
+				<p>Updated On: {{ thread.updated_on | date }}</p>
 				{% if is_owner %}
 					<a href="{% url 'forum:thread_update' thread.id %}" class="edit-link">Edit</a>
 				{% endif %}
@@ -24,9 +25,6 @@
 		<section class="post-entry">
 			<p><strong>Entry:</strong></p>
 			<p>{{ thread.entry }}</p>
-			{% if thread.image %}
-				<img src="{{ thread.image.url }}" alt="{{ thread.title }}" class="thread-image">
-			{% endif %}
 		</section>
 	</section>
 	

@@ -67,12 +67,11 @@ p.status-chip {
 
 .button {
 	padding: 10px 40px;
-  border-radius: 10px;
-  border: none;
-  background-color: #4a556d;
-  color: white;
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
+	border-radius: 10px;
+	border: none;
+	background-color: #4a556d;
+	color: white;
+	font-family: "Fredoka", sans-serif;
+	font-weight: 600;
 	text-align: center;
-	width: 100%;
 }

@@ -213,3 +213,7 @@ p.status-chip {
 	padding: 5px 10px;
 	font-size: 0.8em;
 }
+
+.full {
+	width: 100%;
+}

@@ -1,4 +1,4 @@
-{% extends 'commissions/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
     {% block title %}Commission List{% endblock %}
     {% block headcontent %}
@@ -36,7 +36,7 @@
                     {% endfor %}
                 </ul>
                 <a href="{% url "commissions:add_commission" %}">
-                    <p class="button">+ Post a new Commission</p>
+                    <p class="button full">+ Post a new Commission</p>
                 </a>
             </section>
         </section>

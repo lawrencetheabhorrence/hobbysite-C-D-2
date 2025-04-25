@@ -9,28 +9,24 @@
 {% block content %}
     <h1>Wiki Articles</h1>
 
-    <a href="{% url 'wiki:article_create' %}">Create New Article</a>
+    <a href="{% url 'article-create' %}">Create a new article</a>
 
-    {% if user.is_authenticated %}
-        <h2>Your Articles</h2>
-        <ul>
-            {% for article in user_articles %}
-                <li><a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a></li>
-            {% empty %}
-                <li>You haven't created any articles yet.</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <h2>Your Articles</h2>
+    <ul>
+        {% for article in articles %}
+            {% if article.author == user %}
+                <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 
-    {% for category_name, category_articles in categorized_articles.items %}
-        <h2>{{ category_name }}</h2>
+    <h2>All Articles</h2>
+    {% for category in categories %}
+        <h3>{{ category.name }}</h3>
         <ul>
-            {% for article in category_articles %}
-                <li><a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a></li>
-            {% empty %}
-                <li>No articles in this category.</li>
+            {% for article in category.articles.all %}
+                <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
             {% endfor %}
         </ul>
     {% endfor %}
-
 {% endblock %}

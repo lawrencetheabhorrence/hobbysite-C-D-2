@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+    {% block headcontent %}
+    <link rel="stylesheet" href="{% static 'commissions/commission_list.css' %}">
+    {% endblock %}
     {% block title %}Commission Detail{% endblock %}
     {% block content %}
     <main class="card">
@@ -9,7 +13,7 @@
         </a>
         <section>
             {% endif %}
-            <ul>
+            <ul class="item-list">
                 {% for job in commission.jobs.all %}
                 <li>
                     <p>{{ job.role }}</p>

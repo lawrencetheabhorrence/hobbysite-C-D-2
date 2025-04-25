@@ -3,6 +3,7 @@
     {% block title %}Commission List{% endblock %}
     {% block headcontent %}
     <link rel="stylesheet" href="{% static 'commissions/commission_list.css' %}">
+    <link rel="stylesheet" href="{% static 'commissions/base.css' %}">
     {% endblock %}
     {% block content %}
     <main>
@@ -12,7 +13,7 @@
                 <h1>Your Commissions</h1>
                 <ul>
                     {% for commission in user.profile.commissions.all %}
-                    <li>
+                    <li class="list-item">
                         <section>
                             <h2>{{ commission.title }}</h2>
                             <p>{{ commission.created_on | date }}</p>
@@ -26,7 +27,7 @@
                 <h1>Commissions You Applied To</h1>
                 <ul class="item-list">
                     {% for application in user.profile.applications.all %}
-                    <li>
+                    <li class="list-item">
                         <section>
                             <h2>{{ application.job.commission.title }}</h2>
                             <p>{{ application.job.commission.created_on | date }}</p>
@@ -46,7 +47,7 @@
             <h1>All Commissions</h1>
             <ul>
                 {% for commission in commissions.all %}
-                <li>
+                <li class="list-item">
                     <section>
                         <h2>{{ commission.title }}</h2>
                         <p>{{ commission.created_on | date }}</p>

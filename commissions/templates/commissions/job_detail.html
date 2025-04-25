@@ -1,22 +1,24 @@
-{% extends 'commissions/base.html' %}
-{% block title %}Job Detail{% endblock %}
-{% block content %}
-<main>
-    <h1>{{ job.role }}</h1>
-    <section>
-        {{ job.commission }}
-    </section>
-    <section>
+{% extends 'base.html' %}
+{% load static %}
+    {% block headcontent %}
+    <link rel="stylesheet" href="{% static 'commissions/base.css' %}">
+    <link rel="stylesheet" href="{% static 'commissions/job_detail.css' %}">
+    {% endblock %}
+    {% block title %}Job Detail{% endblock %}
+    {% block content %}
+    <main class="card">
+        <h1>Applicants for {{ job.role }}</h1>
         <ul>
             {% for application in job.applications.all %}
-            <p>{{ application.applicant.name }}</p>
-            <form method="POST" action="">
-                {% csrf_token %}
-                <button name="accept" type="submit" value="{{ application.id }}">Accept</button>
-                <button name="reject" type="submit" value="{{ application.id }}">Reject</button>
-            </form>
+            <li class="list-item">
+                <p>{{ application.applicant.name }}</p>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <button name="accept" type="submit" value="{{ application.id }}">Accept</button>
+                    <button name="reject" type="submit" value="{{ application.id }}">Reject</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
-    </section>
-</main>
-{% endblock %}
+    </main>
+    {% endblock %}

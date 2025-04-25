@@ -106,8 +106,12 @@ header > nav {
 	margin: 0;
 }
 
-header > nav *, footer *, h1, h2 {
+header > nav * {
 	font-family: "Fredoka One", sans-serif;
+}
+
+footer *, h1, h2 {
+	font-family: "Fredoka", sans-serif;
 }
 
 footer {
@@ -118,10 +122,12 @@ footer {
 	justify-content: space-evenly;
 	align-items: center;
 	background: #fbf3eb;
-	font-family: "Fredoka", sans-serif;
 	font-size: 1.2em;
 	border-top: 3px dashed #e4b2b2;
 	padding: 20px;
+}
+
+header * {
 }
 
 footer a {

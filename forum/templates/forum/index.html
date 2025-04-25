@@ -29,11 +29,13 @@
 		{% for category in categories %}
 			<h3>{{ category.name }}</h3>
 			<ul>
-				{% for thread in category.thread_set.all %}
-					{% if not user.is_authenticated or thread.author != user.profile %}
-					<li>
-						<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-					</li>
+				{% for thread in threads %}
+					{% if thread.category == category %}
+						{% if not user.is_authenticated or thread.author != user.profile %}
+						<li>
+							<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+						</li>
+						{% endif %}
 					{% endif %}
 				{% empty %}
 				<li>No threads in this category.</li>

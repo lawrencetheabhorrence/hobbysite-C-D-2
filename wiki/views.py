@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from .models import Article 
+from .models import Article
 
 class ArticleListView(ListView):
     model = Article
@@ -7,5 +7,4 @@ class ArticleListView(ListView):
     context_object_name = "articles"
 
     def get_queryset(self):
-        return Article.objects.select_related("category", "author")
-    
+        return Article.objects.select_related("category", "author").order_by("category__name", "title")

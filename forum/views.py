@@ -15,29 +15,43 @@ class ThreadList(View):
             except AttributeError:
                 user_threads = []
 
-        return render(request, 'forum/index.html', {
-            'categories': categories,
-            'user_threads': user_threads,
-        })
+        return render(
+            request,
+            "forum/index.html",
+            {
+                "categories": categories,
+                "user_threads": user_threads,
+            },
+        )
 
 
 class ThreadDetail(View):
     def get(self, request, pk):
         thread = get_object_or_404(Thread, pk=pk)
-        related_threads = Thread.objects.filter(category=thread.category).exclude(pk=thread.pk)
+        related_threads = Thread.objects.filter(category=thread.category).exclude(
+            pk=thread.pk
+        )
         form = CommentForm()
 
-        return render(request, 'forum/detail.html', {
-            'thread': thread,
-            'related_threads': related_threads,
-            'comments': thread.comment_set.all(),
-            'form': form,
-            'is_owner': request.user.is_authenticated and thread.author and thread.author.user == request.user,
-        })
+        return render(
+            request,
+            "forum/detail.html",
+            {
+                "thread": thread,
+                "related_threads": related_threads,
+                "comments": thread.comment_set.all(),
+                "form": form,
+                "is_owner": request.user.is_authenticated
+                and thread.author
+                and thread.author.user == request.user,
+            },
+        )
 
     def post(self, request, pk):
         thread = get_object_or_404(Thread, pk=pk)
-        related_threads = Thread.objects.filter(category=thread.category).exclude(pk=thread.pk)
+        related_threads = Thread.objects.filter(category=thread.category).exclude(
+            pk=thread.pk
+        )
         form = CommentForm(request.POST)
 
         if request.user.is_authenticated and form.is_valid():
@@ -45,12 +59,18 @@ class ThreadDetail(View):
             comment.author = request.user.profile
             comment.thread = thread
             comment.save()
-            return redirect('forum:thread_detail', pk=thread.pk)
+            return redirect("forum:thread_detail", pk=thread.pk)
 
-        return render(request, 'forum/detail.html', {
-            'thread': thread,
-            'related_threads': related_threads,
-            'comments': thread.comment_set.all(),
-            'form': form,
-            'is_owner': request.user.is_authenticated and thread.author and thread.author.user == request.user,
-        })
+        return render(
+            request,
+            "forum/detail.html",
+            {
+                "thread": thread,
+                "related_threads": related_threads,
+                "comments": thread.comment_set.all(),
+                "form": form,
+                "is_owner": request.user.is_authenticated
+                and thread.author
+                and thread.author.user == request.user,
+            },
+        )

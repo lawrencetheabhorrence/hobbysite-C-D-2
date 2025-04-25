@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+	{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hobby Site</title>
+		<link rel="stylesheet" href="{% static 'base.css' %}" />
+		{% block headcontent %}{% endblock %}
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hobby Site - {% block title %}{% endblock %}</title>
-	{% block headcontent %}{% endblock %}
-</head>
-
-<body>
-	{% block content %}
-	{% endblock %}
-</body>
+	<body>
+		<section class="padding with-content">
+			<header>
+				<nav>
+					<section class="nav-links">
+						<ul>
+							<li><a href="{% url 'homepage' %}">Home</a></li>
+							<li><a href="{% url 'merchstore:merchstore_list' %}">Merch</a></li>
+							<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
+							<li><a href="{% url 'forum:index' %}">Forum</a></li>
+							<li><a href="{% url 'wiki:article-list' %}">Wiki</a></li>
+							<li><a href="{% url 'blog:index' %}">Blog</a></li>
+						</ul>
+					</section>
+					<section class="login-section">
+						{% if user.is_authenticated %}
+						<p>{{ user.username }}</p>
+						<a href="">
+							<div class="login-link">
+								<div class="icon">
+									<img src="static/Male User.png" alt="">
+								</div>
+								<p>Logout</p>
+							</div>
+						</a>
+						{% else %}
+						<a href="">
+							<div class="login-link">
+								<div class="icon">
+									<img src="static/Male User.png" alt="">
+								</div>
+								<p>Login</p>
+							</div>
+						</a>
+						{% endif %}
+					</section>
+				</nav>
+			</header>
+			{% block content %}
+			{% endblock %}
+		</section>
+		<footer>
+			<ul>
+				<li><a href="{% url 'homepage' %}">Home</a></li>
+				<li><a href="{% url 'merchstore:merchstore_list' %}">Merch</a></li>
+				<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
+				<li><a href="{% url 'forum:index' %}">Forum</a></li>
+				<li><a href="{% url 'wiki:article-list' %}">Wiki</a></li>
+				<li><a href="{% url 'blog:index' %}">Blog</a></li>
+			</ul>
+		</footer>
+	</body>
 
 </html>

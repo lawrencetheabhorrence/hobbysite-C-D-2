@@ -1,14 +1,13 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import Commission, Comment
+from django.views.generic.list import ListView
+from .models import Commission
 
 
-def commission_list(request):
-    commissions = get_list_or_404(Commission)
+class CommissionListView(ListView):
+    model = Commission
+    template_name = "commissions/commissions_list.html"
+    context_object_name = "commissions"
 
-    return render(
-        request, 
-        "commissions/commissions_list.html", 
-        {"commissions": commissions})
 
 def commission_detail(request, commission_id):
     commission = get_object_or_404(Commission, id=commission_id)
@@ -18,6 +17,3 @@ def commission_detail(request, commission_id):
         "commissions/commissions_detail.html",
         {"commission": commission, "comments": comments},
     )
-
-
-# Create your views here.

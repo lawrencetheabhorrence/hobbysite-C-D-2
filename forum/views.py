@@ -1,12 +1,20 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404
-from .models import Post
+from django.views.generic import ListView, DetailView
+from .models import ThreadCategory, Thread
 
 
-def index_view(request):
-    return render(request, "forum/index.html", {"post_list": get_list_or_404(Post)})
+class ThreadListView(ListView):
+    model = Thread
+    template_name = "forum/index.html"
+    context_object_name = "thread"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = ThreadCategory.objects.all()
+
+        return context
 
 
-def detail_view(request, pk):
-    return render(
-        request, "forum/post_detail.html", {"post": get_object_or_404(Post, pk=pk)}
-    )
+class ThreadDetailView(DetailView):
+    model = Thread
+    template_name = "forum/detail.html"
+    context_object_name = "thread"

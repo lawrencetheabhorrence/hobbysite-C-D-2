@@ -17,7 +17,6 @@ class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ["created_on", "updated_on"]
 
 
-@admin.register(ThreadCategory)
 class ThreadCategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "description"]
     search_fields = ["name", "description"]
@@ -25,3 +24,4 @@ class ThreadCategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Thread, ThreadAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(ThreadCategory, ThreadCategoryAdmin)

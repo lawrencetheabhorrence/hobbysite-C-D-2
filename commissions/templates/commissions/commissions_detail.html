@@ -1,17 +1,14 @@
-{% extends 'commissions/base.html' %}
+{% extends 'base.html' %}
     {% block title %}Commission Detail{% endblock %}
     {% block content %}
-    <main>
-        <h1>{{ commission.title }}</h1>
-        <p>{{ commission.description }}</p>
-        <p class="status">{{ commission.status }}</p>
+    <main class="card">
+        <h1>Jobs for {{ commission.title }}</h1>
         {% if user.is_authenticated and commission.creator == user.profile %}
         <a href="">
-            <p>Edit Commission</p>
+            <p class="button">Edit Commission</p>
         </a>
-        {% endif %}
         <section>
-            <h2>Jobs for {{ commission.name }}</h2>
+            {% endif %}
             <ul>
                 {% for job in commission.jobs.all %}
                 <li>

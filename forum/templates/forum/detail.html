@@ -1,0 +1,66 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'forum/style.css' %}" />
+{% endblock %}
+{% block content %}
+<main>
+	<a href="{% url 'forum:thread_list' %}" class="back-link">← Back to all threads</a>
+	
+	<h1>POST TITLE:</h1>
+	<section class="post-content">
+
+		<section class="post-heading">
+			<h2>{{ thread.title }}</h2>
+			<section class="post-metadata">
+				<p class="category-chip">{{ thread.category }}</p>
+				<p>Created On: {{ thread.created_on | date }}</p>
+				<p>Updated On: {{ thread.updated_on | date }}</p>
+				{% if is_owner %}
+					<a href="{% url 'forum:thread_update' thread.id %}" class="edit-link">Edit</a>
+				{% endif %}
+			</section>
+		</section>
+		
+		<section class="post-entry">
+			<p><strong>Entry:</strong></p>
+			<p>{{ thread.entry }}</p>
+		</section>
+	</section>
+	
+	<section class="related-threads">
+		<h3>Related Threads</h3>
+		<ul>
+			{% for thread in related_threads %}
+				<li>
+					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+				</li>
+			{% empty %}
+				<li>No related threads found.</li>
+			{% endfor %}
+		</ul>
+	</section>
+	
+	<section class="comments-section">
+		<h3>Comments</h3>
+		{% for comment in comments %}
+			<div class="comment">
+				<p>{{ comment.author.user.username }} - {{ comment.created_on|date }}</p>
+				<p>{{ comment.entry }}</p>
+			</div>
+		{% empty %}
+			<p>No comments yet.</p>
+		{% endfor %}
+		
+		{% if user.is_authenticated %}
+			<form method="post" class="comment-form">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" class="btn">Post Comment</button>
+			</form>
+		{% else %}
+			<p class="login-prompt"><a href="{% url 'login' %}">Log in</a> to post a comment.</p>
+		{% endif %}
+	</section>
+</main>
+{% endblock %}

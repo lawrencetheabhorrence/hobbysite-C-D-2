@@ -1,18 +1,27 @@
 from django.contrib import admin
-
-from .models import PostCategory, Post
-
-
-class PostCategoryAdmin(admin.ModelAdmin):
-    name = ["name", "description"]
-    list_display = ["name"]
+from .models import ThreadCategory, Thread, Comment
 
 
-class PostAdmin(admin.ModelAdmin):
-    fields = ["title", "category", "entry"]
-    list_display = ["title", "category"]
-    list_filter = ["category"]
+class ThreadAdmin(admin.ModelAdmin):
+    fields = ["title", "author", "category", "entry"]
+    list_display = ["title", "author", "category", "created_on"]
+    list_filter = ["category", "created_on"]
+    search_fields = ["title", "entry"]
+    readonly_fields = ["created_on", "updated_on"]
 
 
-admin.site.register(Post, PostAdmin)
-admin.site.register(PostCategory, PostCategoryAdmin)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["thread", "author", "created_on"]
+    list_filter = ["created_on"]
+    search_fields = ["entry"]
+    readonly_fields = ["created_on", "updated_on"]
+
+
+@admin.register(ThreadCategory)
+class ThreadCategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "description"]
+    search_fields = ["name", "description"]
+
+
+admin.site.register(Thread, ThreadAdmin)
+admin.site.register(Comment, CommentAdmin)

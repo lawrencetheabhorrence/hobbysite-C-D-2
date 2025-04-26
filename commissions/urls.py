@@ -4,7 +4,7 @@ from . import views
 app_name = "commissions"
 
 urlpatterns = [
-    path("list/", views.commission_list, name="commission_list"),
+    path("list/", views.CommissionListView.as_view(), name="commission_list"),
     path(
         "detail/<int:commission_id>/", views.commission_detail, name="commission_detail"
     ),

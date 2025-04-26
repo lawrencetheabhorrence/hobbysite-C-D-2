@@ -53,7 +53,6 @@
                         <p>{{ comment.entry|linebreaksbr }}</p>
                     </div>
                 </div>
-                {% if not forloop.last %}<hr>{% endif %}
             {% empty %}
                 <p>No comments yet.</p>
             {% endfor %}

@@ -16,8 +16,8 @@
     <section class="all-articles">
         <h1>All Articles</h1>
         <ul>
-            {% for blog in blogs %}
-                <li>{{ blog }}</li>
+            {% for article in blogs %}
+                <li><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></li>
             {% endfor %}
         </ul>
     </section>

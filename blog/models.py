@@ -19,7 +19,7 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
 
     title = models.CharField(max_length=255)
-    author = models.OneToOneField(Profile, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name="articles")
     category = models.ForeignKey(ArticleCategory, null=True, on_delete=models.SET_NULL)
     entry = models.TextField()
     header_image = models.ImageField(null=True, upload_to='uploads/blog/%Y/%m/%d/')

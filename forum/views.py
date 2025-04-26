@@ -29,7 +29,7 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     model = Thread
     template_name = "forum/thread_create.html"
     context_object_name = "thread"
-    form_class = ThreadForm
+    fields = ['title', 'category', 'entry']
 
     def form_valid(self, form):
         form.instance.author = Profile.objects.get(user=self.request.user)  
@@ -48,7 +48,7 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     model = Thread
     template_name = "forum/thread_update.html"
     context_object_name = "thread"
-    form_class = ThreadForm
+    fields = ['title', 'category', 'entry']
 
     def form_valid(self, form):
         form.instance.updated_on = timezone.now()

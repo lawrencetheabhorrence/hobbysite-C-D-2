@@ -1,0 +1,29 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'forum/style.css' %}" />
+{% endblock %}
+{% block content %}
+<main>
+    <h1>Edit Thread</h1>
+    <section class="post-form">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                {{ form.category }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.entry.id_for_label }}">Content:</label>
+                {{ form.entry }}
+            </div>
+            <button type="submit" class="submit-button">Update Thread</button>
+            <a href="{% url 'forum:thread_detail' form.instance.pk %}" class="cancel-button">Cancel</a>
+        </form>
+    </section>
+</main>
+{% endblock %}

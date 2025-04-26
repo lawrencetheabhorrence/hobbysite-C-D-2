@@ -22,7 +22,7 @@ class Article(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name="articles")
     category = models.ForeignKey(ArticleCategory, null=True, on_delete=models.SET_NULL)
     entry = models.TextField()
-    header_image = models.ImageField(null=True, upload_to='uploads/blog/%Y/%m/%d/')
+    header_image = models.ImageField(null=True, upload_to="uploads/blog/%Y/%m/%d/")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

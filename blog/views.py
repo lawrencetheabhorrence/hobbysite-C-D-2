@@ -5,4 +5,4 @@ from .models import Article
 class ArticleListView(ListView):
     model = Article
     template_name = "blog/blog_list.html"
-    context_object_name = "blog"
+    context_object_name = "blogs"

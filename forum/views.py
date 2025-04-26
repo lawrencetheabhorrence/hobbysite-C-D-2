@@ -31,15 +31,6 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     context_object_name = "thread"
     fields = ['title', 'category', 'entry']
 
-    def form_valid(self, form):
-        form.instance.author = Profile.objects.get(user=self.request.user)  
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = ThreadCategory.objects.all()  
-        return context
-
     def get_success_url(self):
         return reverse('thread_detail', kwargs={'pk': self.object.pk})  
 
@@ -49,15 +40,6 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "forum/thread_update.html"
     context_object_name = "thread"
     fields = ['title', 'category', 'entry']
-
-    def form_valid(self, form):
-        form.instance.updated_on = timezone.now()
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = ThreadCategory.objects.all()  
-        return context
 
     def get_success_url(self):
         return reverse('thread_detail', kwargs={'pk': self.object.pk})

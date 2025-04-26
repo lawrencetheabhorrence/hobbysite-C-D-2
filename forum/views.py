@@ -14,10 +14,10 @@ class ThreadListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = ThreadCategory.objects.all()
-        
+        context["categories"] = ThreadCategory.objects.all()
+
         return context
-    
+
 
 class ThreadDetailView(DetailView):
     model = Thread
@@ -29,21 +29,17 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     model = Thread
     template_name = "forum/thread_create.html"
     context_object_name = "thread"
-    fields = ['title', 'category', 'entry']
+    fields = ["title", "category", "entry"]
 
     def get_success_url(self):
-        return reverse('thread_detail', kwargs={'pk': self.object.pk})  
+        return reverse("thread_detail", kwargs={"pk": self.object.pk})
 
 
 class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     model = Thread
     template_name = "forum/thread_update.html"
     context_object_name = "thread"
-    fields = ['title', 'category', 'entry']
+    fields = ["title", "category", "entry"]
 
     def get_success_url(self):
-        return reverse('thread_detail', kwargs={'pk': self.object.pk})
-
-
-
-   
+        return reverse("thread_detail", kwargs={"pk": self.object.pk})

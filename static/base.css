@@ -11,6 +11,7 @@
 
 * {
 	box-sizing: border-box;
+	font-family: "Inclusive Sans", sans-serif;
 	--salmon: #e4b2b2;
 	--salmon-light: #fbecec;
 	--black: #313436;
@@ -47,6 +48,8 @@ section.padding.with-content {
 header {
 	background: #fffdf4;
 	width: 100%;
+	height: 100%;
+	margin: 0;
 	border-radius: 20px;
 	border: 3px dashed #e4b2b2;
 	box-shadow: 0 5px 1px rgba(169,114,114,0.25);
@@ -110,8 +113,9 @@ header > nav * {
 	font-family: "Fredoka One", sans-serif;
 }
 
-footer *, h1, h2 {
+footer *, h1, h2, h3, h4, h5, h6 {
 	font-family: "Fredoka", sans-serif;
+	color: var(--dark-teal);
 }
 
 footer {
@@ -134,7 +138,7 @@ footer a {
 	color: #ba569e;
 }
 
-ul {
+nav ul, footer ul {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -181,13 +185,15 @@ input.with-icon {
 	color: #405d66;
 }
 
-button {
+button, .button {
 	padding: 10px 40px;
 	border-radius: 10px;
 	border: none;
 	background-color: #4a556d;
 	color: white;
-	font-family: "Fredoka One", sans-serif;
+	font-family: "Fredoka", sans-serif;
+	font-weight: 600;
+	text-align: center;
 }
 
 .paper {
@@ -195,4 +201,19 @@ button {
 	background: #fffdf4;
 	border: 1px solid var(--card-stroke);
 	box-shadow: 0 0 9px 5px rgba(61,45,62,0.03);
+}
+
+p.status-chip {
+	color: white;
+	background-color: var(--dark-teal);
+	font-weight: 600;
+	border-radius: 30px;
+	max-width: 80px;
+	padding: 5px 15px;
+	font-size: 0.8em;
+	text-align: center;
+}
+
+.full {
+	width: 100%;
 }

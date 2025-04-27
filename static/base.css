@@ -155,7 +155,7 @@ nav ul, footer ul {
 	border-radius: 20px;
 }
 
-input[type="text"], select {
+input[type="text"], select, textarea {
 	border-radius: 5px;
 	background-color: white;
 	padding: 5px 10px;
@@ -215,5 +215,17 @@ p.status-chip {
 }
 
 .full {
+	width: 100%;
+}
+
+form label {
+	font-family: "Fredoka", sans-serif;
+	display: block;
+	margin: 3px 0;
+	color: var(--dark-teal);
+	font-weight: 400;
+}
+
+form textarea {
 	width: 100%;
 }

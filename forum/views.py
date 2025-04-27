@@ -1,7 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import ThreadCategory, Thread
 from django.urls import reverse
-from .forms import ThreadForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from user_management.models import Profile

@@ -5,62 +5,58 @@
 {% endblock %}
 {% block content %}
 <main>
-	<a href="{% url 'forum:thread_list' %}" class="back-link">← Back to all threads</a>
+	<a href="{% url 'forum:thread_list' %}" class="back-link">Forums</a>
 	
-	<h1>POST TITLE:</h1>
-	<section class="post-content">
-
-		<section class="post-heading">
-			<h2>{{ thread.title }}</h2>
-			<section class="post-metadata">
-				<p class="category-chip">{{ thread.category }}</p>
-				<p>Created On: {{ thread.created_on | date }}</p>
-				<p>Updated On: {{ thread.updated_on | date }}</p>
-				{% if is_owner %}
-					<a href="{% url 'forum:thread_update' thread.id %}" class="edit-link">Edit</a>
-				{% endif %}
-			</section>
-		</section>
-		
-		<section class="post-entry">
-			<p><strong>Entry:</strong></p>
-			<p>{{ thread.entry }}</p>
-		</section>
-	</section>
+	<div class="thread-content">
+        <div class="thread-header">
+            <h1>{{ thread.title }}</h1>
+            <div class="thread-meta">
+                <span>{{ thread.category }}</span>
+                <span>Created On: {{ thread.created_on|date:"m/d/Y" }}</span>
+                <span>Updated On: {{ thread.updated_on|date:"m/d/Y" }}</span>
+            </div>
+        </div>
+        
+        <div class="thread-entry">
+            <p>{{ thread.entry|linebreaksbr }}</p>
+        </div>
+    </div>
 	
-	<section class="related-threads">
-		<h3>Related Threads</h3>
-		<ul>
-			{% for thread in related_threads %}
-				<li>
-					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-				</li>
-			{% empty %}
-				<li>No related threads found.</li>
-			{% endfor %}
-		</ul>
-	</section>
+	<div class="related-threads">
+        <h2>Related Threads</h2>
+        <div class="related-links">
+            {% for thread in related_threads %}
+                <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+                {% if not forloop.last %}, {% endif %}
+            {% empty %}
+                <p>No related threads found.</p>
+            {% endfor %}
+        </div>
+    </div>
 	
-	<section class="comments-section">
-		<h3>Comments</h3>
-		{% for comment in comments %}
-			<div class="comment">
-				<p>{{ comment.author.user.username }} - {{ comment.created_on|date }}</p>
-				<p>{{ comment.entry }}</p>
-			</div>
-		{% empty %}
-			<p>No comments yet.</p>
-		{% endfor %}
-		
-		{% if user.is_authenticated %}
-			<form method="post" class="comment-form">
-				{% csrf_token %}
-				{{ form.as_p }}
-				<button type="submit" class="btn">Post Comment</button>
-			</form>
-		{% else %}
-			<p class="login-prompt"><a href="{% url 'login' %}">Log in</a> to post a comment.</p>
-		{% endif %}
-	</section>
-</main>
+	<div class="comments-section">
+        <h2>Write a Comment...</h2>
+        
+        <form method="post" class="comment-form">
+            {% csrf_token %}
+            {{ form.entry }}
+            <button type="submit">Post</button>
+        </form>
+        
+        <div class="comments-list">
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-header">
+                        {{ comment.author.user.username }} - {{ comment.created_on|date:"m/d/Y" }}
+                    </div>
+                    <div class="comment-body">
+                        <p>{{ comment.entry|linebreaksbr }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

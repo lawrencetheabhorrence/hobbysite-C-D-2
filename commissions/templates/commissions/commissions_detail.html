@@ -1,21 +1,35 @@
-{% extends 'commissions/base.html' %}
-{% block title %}Commission Detail{% endblock %}
-{% block content %}
-    <h1>{{ commission.title }}</h1>
-    <article class="commission-metadata">
-        <section class="description">
-            <h2><b>Description</b></h2>
-            <p>{{ commission.description }}</p>
-            <p><b>People Required:</b> {{ commission.people_required }}</p>
-            <p><b>Created On:</b> {{ commission.created_on }}</p>
+{% extends 'base.html' %}
+{% load static %}
+    {% block headcontent %}
+    <link rel="stylesheet" href="{% static 'commissions/base.css' %}">
+    <link rel="stylesheet" href="{% static 'commissions/commissions_detail.css' %}">
+    {% endblock %}
+    {% block title %}Commission Detail{% endblock %}
+    {% block content %}
+    <main class="card">
+        <section>
+            <h1>Jobs for {{ commission.title }}</h1>
+            {% if user.is_authenticated and commission.creator == user.profile %}
+            <a href="">
+                <p class="button">Edit Commission</p>
+            </a>
+            {% endif %}
         </section>
-        <hr>
-        <h2>Comments</h2>
-        <ul>
-            {% for comment in comments %}
-                <li>{{ comment.entry }} ({{ comment.created_on }})</li>
-            {% endfor %}
-        </ul>
-    </article>
-    <a href="/commissions/list/">Back to List</a>
-{% endblock %}
+        <section>
+            <ul>
+                {% for job in commission.jobs.all %}
+                <li class="list-item">
+                    <h2>{{ job.role }}</h2>
+                    <p class="status-chip">{{ job.status }}</p>
+                    <section class="job-footer">
+                        <p class="manpower">Manpower required: {{ job.manpower_required }}</p>
+                        {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
+                        <button type="submit">Apply to Job</button>
+                        {% endif %}
+                    </section>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    {% endblock %}

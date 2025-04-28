@@ -6,21 +6,42 @@
 {% block content %}
 <main>
 	<h1>FORUM</h1>
+	
+	{% if user.is_authenticated %}
+		<a href="{% url 'forum:thread_create' %}" class="btn">Create New Thread</a>
+		
+		<section class="user-threads">
+			<h2>Your Threads</h2>
+			<ul>
+				{% for thread in user_threads %}
+				<li>
+					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+				</li>
+				{% empty %}
+				<li>No threads created by you.</li>
+				{% endfor %}
+			</ul>
+		</section>
+	{% endif %}
+
 	<section class="post-list">
-		<ul>
-			{% for post in post_list %}
-			<li>
-				<article class="post-heading">
-					<a href="{% url 'forum:thread_detail' post.id %}"><h2>{{ post.title }}</h2></a>
-					<p class="category-chip">{{ post.category }}</p>
-					<p class="sample-text">{{ post.entry }}</p>
-					<section class="date">
-							<p>Created {{ post.created_on | date }}. Last updated {{ post.updated_on | date }}</p>
-					</section>
-				</article>
-			</li>
-			{% endfor %}
-		</ul>
+		<h2>All Threads</h2>
+		{% for category in categories %}
+			<h3>{{ category.name }}</h3>
+			<ul>
+				{% for thread in threads %}
+					{% if thread.category == category %}
+						{% if not user.is_authenticated or thread.author != user.profile %}
+						<li>
+							<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+						</li>
+						{% endif %}
+					{% endif %}
+				{% empty %}
+				<li>No threads in this category.</li>
+				{% endfor %}
+			</ul>
+		{% endfor %}
 	</section>
 </main>
 {% endblock %}

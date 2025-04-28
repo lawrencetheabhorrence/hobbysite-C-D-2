@@ -29,6 +29,21 @@ class Commission(models.Model):
     def __str__(self):
         return self.title
 
+    def fill_job(self):
+        """
+        This method is called everytime a job is filled. It then checks if all jobs are filled and updates the status of the commission.
+        """
+
+        if self.status in [
+            self.CommissionStatusOptions.COMPLETED,
+            self.CommissionStatusOptions.DISCONTINUED,
+        ]:
+            return
+
+        if not (self.jobs.filter(status=Job.JobStatusOptions.OPEN).exists()):
+            self.status = self.CommissionStatusOptions.FULL
+            self.save()
+
 
 class Job(models.Model):
     class JobStatusOptions(models.TextChoices):
@@ -46,6 +61,18 @@ class Job(models.Model):
 
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
+
+    def accept_applicant(self):
+        if self.status == self.JobStatusOptions.OPEN and self.manpower_required > 0:
+            self.manpower_required -= 1
+            self.save()
+            if self.manpower_required == 0:
+                self.set_full()
+
+    def set_full(self):
+        self.status = self.JobStatusOptions.FULL
+        self.save()
+        self.commission.fill_job()
 
 
 class JobApplication(models.Model):
@@ -67,3 +94,12 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["status", "-applied_on"]
+
+    def accept_application(self):
+        self.status = self.ApplicationStatusOptions.ACCEPTED
+        self.save()
+        self.job.accept_applicant()
+
+    def reject_application(self):
+        self.status = self.ApplicationStatusOptions.REJECTED
+        self.save()

@@ -1,0 +1,18 @@
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+li.list-item {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: baseline;
+	justify-content: space-between;
+}
+
+p {
+	color: var(--dark-teal);
+	font-family: "Fredoka", sans-serif;
+	font-size: 1.2em;
+	font-weight: 500;
+}

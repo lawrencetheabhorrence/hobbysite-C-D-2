@@ -12,8 +12,8 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    # author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, related_name = "articles")
     entry = models.TextField()
     header_image = models.ImageField(upload_to="wiki_headers/")
     created_on = models.DateTimeField(auto_now_add=True)
@@ -26,7 +26,7 @@ class Article(models.Model):
         return f"{self.title} by {self.author}"
     
 class Comment(models.Model):
-    # author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

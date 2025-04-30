@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from .models import Article, Category
 
@@ -14,3 +16,9 @@ class ArticleListView(ListView):
         context = super().get_context(**kwargs)
         context["categories"] = Category.objects.all()
         return context
+
+
+class ArticleCreateView(LoginRequiredMixin, CreateView):
+    model = Article
+    fields = [ 'title', 'author', 'category', 'entry', 'header_image' ]
+    template_name_suffix = '_create'

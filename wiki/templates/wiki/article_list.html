@@ -14,7 +14,7 @@
     <h2>Your Articles</h2>
     <ul>
         {% for article in articles %}
-            {% if article.author == user %}
+            {% if article.author == user.profile %}
                 <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
             {% endif %}
         {% endfor %}

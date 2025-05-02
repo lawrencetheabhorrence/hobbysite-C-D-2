@@ -8,7 +8,8 @@
             <h1>Your Articles</h1>
             <ul>
                 {% for blog in user.profile.articles.all %}
-                    <li>{{ blog }}</li>
+                    {% if article.author == request.user.profile %}{% endif %}
+                    <li><a href="{% url "blog:article_detail" article.id %}">{{blog}}</a></li>
                 {% endfor %}
             </ul>
         </section>
@@ -17,7 +18,9 @@
         <h1>All Articles</h1>
         <ul>
             {% for article in blogs %}
+                {% if article.author != request.user.profile %}
                 <li><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></li>
+                {% endif %}
             {% endfor %}
         </ul>
     </section>

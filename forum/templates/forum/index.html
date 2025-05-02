@@ -17,11 +17,11 @@
 				<li>No threads created by you.</li>
 				{% endfor %}
 			</ul>
-			<a href="{% url 'forum:thread_create' %}" class="btn">Create New Thread</a>
+			<a href="{% url 'forum:thread_create' %}" class="button">+ Create New Thread</a>
 		</section>
 	{% endif %}
 
-	<section class="card post-list">
+	<section class="card all-items">
 		<h1>All Threads</h1>
 		{% for category in categories %}
 			<h2>{{ category.name }}</h2>

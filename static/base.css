@@ -234,6 +234,7 @@ main.two-col {
 	display: flex;
 	flex-flow: row wrap;
 	height: 100%;
+	width: 100%;
 	gap: 20px;
 }
 
@@ -246,5 +247,4 @@ ul.fullw-list {
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: stretch;
-	padding: 0;
 }

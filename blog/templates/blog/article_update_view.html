@@ -1,0 +1,9 @@
+{% extends blog/base.html %}
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        {{ article_form.as_p }}
+    </form>
+</main>
+{% endblock content %}

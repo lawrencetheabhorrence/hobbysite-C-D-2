@@ -93,6 +93,10 @@ def productCreate(request):
     return render(request, "merchstore/product_create.html", {})
 
 
+def productUpdate(request, pk=-1):
+    return render(request, "merchstore/product_update.html", {})
+
+
 """
 def productUpdate(request, itemID):
 

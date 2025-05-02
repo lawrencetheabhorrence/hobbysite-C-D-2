@@ -24,7 +24,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
     model = Transaction
 
-    list_display = ["product", "amount", "status", "buyer"]
+    list_display = ["product", "amount", "status", "buyer", "created_on"]
     list_filter = ["product", "buyer"]
     search_fields = ["product", "buyer"]
 

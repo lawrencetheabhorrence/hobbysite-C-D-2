@@ -11,7 +11,21 @@
 				<p>{{product.description}}</p>
 			</article>
 			<hr>
-			<h2><b>Price:</b> {{product.price}}</p>
+			<h2>Amount Left: {{product.stock}}</h2>
+			<h2><b>Price:</b> {{product.price}} </h2>
+			{% if product.stock != 0 %}
+				<form method="post">
+					{% csrf_token %}
+					{% for error in form.amount.errors %}
+						<p>{{ error }}</p>
+					{% endfor %}
+					<p>{{form.amount.label_tag}}</p>
+					<p>{{form.amount}}</p>
+					<button type="submit" name="form_type" value="transaction">Buy</button>
+				</form>
+			{% else %}
+				<p>"This Item is Unavailable, sorry"</p>
+			{% endif %}
 		</section>
 	</main>
 {% endblock %}

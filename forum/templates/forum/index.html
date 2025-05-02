@@ -4,11 +4,11 @@
 	<link rel="stylesheet" href="{% static 'forum/style.css' %}">
 {% endblock %}
 {% block content %}
-<main>
+<main class="two-col">
 	{% if user.is_authenticated %}
 		<section class="card user-threads">
-			<h2>Your Threads</h2>
-			<ul>
+			<h1>Your Threads</h1>
+			<ul class="fullw-list">
 				{% for thread in user_threads %}
 				<li>
 					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
@@ -22,10 +22,10 @@
 	{% endif %}
 
 	<section class="card post-list">
-		<h2>All Threads</h2>
+		<h1>All Threads</h1>
 		{% for category in categories %}
-			<h3>{{ category.name }}</h3>
-			<ul>
+			<h2>{{ category.name }}</h2>
+			<ul class="fullw-list">
 				{% for thread in threads %}
 					{% if thread.category == category %}
 						{% if not user.is_authenticated or thread.author != user.profile %}

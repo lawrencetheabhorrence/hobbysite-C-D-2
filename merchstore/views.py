@@ -2,13 +2,13 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from .models import ProductType, Product, Transaction, Profile
-from .forms import TransactionForm
-
+from .forms import TransactionForm, ProductCreator
 
 class ProductListView(ListView):
     model = Product
@@ -51,32 +51,26 @@ class TransactionOnProduct(SingleObjectMixin, FormView):
         context = super().get_context_data(**kwargs)
         context["product"] = get_object_or_404(Product, pk=context["pk"])
         return context
-
+    
     def post(self, request, *args, **kwargs):
         self.object = Transaction
         context = self.get_context_data(**kwargs)
-        if not request.user.is_authenticated:
-            return redirect_to_login(
-                reverse_lazy("merchstore:product_detail", kwargs={"pk": context["pk"]}),
-                reverse_lazy("admin:login"),
-            )
+        if not request.user.is_authenticated:            
+            return redirect_to_login(reverse_lazy("merchstore:product_detail", kwargs={'pk': context["pk"]}), reverse_lazy("admin:login"))
         else:
             form = TransactionForm(request.POST, item=context["product"])
             form.instance.buyer = request.user.profile
             form.instance.product = context["product"]
             form.instance.status = "On Cart"
-            amount_requested = int(request.POST.get("amount"))
+            amount_requested = int(request.POST.get('amount'))
             affected_product = context["product"]
             if form.is_valid():
                 form.save()
                 affected_product.reduce_stock(amount_requested)
             else:
-                return render(
-                    request, "merchstore/product_detail.html", context | {"form": form}
-                )
-
+                return render(request, "merchstore/product_detail.html", context | {"form": form})
+                
         return super().post(request, *args, **kwargs)
-
 
 class ProductDetailView(View):
 
@@ -87,15 +81,27 @@ class ProductDetailView(View):
     def post(self, request, *args, **kwargs):
         view = TransactionOnProduct.as_view()
         return view(request, *args, **kwargs)
+    
 
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    form_class = ProductCreator
+    success_url = reverse_lazy("merchstore:product_list")
+    context_object_name = "product"
+    template_name = "merchstore/product_create.html"
+    login_url = reverse_lazy("admin:login")
 
-def productCreate(request):
-    return render(request, "merchstore/product_create.html", {})
-
+    def final_initial(self, live):
+        self.initial = super().get_initial()
+        self.initial['owner'] = live.user.profile
+    
+    def get(self, request, *args, **kwargs):
+        self.final_initial(request)
+        print(self.initial['owner'])
+        return super().get(request, *args, **kwargs)
 
 def productUpdate(request, pk=-1):
     return render(request, "merchstore/product_update.html", {})
-
 
 """
 def productUpdate(request, itemID):

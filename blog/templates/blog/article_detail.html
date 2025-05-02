@@ -24,7 +24,10 @@
 
 	{% if user.is_authenticated %}
 	<section class="comment-form">
-		// TODO COMMENT FORM
+		<form method="post">
+			{% csrf_token %}
+			{{ comment_form.as_p }}
+		</form>
 	</section>
 	<section class="comments">
 		<h2>Comments</h2>

@@ -11,6 +11,7 @@ class ArticleListView(ListView):
     template_name = "blog/article_list.html"
     context_object_name = "blogs"
 
+
 class ArticleDetailView(DetailView):
     model = Article
     template_name = "blog/article_detail.html"
@@ -18,9 +19,10 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comment_form'] = CommentForm()
+        context["comment_form"] = CommentForm()
         return context
-    
+
+
 class ArticleCreateView(CreateView):
     model = Article
     template_name = "blog/article_create_view.html"
@@ -29,7 +31,8 @@ class ArticleCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["article_form"] = ArticleForm()
         return context
-    
+
+
 class ArticleUpdateView(UpdateView):
     model = Article
     template_name = "blog/article_update_view.html"

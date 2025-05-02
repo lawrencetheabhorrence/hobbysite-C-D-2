@@ -21,7 +21,7 @@ class ArticleDetailView(DetailView):
         context['comment_form'] = CommentForm()
         return context
     
-class ArticleCreateView():
+class ArticleCreateView(CreateView):
     model = Article
     template_name = "blog/article_create_view.html"
 

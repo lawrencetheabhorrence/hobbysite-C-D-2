@@ -7,16 +7,18 @@
 <main class="two-col">
 	{% if user.is_authenticated %}
 		<section class="card user-threads">
-			<h1>Your Threads</h1>
-			<ul class="fullw-list">
-				{% for thread in user_threads %}
-				<li>
-					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-				</li>
-				{% empty %}
-				<li>No threads created by you.</li>
-				{% endfor %}
-			</ul>
+			<section class="top">
+				<h1>Your Threads</h1>
+				<ul class="fullw-list">
+					{% for thread in user_threads %}
+					<li>
+						<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+					</li>
+					{% empty %}
+					<li>No threads created by you.</li>
+					{% endfor %}
+				</ul>
+			</section>
 			<a href="{% url 'forum:thread_create' %}" class="button">+ Create New Thread</a>
 		</section>
 	{% endif %}

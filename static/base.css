@@ -248,3 +248,10 @@ ul.fullw-list {
 	flex-flow: column nowrap;
 	align-items: stretch;
 }
+
+.white-bg-detail {
+	width: 100%;
+	background-color: #fffd4;
+	border: 1px solid var(--card-stroke);
+	box-shadow: 0 0 10px 5px rgba(61,45,62,0.03);
+}

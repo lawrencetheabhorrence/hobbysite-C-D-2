@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from .models import Article
-from .forms import CommentForm
+from .forms import CommentForm, ArticleForm
 
 
 class ArticleListView(ListView):
@@ -19,3 +20,13 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
         return context
+    
+class ArticleCreateView():
+    model = Article
+    template_name = "blog/article_create_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["article_form"] = ArticleForm()
+        return context
+    

@@ -81,7 +81,6 @@ class TransactionOnProduct(SingleObjectMixin, FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form, request, context):
-        print("The fuck?")
         return render(
             request, "merchstore/product_detail.html", context | {"form": form}
         )

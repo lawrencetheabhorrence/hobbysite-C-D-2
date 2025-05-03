@@ -62,20 +62,28 @@ class TransactionOnProduct(SingleObjectMixin, FormView):
             )
         else:
             form = TransactionForm(request.POST, item=context["product"])
-            form.instance.buyer = request.user.profile
-            form.instance.product = context["product"]
-            form.instance.status = "On Cart"
-            amount_requested = int(request.POST.get("amount"))
-            affected_product = context["product"]
             if form.is_valid():
-                form.save()
-                affected_product.reduce_stock(amount_requested)
+                form.instance.buyer = request.user.profile
+                form.instance.product = context["product"]
+                form.instance.status = "On Cart"
+                self.object = form.save()
+                return self.form_valid(form)
             else:
-                return render(
-                    request, "merchstore/product_detail.html", context | {"form": form}
-                )
+                return self.form_invalid(form, request, context)
 
         return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        amount_requested = self.object.amount
+        affected_product = self.object.product
+        affected_product.reduce_stock(amount_requested)
+        return super().form_valid(form)
+
+    def form_invalid(self, form, request, context):
+        print("The fuck?")
+        return render(
+            request, "merchstore/product_detail.html", context | {"form": form}
+        )
 
 
 class ProductDetailView(View):

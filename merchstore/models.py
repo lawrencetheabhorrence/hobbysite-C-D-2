@@ -22,7 +22,7 @@ class Product(models.Model):
     class ProductStatusChoices(models.TextChoices):
         AVAILABLE = "Available"
         ON_SALE = "On Sale"
-        OUT_OF_STOCK = "Out of Stock"
+        OUT_OF_STOCK = "Out Of Stock"
 
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
@@ -55,10 +55,17 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("merchstore_item", kwargs={"itemID": self.id})
 
+    def status_augment(self):
+        if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
+            self.status = self.ProductStatusChoices.AVAILABLE
+        elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
+            self.status = self.ProductStatusChoices.OUT_OF_STOCK
+        self.save()
+
     def reduce_stock(self, value):
         self.stock = self.stock - value
         if self.stock == 0:
-            self.status = "Out of Stock"
+            self.status = self.ProductStatusChoices.OUT_OF_STOCK
         self.save()
 
 

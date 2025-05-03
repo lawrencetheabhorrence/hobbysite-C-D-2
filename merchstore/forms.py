@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
 
-# from django.core.exceptions import ValidationError
 from .models import Transaction, Product
 
 
@@ -21,16 +21,24 @@ class TransactionForm(forms.ModelForm):
         model = Transaction
         fields = ["amount"]
 
-    def clean(self):
-        cleaned_data = super().clean()
-        amount = cleaned_data.get("amount")
+    def clean_amount(self):
+        amount = self.cleaned_data["amount"]
 
         if amount != None and self.product != None:
             if self.product.stock < amount:
-                self.add_error("amount", "Buying too much")
+                raise ValidationError("Buying too much")
             if amount <= 0:
-                self.add_error("amount", "You are buying nothing")
-        return cleaned_data
+                raise ValidationError("You are buying nothing")
+
+        return amount
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not None in cleaned_data:
+            return cleaned_data
+        else:
+            raise ValidationError("Something is missing")
 
 
 """

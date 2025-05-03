@@ -33,7 +33,6 @@ class TransactionForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
 
         if not None in cleaned_data:
             return cleaned_data

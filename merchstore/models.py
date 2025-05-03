@@ -24,19 +24,6 @@ class Product(models.Model):
         ON_SALE = "On Sale"
         OUT_OF_STOCK = "Out Of Stock"
 
-    def status_augment(self):
-        if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
-            self.status = self.ProductStatusChoices.AVAILABLE
-        elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
-            self.status = self.ProductStatusChoices.OUT_OF_STOCK
-        self.save()
-
-    def reduce_stock(self, value):
-        self.stock = self.stock - value
-        if self.stock == 0:
-            self.status = self.ProductStatusChoices.OUT_OF_STOCK
-        self.save()
-
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
         ProductType, null=True, on_delete=models.SET_NULL, related_name="products"
@@ -67,6 +54,19 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("merchstore_item", kwargs={"itemID": self.id})
+
+    def status_augment(self):
+        if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
+            self.status = self.ProductStatusChoices.AVAILABLE
+        elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
+            self.status = self.ProductStatusChoices.OUT_OF_STOCK
+        self.save()
+
+    def reduce_stock(self, value):
+        self.stock = self.stock - value
+        if self.stock == 0:
+            self.status = self.ProductStatusChoices.OUT_OF_STOCK
+        self.save()
 
 
 class Transaction(models.Model):

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
+from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect, reverse
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView, SingleObjectMixin
@@ -126,6 +126,15 @@ class ProductCreateView(ProductMakerView, CreateView):
 
 class ProductUpdateView(ProductMakerView, UpdateView):
     template_name = "merchstore/product_update.html"
+    context_object_name = "product"
+
+    def get(self, request, *args, **kwargs):
+        self.object = Product
+        context = super().get_context_data(**kwargs)
+        affected_product = get_object_or_404(Product, pk=context['pk'])
+        if request.user.profile != affected_product.owner:
+            return redirect("merchstore:product_list")
+        return super().post(request, *args, **kwargs)
 
 
 """

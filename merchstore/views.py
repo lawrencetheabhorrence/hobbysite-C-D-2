@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView, SingleObjectMixin
@@ -59,7 +59,7 @@ class TransactionOnProduct(SingleObjectMixin, FormView):
         if not request.user.is_authenticated:
             return redirect_to_login(
                 reverse_lazy("merchstore:product_detail", kwargs={"pk": context["pk"]}),
-                reverse_lazy("admin:login"),
+                reverse("login"),
             )
         else:
             form = TransactionForm(request.POST, item=context["product"])
@@ -81,7 +81,6 @@ class TransactionOnProduct(SingleObjectMixin, FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form, request, context):
-        print("The fuck?")
         return render(
             request, "merchstore/product_detail.html", context | {"form": form}
         )

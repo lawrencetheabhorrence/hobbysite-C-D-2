@@ -5,7 +5,7 @@
 	{% if user.is_authenticated %}
 		<a href="{% url 'merchstore:product_create' %}"><h4>Add your product here</h4></a>
 	{% endif %}
-	{% if user.is_authenticated and user.profile.products.all %}
+	{% if user.is_authenticated and user.profile.products.exists %}
 		<h3>Your ({{ user.profile.name }}) Items</h3>
 		<section class="product-list">
 			<ul>

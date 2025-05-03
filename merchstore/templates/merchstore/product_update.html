@@ -1,7 +1,22 @@
 {% extends 'merchstore/base.html' %}
 {% load merchstore_extra_tags %}
+{% block title %}Product Creation{% endblock %}
 {% block content %}
 <main>
-	<h1>This Page Is Under Construction. Sorry About That</h1>
+	<section class="content">
+	<form method="post">
+		{% csrf_token %}
+		<p>{{form.owner.label_tag}}{{form.owner.value|person}}{{form.owner}}</p>
+		{% for field in form %}
+			{% if field.label != "Owner" %}
+				{% for error in field.errors %}
+					<p>{{error}}</p>
+				{% endfor %}
+				<p>{{field.label_tag}}{{field}}</p>
+			{% endif %}
+		{% endfor%}
+		<button type="submit" name="form_type" value="product">Update</button>
+	</form>
+	</section>
 </main>
 {% endblock %}

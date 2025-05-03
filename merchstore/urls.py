@@ -11,5 +11,5 @@ urlpatterns = [
         "item/<int:pk>/edit", views.ProductUpdateView.as_view(), name="product_update"
     ),
     path("cart/", views.CartListView.as_view(), name="cart_list"),
-    # path("transactions", transactionList, name="transaction_list"),
+    path("transactions/", views.TransactionListView.as_view(), name="transaction_list"),
 ]

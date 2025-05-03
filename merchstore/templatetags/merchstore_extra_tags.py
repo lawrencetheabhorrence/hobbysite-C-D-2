@@ -29,3 +29,9 @@ def everyone_else(user):
 def customer_of(user, otheruser):
     if Transaction.objects.filter(buyer=user, product__owner=otheruser):
         return True
+
+
+@register.filter
+def clerk_of(user, otheruser):
+    if Transaction.objects.filter(buyer=otheruser, product__owner=user):
+        return True

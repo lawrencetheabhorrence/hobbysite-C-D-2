@@ -130,17 +130,15 @@ class ProductUpdateView(ProductMakerView, UpdateView):
     template_name = "merchstore/product_update.html"
 
 
-class CartListView(LoginRequiredMixin, ListView):
+class OrdersListView(LoginRequiredMixin, ListView):
     model = Transaction
-    template_name = "merchstore/cart_list.html"
     context_object_name = "transactions"
+    login_url = reverse_lazy("admin:login")
 
 
-"""
-def productUpdate(request, itemID):
+class CartListView(OrdersListView):
+    template_name = "merchstore/cart_list.html"
 
-def cartContents(request):
 
-def transactionList(request):
-
-"""
+class TransactionListView(OrdersListView):
+    template_name = "merchstore/transaction_list.html"

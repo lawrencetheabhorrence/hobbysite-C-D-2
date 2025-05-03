@@ -9,7 +9,7 @@
 				<ul>
 					<h3>{{otheruser}} bought the following:</h3>
 					{% for transaction in transactions %}
-						{% if transaction.buyer == otheruser %}
+						{% if transaction.product.owner == user.profile and transaction.buyer == otheruser %}
 							<li>
 								{{transaction.product.product_type}}: {{transaction.product}}, {{transaction.amount}} in amount, currently {{transaction.status}}
 							</li>

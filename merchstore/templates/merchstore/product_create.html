@@ -1,11 +1,22 @@
 {% extends 'merchstore/base.html' %}
-{% block title %} {% endblock %}
+{% load merchstore_extra_tags %}
+{% block title %}Product Creation{% endblock %}
 {% block content %}
 <main>
+	<section class="content">
 	<form method="post">
 		{% csrf_token %}
-		{{ form.as_p }}
+		<p>{{form.owner.label_tag}}{{form.owner.value|person}}{{form.owner}}</p>
+		{% for field in form %}
+			{% if field.label != "Owner" %}
+				{% for error in field.errors %}
+					<p>{{error}}</p>
+				{% endfor %}
+				<p>{{field.label_tag}}{{field}}</p>
+			{% endif %}
+		{% endfor%}
 		<button type="submit" name="form_type" value="product">Create</button>
 	</form>
+	</section>
 </main>
 {% endblock %}

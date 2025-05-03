@@ -147,7 +147,6 @@ class CartListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = "merchstore/cart_list.html"
     context_object_name = "transactions"
-    login_url = reverse_lazy("admin:login")
 
 
 """

@@ -1,5 +1,5 @@
 from django import template
-from ..models import Product
+from ..models import Product, Profile
 
 register = template.Library()
 
@@ -12,3 +12,8 @@ def products(product_type):
 @register.filter
 def count_owner_products(owner):
     return len(Product.objects.filter(owner=owner))
+
+
+@register.filter
+def person(pk):
+    return Profile.objects.get(pk=pk)

@@ -102,8 +102,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductCreator
     success_url = reverse_lazy("merchstore:product_list")
     template_name = "merchstore/product_create.html"
-    login_url = reverse_lazy("admin:login")
-
+    
     def final_initial(self, live):
         self.initial = super().get_initial()
         self.initial["owner"] = live.user.profile

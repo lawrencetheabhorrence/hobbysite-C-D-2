@@ -120,7 +120,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         self.object.status_augment()
-        # print(self.object.status)
         return super().form_valid(form)
 
 

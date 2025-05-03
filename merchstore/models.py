@@ -99,12 +99,13 @@ class Transaction(models.Model):
 
     def __str__(self):
         return (
-            self.buyer.name
-            + "'s "
-            + str(self.amount)
-            + " "
+            "To "
+            + self.buyer.name
+            + ": "
             + self.product.name
-            + " currently "
+            + ", "
+            + str(self.amount)
+            + " in amount, currently "
             + self.status
         )
-        # Ex: Dino's 5 Chicken Nuggets currently Delivered
+        # Ex: To Dino: 5 Chicken Nuggets, currently Delivered

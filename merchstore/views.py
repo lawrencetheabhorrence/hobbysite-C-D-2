@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -98,11 +98,10 @@ class ProductDetailView(View):
         return view(request, *args, **kwargs)
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductMakerView(LoginRequiredMixin):
     model = Product
     form_class = ProductCreator
     success_url = reverse_lazy("merchstore:product_list")
-    template_name = "merchstore/product_create.html"
     login_url = reverse_lazy("admin:login")
 
     def final_initial(self, live):
@@ -123,8 +122,18 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-def productUpdate(request, pk=-1):
-    return render(request, "merchstore/product_update.html", {})
+class ProductCreateView(ProductMakerView, CreateView):
+    template_name = "merchstore/product_create.html"
+
+
+class ProductUpdateView(ProductMakerView, UpdateView):
+    template_name = "merchstore/product_update.html"
+
+
+class CartListView(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = "merchstore/cart_list.html"
+    context_object_name = "transactions"
 
 
 """

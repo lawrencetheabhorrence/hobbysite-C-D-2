@@ -75,12 +75,11 @@ class ProductCreator(forms.ModelForm):
             raise ValidationError("Not even a number!")
 
     def clean_price(self):
-        price = str(self.cleaned_data["price"])
+        price = self.cleaned_data["price"]
         error_messages = [None, None]
         try:
-            price_as_float = float(price)
-            price_split = price.split(".")
-            if price_as_float <= 0:
+            price_split = str(price).split(".")
+            if price <= 0:
                 error_messages[0] = "Not a Non-negative Number"
             if len(price_split) != 1 and len(price_split[1]) >= 3:
                 error_messages[1] = "Too many decimal places in this economy!"
@@ -93,7 +92,7 @@ class ProductCreator(forms.ModelForm):
                 )
                 raise ValidationError(error_messages[0] + "..." + error_messages[1])
             else:
-                return price_as_float
+                return price
         except ValueError:
             raise ValidationError("That's the wrong number!")
 

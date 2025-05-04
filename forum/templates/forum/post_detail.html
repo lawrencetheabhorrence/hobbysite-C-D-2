@@ -3,7 +3,7 @@
 {% block headcontent %}
 {% endblock %}
 {% block content %}
-<main>
+<main class="white-bg-detail">
 	<section class="post-heading">
 		<section class="post-heading-content">
 			<h1>{{ post.title }}</h1>
@@ -17,6 +17,7 @@
 	<p>{{ post.entry }}</p>
 	<section id="comments">
 		<form action="POST">
+			{% csrf_token %}
 			<input type="text" name="comment" />
 			<button>Post</button>
 		</form>

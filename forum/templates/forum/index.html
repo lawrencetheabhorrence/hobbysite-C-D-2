@@ -8,16 +8,16 @@
 	{% if user.is_authenticated %}
 		<section class="card user-threads">
 			<section class="top">
-				<h1>Your Threads</h1>
-				<ul class="fullw-list">
-					{% for thread in user_threads %}
-					<li>
-						<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-					</li>
-					{% empty %}
-					<li>No threads created by you.</li>
-					{% endfor %}
-				</ul>
+			<h1>Your Threads</h1>
+			<ul class="fullw-list">
+				{% for thread in user_threads %}
+				<li>
+					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+				</li>
+				{% empty %}
+				<li>No threads created by you.</li>
+				{% endfor %}
+			</ul>
 			</section>
 			<a href="{% url 'forum:thread_create' %}" class="button">+ Create New Thread</a>
 		</section>
@@ -28,14 +28,10 @@
 		{% for category in categories %}
 			<h2>{{ category.name }}</h2>
 			<ul class="fullw-list">
-				{% for thread in threads %}
-					{% if thread.category == category %}
-						{% if not user.is_authenticated or thread.author != user.profile %}
-						<li>
-							<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-						</li>
-						{% endif %}
-					{% endif %}
+				{% for thread in category.threads.all %}
+					<li>
+						<a href="{% url 'forum:detail' thread.id %}">{{ thread.title }}</a>
+					</li>
 				{% empty %}
 				<li>No threads in this category.</li>
 				{% endfor %}

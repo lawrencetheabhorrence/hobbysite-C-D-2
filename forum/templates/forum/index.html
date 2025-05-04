@@ -29,9 +29,11 @@
 			<h2>{{ category.name }}</h2>
 			<ul class="fullw-list">
 				{% for thread in category.threads.all %}
-					<li>
-						<a href="{% url 'forum:detail' thread.id %}">{{ thread.title }}</a>
-					</li>
+					{% if thread.author != user.profile %}
+						<li>
+							<a href="{% url 'forum:detail' thread.id %}">{{ thread.title }}</a>
+						</li>
+					{% endif %}
 				{% empty %}
 				<li>No threads in this category.</li>
 				{% endfor %}

@@ -1,0 +1,56 @@
+main {
+	padding: 20px;
+}
+
+h1 {
+	font-size: 1.5em;
+	margin: 0;
+}
+
+section.thread-header {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: end;
+	padding-bottom: 15px;
+	border-bottom: 2px dashed var(--dark-teal);
+}
+
+section.thread-meta * {
+	color: var(--dark-teal);
+}
+
+section.thread-content {
+	padding-bottom: 15px;
+	border-bottom: 2px dashed var(--dark-teal);
+}
+
+section.comments-section {
+	margin-top: 30px;
+}
+
+section.comment {
+	background-color: #fbf8f8;
+	border: 1px solid #e4b2b2;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+
+section.comment p.comment-header {
+	color: var(--dark-teal);
+	font-weight: 700;
+}
+
+input[type="text"] {
+	flex-grow: 1;
+	width: 100%;
+	padding: 15px 10px;
+}
+
+form {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: end;
+	gap: 5px;
+	margin-bottom: 30px;
+}

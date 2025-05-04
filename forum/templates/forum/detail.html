@@ -1,13 +1,10 @@
 {% extends 'forum/base.html' %}
 {% load static %}
-{% block headcontent %}
-<link rel="stylesheet" href="{% static 'forum/style.css' %}" />
-{% endblock %}
-{% block content %}
+    {% block headcontent %}
+    {% endblock %}
+    {% block content %}
 <main>
-	<a href="{% url 'forum:thread_list' %}" class="back-link">Forums</a>
-	
-	<div class="thread-content">
+    <div class="thread-content">
         <div class="thread-header">
             <h1>{{ thread.title }}</h1>
             <div class="thread-meta">
@@ -16,47 +13,44 @@
                 <span>Updated On: {{ thread.updated_on|date:"m/d/Y" }}</span>
             </div>
         </div>
-        
         <div class="thread-entry">
             <p>{{ thread.entry|linebreaksbr }}</p>
         </div>
     </div>
-	
-	<div class="related-threads">
+
+    <div class="related-threads">
         <h2>Related Threads</h2>
         <div class="related-links">
             {% for thread in related_threads %}
-                <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
-                {% if not forloop.last %}, {% endif %}
+            <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
+            {% if not forloop.last %}, {% endif %}
             {% empty %}
-                <p>No related threads found.</p>
+            <p>No related threads found.</p>
             {% endfor %}
         </div>
     </div>
-	
-	<div class="comments-section">
+
+    <div class="comments-section">
         <h2>Write a Comment...</h2>
-        
         <form method="post" class="comment-form">
             {% csrf_token %}
-            {{ form.entry }}
+            <input type="text" name="comment" />
             <button type="submit">Post</button>
         </form>
-        
         <div class="comments-list">
             {% for comment in comments %}
-                <div class="comment">
-                    <div class="comment-header">
-                        {{ comment.author.user.username }} - {{ comment.created_on|date:"m/d/Y" }}
-                    </div>
-                    <div class="comment-body">
-                        <p>{{ comment.entry|linebreaksbr }}</p>
-                    </div>
+            <div class="comment">
+                <div class="comment-header">
+                    {{ comment.author.user.username }} - {{ comment.created_on|date:"m/d/Y" }}
                 </div>
+                <div class="comment-body">
+                    <p>{{ comment.entry|linebreaksbr }}</p>
+                </div>
+            </div>
             {% empty %}
-                <p>No comments yet.</p>
+            <p>No comments yet.</p>
             {% endfor %}
         </div>
     </div>
-</div>
+</main>
 {% endblock %}

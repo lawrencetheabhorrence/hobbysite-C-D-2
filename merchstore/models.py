@@ -37,11 +37,11 @@ class Product(models.Model):
     )
     description = models.TextField(default="A buyable item of this merch store.")
     price = models.DecimalField(max_digits=24, decimal_places=2)
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(default=1)
     status = models.CharField(
         max_length=12,
         choices=ProductStatusChoices,
-        default=ProductStatusChoices.OUT_OF_STOCK,
+        default=ProductStatusChoices.AVAILABLE,
     )
 
     class Meta:
@@ -55,7 +55,7 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("merchstore_item", kwargs={"itemID": self.id})
 
-    def status_augment(self):
+    def update_status(self):
         if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
             self.status = self.ProductStatusChoices.AVAILABLE
         elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
@@ -64,8 +64,7 @@ class Product(models.Model):
 
     def reduce_stock(self, value):
         self.stock = self.stock - value
-        if self.stock == 0:
-            self.status = self.ProductStatusChoices.OUT_OF_STOCK
+        self.update_status()
         self.save()
 
 

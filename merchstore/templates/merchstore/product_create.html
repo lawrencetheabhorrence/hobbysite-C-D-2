@@ -6,15 +6,7 @@
 	<section class="content">
 	<form method="post">
 		{% csrf_token %}
-		<p>{{form.owner.label_tag}}{{form.owner.value|person}}{{form.owner}}</p>
-		{% for field in form %}
-			{% if field.label != "Owner" %}
-				{% for error in field.errors %}
-					<p>{{error}}</p>
-				{% endfor %}
-				<p>{{field.label_tag}}{{field}}</p>
-			{% endif %}
-		{% endfor%}
+		{{ form.as_p }}
 		<button type="submit" name="form_type" value="product">Create</button>
 	</form>
 	</section>

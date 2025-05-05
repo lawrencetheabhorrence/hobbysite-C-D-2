@@ -1,0 +1,23 @@
+{% extends 'merchstore/base.html' %}
+{% load merchstore_extra_tags %}
+{% block content %}
+<main>
+	<h1>Your Cart</h1>
+	{% for otheruser in user.profile.name|everyone_else %}
+		{% if user.profile|customer_of:otheruser %}
+			<section class="product-list">
+				<ul>
+					<h3>From {{otheruser}}, you bought:</h3>
+					{% for transaction in transactions %}
+						{% if transaction.product.owner == otheruser and transaction.buyer == user.profile %}
+							<li>
+								{{transaction.product.product_type}}: {{transaction.product}}, {{transaction.amount}} in amount, currently {{transaction.status}}
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</section>
+		{% endif %}
+	{% endfor %}
+</main>
+{% endblock %}

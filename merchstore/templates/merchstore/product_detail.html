@@ -17,12 +17,8 @@
 				{% if product.stock != 0 %}
 					<form method="post">
 						{% csrf_token %}
-						{% for error in form.amount.errors %}
-							<p>{{ error }}</p>
-						{% endfor %}
-						<p>{{form.amount.label_tag}}</p>
-						<p>{{form.amount}}</p>
-						<button type="submit" name="form_type" value="transaction">Buy</button>
+						<input type="number" name="amount" />
+						<button type="submit" name="bought_product" value="{{ product.id }}">Buy</button>
 					</form>
 				{% else %}
 					<p>"This Item is Unavailable, sorry"</p>

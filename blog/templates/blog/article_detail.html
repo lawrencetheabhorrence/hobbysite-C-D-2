@@ -47,6 +47,8 @@
 		</ul>
 	</section>
 	{% endif %}
-
+	{% if request.user.profile == article.author %}
+		<a href="{% url "blog:article_update" article.id %}"></a>
+	{% endif %}
 </main>
 {% endblock %}

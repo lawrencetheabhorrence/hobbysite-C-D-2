@@ -26,7 +26,9 @@
 	<section class="comment-form">
 		<form method="post">
 			{% csrf_token %}
-			{{ comment_form.as_p }}
+			<h3>Comment</h3>
+			<textarea name="body" rows="4" required></textarea>
+			<button type="submit" id="Submit"></button>
 		</form>
 	</section>
 	<section class="comments">

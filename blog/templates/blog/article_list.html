@@ -4,17 +4,17 @@
 <main>
     <h1>Blogs</h1>
     {% if user.is_authenticated %}
-        <section class="user-articles">
-            <h1>Your Articles</h1>
-            <ul>
-                {% for blog in user.profile.articles.all %}
-                    {% if blog.author == request.user.profile %}
-                        <li><a href="{% url "blog:article_detail" blog.id %}">{{ blog.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </section>
-    {% endif %}
+    <section class="user-articles">
+        <h1>Your Articles</h1>
+        <ul>
+            {% for blog in user.profile.articles.all %}
+                {% if blog.author == request.user.profile %}
+                    <li><a href="{% url "blog:article_detail" blog.id %}">{{ blog.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+    
     <section class="all-articles">
         <h1>All Articles</h1>
         <ul>
@@ -27,6 +27,10 @@
             {% endfor %}
         </ul>
     </section>
+
+    <a href="{% url "blog:article_create" %}">Create Article</a>
+    
+    {% endif %}
 </main>
 
 {% endblock content %}

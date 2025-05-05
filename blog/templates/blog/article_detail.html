@@ -9,7 +9,7 @@
 		<h2 class="author">{{ article.author }}</h2>
 		<section class="other-articles-by-author">
 			<ul>
-				{% for author_article in article.author.articles.all %}
+				{% for author_article in article.author.articles.all | slice:":2" %}
 					<li><a href="{% url "blog:article_detail" author_article.id %}">{{ author_article.title }}</a></li>
 				{% endfor %}
 			</ul>

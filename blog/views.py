@@ -28,3 +28,4 @@ class ArticleUpdateView(UpdateView):
     model = Article
     template_name = "blog/article_update.html"
     template_name_suffix = "_update"
+    fields = ["title", "category", "entry", "header_image"]

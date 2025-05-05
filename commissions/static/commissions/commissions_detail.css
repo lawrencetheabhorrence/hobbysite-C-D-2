@@ -1,0 +1,42 @@
+ul {
+	padding: 0;
+	list-style-type: none;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+li.list-item * {
+	margin: 5px;
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+main > section:first-child {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: start;
+	gap: 15px;
+}
+
+main > section:first-child p.button {
+	padding: 5px 20px;
+	font-weight: 500;
+	font-size: 0.8em;
+}
+
+section.job-footer {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-between;
+	margin: 12px 0;
+}
+
+section.job-footer p {
+	font-family: "Fredoka";
+	font-weight: 500;
+	color: var(--dark-teal);
+}

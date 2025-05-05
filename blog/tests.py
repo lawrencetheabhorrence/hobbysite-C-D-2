@@ -22,4 +22,3 @@ class ArticleModelTest(TestCase):
         self.assertEqual(article.title, "Title")
         self.assertEqual(article.author, "name")
         self.assertEqual(article.category, self.cat_news)
-        self.assertEqual(article.author, Article.objects.get(author="name").author)

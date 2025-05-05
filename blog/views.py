@@ -23,5 +23,5 @@ class ArticleCreateView(CreateView):
 
 class ArticleUpdateView(UpdateView):
     model = Article
-    template_name = "blog/article_update_view.html"
+    template_name = "blog/article_update.html"
     template_name_suffix = "_update"

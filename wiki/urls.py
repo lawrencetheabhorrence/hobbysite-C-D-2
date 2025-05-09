@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views import ArticleListView, ArticleCreateView, ArticleDetailView
 
 app_name = "wiki"
 urlpatterns = [
-    path("article/<int:pk>/", views.article_detail, name="article-detail"),
+    path("articles/", ArticleListView.as_view(), name="article-list"),
+    path("article/add/", ArticleCreateView.as_view(), name="article-create"),
+    path("article/<int:pk>/", ArticleDetailView.as_view(), name="article-detail"),
 ]

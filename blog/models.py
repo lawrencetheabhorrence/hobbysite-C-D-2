@@ -37,7 +37,9 @@ class Article(models.Model):
 
 class Comment(models.Model):
 
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name="blog", null=True)
+    author = models.ForeignKey(
+        Profile, on_delete=models.SET_NULL, related_name="blog", null=True
+    )
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name="comments"
     )

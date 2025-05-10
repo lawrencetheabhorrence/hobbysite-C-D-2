@@ -1,0 +1,5 @@
+li.list-item {
+	border-bottom: 2px dashed var(--dark-teal);
+	border-radius: 5px;
+	padding: 0 5px 10px 5px;
+}

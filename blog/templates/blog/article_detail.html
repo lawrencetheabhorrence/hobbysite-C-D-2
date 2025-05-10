@@ -1,21 +1,54 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <main>
-	<h1 class="title">{{ article.title }}</h1>
-	<section class="article-metadata">
-		<section class="category">
-			<p><b>Category:</b> {{ article.category }}</p>
-			<hr>
-		</section>
-		<section class="entry">
-			<p><b>Entry:</b></p>
-			<p class="text">{{ article.entry }}</p>
-			<hr>
-		</section>
-		<section class="dates">
-			<p><b>Created on:</b> {{ article.created_on | date }}</p>
-			<p><b>Updated on:</b> {{ article.updated_on | date }}</p>
-		</section>
+	
+	<img src="{% url "article.header_image" %}" alt="">
+	
+	<section class="article-details">
+		<h1 class="title">{{ article.title }}</h1>
+		<h2 class="author">{{ article.author }}</h2>
+		<section class="other-articles-by-author">
+			<ul>
+				{% for author_article in article.author.articles.all | slice:":2" %}
+					<li><a href="{% url "blog:article_detail" author_article.id %}">{{ author_article.title }}</a></li>
+				{% endfor %}
+			</ul>
+		<h2 class="category">Category: {{ article.category }}</h2>
+		<h3 class="created-on">Created On: {{ article.created_on }}</h3>
+		<h3 class="updated-on">Created On: {{ article.updated_on }}</h3>
+		<article class="entry">
+			<p>{{ article.entry }}</p>
+		</article>
 	</section>
+	<a href="{% url "blog:article_list" %}">Return to Blog List</a>
+
+	{% if user.is_authenticated %}
+	<section class="comment-form">
+		<form method="post">
+			{% csrf_token %}
+			<h3>Comment</h3>
+			<textarea name="body" rows="4" required></textarea>
+			<button type="submit" id="Submit"></button>
+		</form>
+	</section>
+	<section class="comments">
+		<h2>Comments</h2>
+		<ul>
+			{% for comment in Article.comments.all %}
+			<li>
+				<article>
+					<h3>{{ comment.author }}</h3>
+					<h4>{{ comment.created_on }}</h4>
+					<h4>{{ comment.updated_on }}</h4>
+					<p>{{ comment.entry }}</p>
+				</article>
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
+	{% endif %}
+	{% if request.user.profile == article.author %}
+		<a href="{% url "blog:article_update" article.id %}"></a>
+	{% endif %}
 </main>
 {% endblock %}

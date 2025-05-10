@@ -1,21 +1,23 @@
 {% extends 'wiki/base.html' %}
-
-{% load static %}
 {% block title %}Wiki Articles{% endblock %}
-{% block headcontent %}
-<link rel="stylesheet" href="{% static 'wiki/style.css' %}" />
-{% endblock %}
-
 {% block content %}
-    <h1>Wiki Articles</h1>
+    <h1 class="title">Wiki Articles</h1>
 
     <a href="{% url 'article-create' %}">Create a new article</a>
 
     <h2>Your Articles</h2>
-    <ul>
+    <ul class="article-list">
         {% for article in articles %}
             {% if article.author == user.profile %}
-                <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
+                <li class="article-heading">
+                <article>
+                    <a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a>
+                    <p class="category">{{ article.category }}</p>
+                    <p>Created on: {{ article.created_on | date }}</p>
+                    <p>Updated on: {{ article.updated_on | date }}</p>
+                </article>
+                <hr>
+            </li>
             {% endif %}
         {% endfor %}
     </ul>

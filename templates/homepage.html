@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="card">
+	<section class="content">
+		<h1>Group 2's Hobby Site</h1>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+			standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+			type specimen book.</p>
+	</section>
+	<section class="image"><img src="static/robot.svg" alt=""></section>
+</main>
+{% endblock %}

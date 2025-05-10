@@ -1,39 +1,67 @@
 from django.test import TestCase
-from .models import Commission, Comment
+from user_management.models import Profile
+from django.contrib.auth.models import User
+from .models import Commission, Job, JobApplication
 
 
 class CommissionModelTest(TestCase):
     def setUp(self):
-        self.commission = Commission.objects.create(
+        u = User.objects.create_user("test", "test@email.com", "testpass")
+        user = Profile.objects.create(user=u, name="Test User", email_address=u.email)
+
+        commission = Commission.objects.create(
             title="Sample Commission",
             description="This is a test commission.",
-            people_required=3,
+            creator=user,
         )
-        self.commission.save()
 
-    def test_commission_creation(self):
-        self.assertEqual(self.commission.title, "Sample Commission")
-        self.assertEqual(self.commission.description, "This is a test commission.")
-        self.assertEqual(self.commission.people_required, 3)
-
-
-class CommentModelTest(TestCase):
-    def setUp(self):
-        self.commission = Commission.objects.create(
-            title="Sample Commission",
-            description="This is a test commission.",
-            people_required=3,
+        job = Job.objects.create(
+            commission=commission, role="Test job", manpower_required=1
         )
-        self.commission.save()
 
-        self.comment = Comment.objects.create(
-            commission=self.commission, entry="This is a test comment."
+        application = JobApplication.objects.create(job=job, applicant=user)
+
+    def test_fill_job_has_open(self):
+        commission = Commission.objects.get(title="Sample Commission")
+        self.assertEqual(commission.status, Commission.CommissionStatusOptions.OPEN)
+        commission.fill_job()
+        self.assertEqual(commission.status, Commission.CommissionStatusOptions.OPEN)
+
+    def test_reject_applicant(self):
+        application = JobApplication.objects.first()
+
+        application.reject_application()
+        self.assertEqual(
+            application.status, JobApplication.ApplicationStatusOptions.REJECTED
         )
-        self.comment.save()
 
-    def test_comment_creation(self):
-        self.assertEqual(self.comment.entry, "This is a test comment.")
-        self.assertEqual(self.comment.commission.title, "Sample Commission")
+    def test_accept_applicant(self):
+        application = JobApplication.objects.first()
 
+        application.accept_application()
+        self.assertEqual(
+            application.status, JobApplication.ApplicationStatusOptions.ACCEPTED
+        )
 
-# Create your tests here.
+        job = application.job
+        commission = job.commission
+        self.assertEqual(job.manpower_required, 0)
+        self.assertEqual(job.status, Job.JobStatusOptions.FULL)
+        self.assertEqual(commission.status, Commission.CommissionStatusOptions.FULL)
+
+    def test_with_another_open_job(self):
+        commission = Commission.objects.first()
+        Job.objects.create(commission=commission, role="Extra Job", manpower_required=1)
+
+        application = JobApplication.objects.first()
+
+        application.accept_application()
+        self.assertEqual(
+            application.status, JobApplication.ApplicationStatusOptions.ACCEPTED
+        )
+
+        job = application.job
+        commission = job.commission
+        self.assertEqual(job.manpower_required, 0)
+        self.assertEqual(job.status, Job.JobStatusOptions.FULL)
+        self.assertEqual(commission.status, Commission.CommissionStatusOptions.OPEN)

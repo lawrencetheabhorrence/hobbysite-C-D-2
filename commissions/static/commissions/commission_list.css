@@ -1,0 +1,52 @@
+main {
+	display: flex;
+	flex-flow: row wrap;
+	height: 100%;
+	gap: 20px;
+}
+
+section.all-commissions {
+	flex-grow: 1;
+}
+
+section.card ul {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+	padding: 0;
+}
+
+section.card ul li {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--dark-teal);
+	margin: 0;
+}
+
+section.card ul li * {
+	font-family: "Fredoka", sans-serif;
+}
+
+section.card ul li h2 {
+	font-weight: 500;
+}
+
+
+section.card ul li > section * {
+	padding: 0;
+	margin: 0;
+}
+
+section.card ul li > section h2 {
+	margin-bottom: 5px;
+	font-weight: 
+}
+
+h1 {
+	font-family: "Fredoka One", sans-serif;
+	font-size: 1.3em;
+	color: var(--dark-teal);
+}

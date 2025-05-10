@@ -1,15 +1,17 @@
 {% extends 'merchstore/base.html' %}
 {% block title %}Merch Store: {{product.name}}{% endblock %}
 {% block content %}
-	<div id="headsup">
-		<h1>Merch Store: {{product.name}}</h1>
-	</div>
-	<div id="content">
-		<p>Description: {{product.description}}</p>
-		<br>
-		<p>Product Type: {{product.product_type.name}}</p>
-		<br>
-		<h4>Price: <b>{{product.price}}</b></h4>
-		<br>
-	</div>
+	<main>
+		<h1>{{ product.name }}</h1>
+		<section class="content">
+			<h2 class="type"><b>Product Type:</b> {{product.product_type.name}}</h3>
+			<hr>
+			<article class="description">
+				<h3><b>Description:</b></h3>
+				<p>{{product.description}}</p>
+			</article>
+			<hr>
+			<h2><b>Price:</b> {{product.price}}</p>
+		</section>
+	</main>
 {% endblock %}

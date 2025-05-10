@@ -1,16 +1,31 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import Article
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
+from .models import Article, ArticleCategory
 
 
-def index_view(request):
-    articles = get_list_or_404(Article)
-    context = {"articles": articles}
+class ArticleListView(ListView):
+    model = ArticleCategory
+    template_name = "blog/article_list.html"
+    context_object_name = "categories"
 
-    return render(request, "blog/index.html", context)
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "blog/article_detail.html"
+    context_object_name = "article"
 
 
-def detail_view(request, id):
-    article = get_object_or_404(Article, id=id)
-    context = {"article": article}
+class ArticleCreateView(CreateView):
+    model = Article
+    template_name = "blog/article_create.html"
+    template_name_suffix = "_create"
+    fields = ["title", "category", "entry", "header_image"]
 
-    return render(request, "blog/article_detail.html", context)
+
+class ArticleUpdateView(UpdateView):
+    model = Article
+    template_name = "blog/article_update.html"
+    template_name_suffix = "_update"
+    fields = ["title", "category", "entry", "header_image"]

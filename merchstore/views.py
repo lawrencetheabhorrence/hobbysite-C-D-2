@@ -69,14 +69,14 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super(ProductCreateView, self).get_form_kwargs(*args, **kwargs)
-        form_kwargs['user'] = self.request.user
+        form_kwargs['owner'] = self.request.user.profile
         return form_kwargs
     
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     success_url = reverse_lazy("merchstore:product_list")
-    template_name_suffix = "_create"
+    template_name_suffix = "_update"
     fields = ['name','product_type','description','price','stock','status']
 
 

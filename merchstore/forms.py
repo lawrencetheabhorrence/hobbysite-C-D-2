@@ -11,13 +11,13 @@ from user_management.models import Profile
 
 
 class ProductCreator(forms.ModelForm):
-    def __init__(self,user,*args, **kwargs):
-        self.user = user
+    def __init__(self,*args,**kwargs):
+        self.owner_profile = kwargs.pop('owner', None)
         super().__init__(*args, **kwargs)
-        self.fields['owner'].widget = forms.TextInput(attrs={"readonly": "true" })
-        self.fields['owner'].choices = [user.profile.name]
-        print(self.fields['owner'].choices)
-        self.initial['owner'] = user.profile.name
+        self.fields['owner'].widget = forms.HiddenInput(attrs={"readonly": "true" })
+        '''self.fields['owner'].choices = [self.owner_profile]
+        print(self.fields['owner'].choices)'''
+        self.initial['owner'] = self.owner_profile
 
     class Meta:
         model = Product

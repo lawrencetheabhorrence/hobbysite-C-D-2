@@ -1,7 +1,6 @@
 {% extends 'wiki/base.html' %}
-
-{% load static %}
 {% block title %}{{ article.title }}{% endblock %}
+<<<<<<< HEAD
 
 {% block headcontent %}
 <link rel="stylesheet" href="{% static 'wiki/style.css' %}" />
@@ -65,3 +64,23 @@
     {% endfor %}
 </ul>
 {% endblock %}
+=======
+{% block content %}
+    <h1 class="title">{{ article.title }}</h1>
+    <section class="article-metadata">
+        <section class="category">
+            <p><b>Category:</b> {{ article.category }}</p>
+            <hr>
+        </section>
+        <section class="entry">
+            <p><b>Entry:</b></p>
+            <p class="text">{{ article.entry }}</p>
+            <hr>
+        </section>
+        <section class="dates">
+            <p><b>Created on:</b> {{ article.created_on | date }}</p>
+            <p><b>Updated on:</b> {{ article.updated_on | date }}</p>
+        </section>
+    </section>
+{% endblock %}
+>>>>>>> origin/main

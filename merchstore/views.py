@@ -79,6 +79,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name_suffix = "_update"
     fields = ['name','product_type','description','price','stock','status']
 
+    def form_valid(self, form):
+        updated_product = form.save()
+        updated_product.update_status()
+        return super().form_valid(form) 
+
 
 class CartListView(LoginRequiredMixin, ListView):
     model = Transaction

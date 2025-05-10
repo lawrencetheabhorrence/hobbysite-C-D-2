@@ -43,8 +43,12 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         article = self.get_object()
 
-        context["related_articles"] = article.category.articles.exclude(pk=article.pk)[:2]
-        context["comments"] = Comment.objects.filter(article=article).order_by("-created_on")
+        context["related_articles"] = article.category.articles.exclude(pk=article.pk)[
+            :2
+        ]
+        context["comments"] = Comment.objects.filter(article=article).order_by(
+            "-created_on"
+        )
 
         if self.request.user.is_authenticated:
             context["comment_form"] = CommentForm()

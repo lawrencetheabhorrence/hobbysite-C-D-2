@@ -71,6 +71,13 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         form_kwargs = super(ProductCreateView, self).get_form_kwargs(*args, **kwargs)
         form_kwargs['owner'] = self.request.user.profile
         return form_kwargs
+
+    def form_valid(self, form):
+        if form.cleaned_data['price']<0:
+            return super().form_invalid(form)
+        updated_product = form.save()
+        updated_product.update_status()
+        return super().form_valid(form)
     
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -80,6 +87,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['name','product_type','description','price','stock','status']
 
     def form_valid(self, form):
+        if form.cleaned_data['price']<0:
+            return super().form_invalid(form)
         updated_product = form.save()
         updated_product.update_status()
         return super().form_valid(form) 

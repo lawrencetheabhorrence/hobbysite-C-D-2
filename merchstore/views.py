@@ -85,3 +85,12 @@ class CartListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Transaction.objects.filter(buyer=self.request.user.profile)
+
+
+class TransactionListView(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = "merchstore/transaction_list.html"
+    context_object_name = "transactions"
+
+    def get_queryset(self):
+        return Transaction.objects.filter(product__owner=self.request.user.profile)

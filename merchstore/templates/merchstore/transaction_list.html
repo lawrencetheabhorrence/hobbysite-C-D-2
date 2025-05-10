@@ -3,21 +3,12 @@
 {% block content %}
 <main>
 	<h1>Your Orders</h1>
-	{% for otheruser in user.profile.name|everyone_else %}
-		{% if user.profile|clerk_of:otheruser %}
-			<section class="product-list">
-				<ul>
-					<h3>{{otheruser}} bought the following:</h3>
-					{% for transaction in transactions %}
-						{% if transaction.product.owner == user.profile and transaction.buyer == otheruser %}
-							<li>
-								{{transaction.product.product_type}}: {{transaction.product}}, {{transaction.amount}} in amount, currently {{transaction.status}}
-							</li>
-						{% endif %}
-					{% endfor %}
-				</ul>
-			</section>
-		{% endif %}
+	{% regroup transactions by buyer as transactions_by_buyer %}
+	{% for transaction in transactions_by_buyer %}
+		<h2>From {{transaction.grouper}}:</h2>
+		{% for entry in transaction.list %}
+			<p>{{ entry }}</p>
+		{% endfor %}
 	{% endfor %}
 </main>
 {% endblock %}

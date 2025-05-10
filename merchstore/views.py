@@ -32,6 +32,7 @@ def merchstoreVariety(request, product_type=""):
 """
 
 
+
 class ProductDetailView(DetailView):
     template_name = "merchstore/product_detail.html"
     model = Product
@@ -45,10 +46,8 @@ class ProductDetailView(DetailView):
                 reverse("login"),
             )
         else:
-            affected_product = get_object_or_404(
-                Product, pk=request.POST.get("bought_product")
-            )
-            amount_to_buy = int(request.POST.get("amount"))
+            affected_product = get_object_or_404(Product, pk=request.POST.get('bought_product'))
+            amount_to_buy = int(request.POST.get('amount'))
             if affected_product.stock >= amount_to_buy:
                 transaction = Transaction()
                 transaction.buyer = request.user.profile
@@ -56,7 +55,7 @@ class ProductDetailView(DetailView):
                 transaction.amount = amount_to_buy
                 transaction.save()
                 affected_product.reduce_stock(transaction.amount)
-
+                
         return HttpResponseRedirect(self.request.path_info)
 
 
@@ -66,10 +65,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("merchstore:product_list")
     template_name_suffix = "_create"
 
-    # pass the user to the form
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super(ProductCreateView, self).get_form_kwargs(*args, **kwargs)
-        form_kwargs["user"] = self.request.user
+        form_kwargs['user'] = self.request.user
         return form_kwargs
     
 

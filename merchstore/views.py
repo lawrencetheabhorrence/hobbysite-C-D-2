@@ -55,8 +55,10 @@ class ProductDetailView(DetailView):
                 transaction.amount = amount_to_buy
                 transaction.save()
                 affected_product.reduce_stock(transaction.amount)
-                
-        return HttpResponseRedirect(self.request.path_info)
+            else:
+                return HttpResponseRedirect(self.request.path_info)
+        
+        return HttpResponseRedirect(self.success_url)
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):

@@ -66,16 +66,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("merchstore:product_list")
     template_name_suffix = "_create"
 
+    # pass the user to the form
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super(ProductCreateView, self).get_form_kwargs(*args, **kwargs)
         form_kwargs["user"] = self.request.user
         return form_kwargs
-
-    def form_valid(self, form):
-        product = form.save(commit=False)
-        product.owner = Profile.objects.get(user=self.request.user)
-        product.save()
-        return super().form_valid(form)
 
 
 def productUpdate(request, pk=-1):

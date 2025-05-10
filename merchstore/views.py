@@ -6,11 +6,13 @@ def merchstoreList(request):
     return render(
         request,
         "merchstore/merchstore_list.html",
-        {"inventory": ProductType.objects.all()},
+        {"product_list": Product.objects.all()},
     )
 
 
 def merchstoreVariety(request, product_type=""):
+    # This function is deprecated
+    # Shows products of a certain type
 
     chosen_product_type = get_object_or_404(ProductType, name=product_type)
     available_items = get_list_or_404(Product, product_type=chosen_product_type)

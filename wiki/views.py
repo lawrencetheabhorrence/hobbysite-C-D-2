@@ -1,10 +1,12 @@
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from .models import Article, Comment, Image, Category
 from .forms import CommentForm
+
 # from django.contrib.auth.decorators import login_required
+
 
 class ArticleListView(ListView):
     model = Article
@@ -13,7 +15,9 @@ class ArticleListView(ListView):
 
     # optimize queries
     def get_queryset(self):
-        return Article.objects.select_related("category", "author").order_by("category__name", "title")
+        return Article.objects.select_related("category", "author").order_by(
+            "category__name", "title"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context(**kwargs)
@@ -23,8 +27,15 @@ class ArticleListView(ListView):
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    fields = [ 'title', 'author', 'category', 'entry', 'header_image' ]
-    template_name_suffix = '_create'
+    fields = ["title", "author", "category", "entry", "header_image"]
+    template_name_suffix = "_create"
+
+
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
+    model = Article
+    fields = ["title", "category", "entry", "header_image"]
+    template_name_suffix = "_update"
+
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -34,16 +45,20 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = self.get_object()
-        
-        context["related_articles"] = article.category.articles.exclude(pk=article.pk)[:2]
 
-        context["comments"] = Comment.objects.filter(article=article).order_by('-created_on')
-        
+        context["related_articles"] = article.category.articles.exclude(pk=article.pk)[
+            :2
+        ]
+
+        context["comments"] = Comment.objects.filter(article=article).order_by(
+            "-created_on"
+        )
+
         if self.request.user.is_authenticated:
             context["comment_form"] = CommentForm()
 
         context["images"] = Image.objects.filter(article=article)
-        
+
         if article.author == self.request.user:
             context["edit_link"] = True
 
@@ -51,7 +66,7 @@ class ArticleDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         article = self.get_object()
-        
+
         if request.user.is_authenticated:
             form = CommentForm(request.POST)
             if form.is_valid():
@@ -59,5 +74,5 @@ class ArticleDetailView(DetailView):
                 comment.article = article
                 comment.user = request.user
                 comment.save()
-                return redirect('article-detail', pk=article.pk)  
+                return redirect("article-detail", pk=article.pk)
         return HttpResponse("You must be logged in to comment", status=403)

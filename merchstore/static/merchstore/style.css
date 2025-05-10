@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+body {
+	background-color: #fffcf3;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+main {
+	width: 60%;
+}
+
+h1 {
+	font-family: 'Major Mono Display', monospace;
+	font-size: 64px;
+	color: #ab3428;
+	margin-bottom: 10px;
+}
+
+section.product-list {
+	border: 1px solid black;
+	border-radius: 15px;
+	padding: 20px;
+	background-color: #fff5e8;
+}
+
+ul {
+	list-style-type: none;
+}
+
+li {
+	width: 100%;
+	justify-content: flex-start;
+	gap: 5px;
+	font-family: 'Inter', sans-serif;
+	font-size: 15px;
+	color: #1e4758;
+	border-bottom: 1px solid #798776;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a > h2:hover {
+	color: #bc12a2;
+}
+
+h2 {
+	color: #835a55;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+p.category-chip {
+	background-color: #3b8ea5;
+	border-radius: 20px;
+	font-size: 13px;
+	font-weight: medium;
+	width: fit-content;
+	padding: 5px 10px;
+	margin: 0;
+	color: white;
+}
+
+section.content {
+	background: white;
+	padding: 20px;
+	border: solid 10px #ab3428;
+	border-radius: 15px;
+	font-size: 18px;
+	font-family: 'Inter', sans-serif;
+}

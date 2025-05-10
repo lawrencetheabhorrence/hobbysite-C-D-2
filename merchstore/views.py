@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -70,23 +70,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         form_kwargs['user'] = self.request.user
         return form_kwargs
     
-    def form_valid(self, form):
-        product = form.save(commit=False)
-        product.owner = Profile.objects.get(user=self.request.user)
-        product.save()
-        return super().form_valid(form)
 
-
-
-def productUpdate(request, pk=-1):
-    return render(request, "merchstore/product_update.html", {})
-
-
-"""
-def productUpdate(request, itemID):
-
-def cartContents(request):
-
-def transactionList(request):
-
-"""
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    model = Product
+    success_url = reverse_lazy("merchstore:product_list")
+    template_name_suffix = "_create"
+    fields = ['name','product_type','description','price','stock','status']

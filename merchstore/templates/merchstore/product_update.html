@@ -1,7 +1,14 @@
 {% extends 'merchstore/base.html' %}
 {% load merchstore_extra_tags %}
+{% block title %}Updating {{product.name}}...{% endblock %}
 {% block content %}
 <main>
-	<h1>This Page Is Under Construction. Sorry About That</h1>
+	<section class="content">
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" name="form_type" value="product">Update</button>
+	</form>
+	</section>
 </main>
 {% endblock %}

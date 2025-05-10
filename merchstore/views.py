@@ -76,3 +76,12 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("merchstore:product_list")
     template_name_suffix = "_create"
     fields = ['name','product_type','description','price','stock','status']
+
+
+class CartListView(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = "merchstore/cart_list.html"
+    context_object_name = "transactions"
+
+    def get_queryset(self):
+        return Transaction.objects.filter(buyer=self.request.user.profile)

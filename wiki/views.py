@@ -1,30 +1,9 @@
 from django.shortcuts import redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView, DetailView
-from .models import Article, Comment, Image, Category
+from django.views.generic import DetailView
+from .models import Article, Comment, Image
 from .forms import CommentForm
 # from django.contrib.auth.decorators import login_required
-
-class ArticleListView(ListView):
-    model = Article
-    template_name = "wiki/article_list.html"
-    context_object_name = "articles"
-
-    # optimize queries
-    def get_queryset(self):
-        return Article.objects.select_related("category", "author").order_by("category__name", "title")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context(**kwargs)
-        context["categories"] = Category.objects.all()
-        return context
-
-
-class ArticleCreateView(LoginRequiredMixin, CreateView):
-    model = Article
-    fields = [ 'title', 'author', 'category', 'entry', 'header_image' ]
-    template_name_suffix = '_create'
 
 class ArticleDetailView(DetailView):
     model = Article

@@ -14,7 +14,8 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, related_name = "articles")
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -27,7 +28,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    # author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

@@ -1,10 +1,15 @@
 {% extends 'wiki/base.html' %}
 {% block title %}Wiki Articles{% endblock %}
 {% block content %}
-    <h1 class="title">wiki articles</h1>
+    <h1 class="title">Wiki Articles</h1>
+
+    <a href="{% url 'article-create' %}">Create a new article</a>
+
+    <h2>Your Articles</h2>
     <ul class="article-list">
         {% for article in articles %}
-            <li class="article-heading">
+            {% if article.author == user.profile %}
+                <li class="article-heading">
                 <article>
                     <a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a>
                     <p class="category">{{ article.category }}</p>
@@ -13,6 +18,17 @@
                 </article>
                 <hr>
             </li>
+            {% endif %}
         {% endfor %}
     </ul>
+
+    <h2>All Articles</h2>
+    {% for category in categories %}
+        <h3>{{ category.name }}</h3>
+        <ul>
+            {% for article in category.articles.all %}
+                <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 {% endblock %}

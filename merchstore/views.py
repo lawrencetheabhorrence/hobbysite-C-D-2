@@ -32,7 +32,6 @@ def merchstoreVariety(request, product_type=""):
 """
 
 
-
 class ProductDetailView(DetailView):
     template_name = "merchstore/product_detail.html"
     model = Product
@@ -46,8 +45,10 @@ class ProductDetailView(DetailView):
                 reverse("login"),
             )
         else:
-            affected_product = get_object_or_404(Product, pk=request.POST.get('bought_product'))
-            amount_to_buy = int(request.POST.get('amount'))
+            affected_product = get_object_or_404(
+                Product, pk=request.POST.get("bought_product")
+            )
+            amount_to_buy = int(request.POST.get("amount"))
             if affected_product.stock >= amount_to_buy:
                 transaction = Transaction()
                 transaction.buyer = request.user.profile
@@ -57,7 +58,7 @@ class ProductDetailView(DetailView):
                 affected_product.reduce_stock(transaction.amount)
             else:
                 return HttpResponseRedirect(self.request.path_info)
-        
+
         return HttpResponseRedirect(self.success_url)
 
 
@@ -69,22 +70,22 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super(ProductCreateView, self).get_form_kwargs(*args, **kwargs)
-        form_kwargs['owner'] = self.request.user.profile
+        form_kwargs["owner"] = self.request.user.profile
         return form_kwargs
 
     def form_valid(self, form):
-        if form.cleaned_data['price']<0:
+        if form.cleaned_data["price"] < 0:
             return super().form_invalid(form)
         updated_product = form.save()
         updated_product.update_status()
         return super().form_valid(form)
-    
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     success_url = reverse_lazy("merchstore:product_list")
     template_name_suffix = "_update"
-    fields = ['name','product_type','description','price','stock','status']
+    fields = ["name", "product_type", "description", "price", "stock", "status"]
 
     def get(self, request, *args, **kwargs):
         self.object = Product
@@ -92,14 +93,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         affected_product = get_object_or_404(Product, pk=context["pk"])
         if request.user.profile != affected_product.owner:
             return HttpResponseRedirect(reverse_lazy("merchstore:product_list"))
-        return super().post(request, *args, **kwargs)        
-        
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
-        if form.cleaned_data['price']<0:
+        if form.cleaned_data["price"] < 0:
             return super().form_invalid(form)
         updated_product = form.save()
         updated_product.update_status()
-        return super().form_valid(form) 
+        return super().form_valid(form)
 
 
 class CartListView(LoginRequiredMixin, ListView):

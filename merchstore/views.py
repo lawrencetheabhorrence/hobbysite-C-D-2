@@ -86,6 +86,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name_suffix = "_update"
     fields = ['name','product_type','description','price','stock','status']
 
+    def get(self, request, *args, **kwargs):
+        self.object = Product
+        context = super().get_context_data(**kwargs)
+        affected_product = get_object_or_404(Product, pk=context["pk"])
+        if request.user.profile != affected_product.owner:
+            return HttpResponseRedirect(reverse_lazy("merchstore:product_list"))
+        return super().post(request, *args, **kwargs)        
+        
     def form_valid(self, form):
         if form.cleaned_data['price']<0:
             return super().form_invalid(form)

@@ -5,10 +5,18 @@
 	<h1>Your Orders</h1>
 	{% regroup transactions by buyer as transactions_by_buyer %}
 	{% for transaction in transactions_by_buyer %}
-		<h2>From {{transaction.grouper}}:</h2>
-		{% for entry in transaction.list %}
-			<p>{{ entry }}</p>
-		{% endfor %}
+		<section class="product-list">
+			<h2>User {{transaction.grouper}} bought:</h2>
+			<br>
+			<ul>
+				{% for entry in transaction.list %}
+					<li>
+						<p>{{ entry }}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+		<br>
 	{% endfor %}
 </main>
 {% endblock %}

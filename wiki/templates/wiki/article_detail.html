@@ -1,5 +1,70 @@
 {% extends 'wiki/base.html' %}
 {% block title %}{{ article.title }}{% endblock %}
+<<<<<<< HEAD
+
+{% block headcontent %}
+<link rel="stylesheet" href="{% static 'wiki/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <p><strong>Category:</strong> {{ article.category }}</p>
+    <p>{{ article.entry }}</p>
+    <p><small>Created on: {{ article.created_on }}</small></p>
+    {% if article.image %}
+    <div>
+        <img src="{{ article.image.url }}" alt="Image for {{ article.title }}" style="max-width: 100%; height: auto;" />
+    </div>
+{% endif %}
+
+{% if article.gallery_images.all %} <!-- Bonus Gallery -->
+    <h3>Gallery</h3>
+    <div class="gallery">
+        {% for image in article.gallery_images.all %}
+            <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 200px; margin: 5px;" />
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if user.is_authenticated and user.profile == article.author %}
+    <p><a href="{% url 'article-update' article.pk %}">Edit this article</a></p>
+{% endif %}
+
+<p><a href="{% url 'article-list' %}">← Back to Article List</a></p>
+
+<h2>Read More from {{ article.category.name }}</h2>
+<ul>
+    {% for related_article in related_articles %}
+        <li><a href="{% url 'article-detail' related_article.pk %}">{{ related_article.title }}</a></li>
+    {% empty %}
+        <li>No other articles in this category.</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <h3>Leave a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to leave a comment.</p>
+{% endif %}
+
+<h3>Comments</h3>
+<ul>
+    {% for comment in comments %}
+        <li>
+            <strong>{{ comment.author }}</strong> ({{ comment.created_on|date:"F j, Y, g:i a" }})<br>
+            {{ comment.body }}
+        </li>
+    {% empty %}
+        <li>No comments yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+=======
 {% block content %}
     <h1 class="title">{{ article.title }}</h1>
     <section class="article-metadata">
@@ -18,3 +83,4 @@
         </section>
     </section>
 {% endblock %}
+>>>>>>> origin/main

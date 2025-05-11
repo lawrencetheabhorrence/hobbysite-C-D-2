@@ -1,11 +1,19 @@
-{% extends blog/base.html %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create Article{% endblock %}
+
 {% block content %}
-<main>
-    {% if user.is_authenticated %}
-    <form method="post">
+<main class="card">
+    <h1>Write an Article</h1>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        <button type="submit">Publish</button>
     </form>
-    {% endif %}
+
+    <p>
+        <a href="{% url 'blog:article_list' %}">Back to All Articles</a>
+    </p>
 </main>
-{% endblock content %}
+{% endblock %}

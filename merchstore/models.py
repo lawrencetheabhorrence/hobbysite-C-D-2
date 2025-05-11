@@ -21,7 +21,7 @@ class Product(models.Model):
 
     def __init__(self, *args, **kwargs):
         super(Product, self).__init__(*args, **kwargs)
-        self.update_status()
+        self.update_status(commit=False)
 
     class ProductStatusChoices(models.TextChoices):
         AVAILABLE = "Available"
@@ -59,12 +59,13 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("merchstore_item", kwargs={"itemID": self.id})
 
-    def update_status(self):
+    def update_status(self, commit=True):
         if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
             self.status = self.ProductStatusChoices.AVAILABLE
         elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
             self.status = self.ProductStatusChoices.OUT_OF_STOCK
-        self.save()
+        if commit:
+            self.save()
 
     def reduce_stock(self, value):
         if value > self.stock:

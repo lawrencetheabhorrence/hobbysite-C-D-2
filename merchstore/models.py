@@ -19,25 +19,33 @@ class ProductType(models.Model):
 
 class Product(models.Model):
 
+    def __init__(self, *args, **kwargs):
+        super(Product, self).__init__(*args, **kwargs)
+        self.update_status(commit=False)
+
     class ProductStatusChoices(models.TextChoices):
         AVAILABLE = "Available"
         ON_SALE = "On Sale"
-        OUT_OF_STOCK = "Out of Stock"
+        OUT_OF_STOCK = "Out Of Stock"
 
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(
-        ProductType, null=True, on_delete=models.SET_NULL, related_name="ProductType"
+        ProductType, null=True, on_delete=models.SET_NULL, related_name="products"
     )
     owner = models.ForeignKey(
-        Profile, null=False, on_delete=models.CASCADE, related_name="Owner", default=""
+        Profile,
+        null=False,
+        on_delete=models.CASCADE,
+        related_name="products",
+        default="",
     )
     description = models.TextField(default="A buyable item of this merch store.")
     price = models.DecimalField(max_digits=24, decimal_places=2)
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(default=1)
     status = models.CharField(
         max_length=12,
         choices=ProductStatusChoices,
-        default=ProductStatusChoices.OUT_OF_STOCK,
+        default=ProductStatusChoices.AVAILABLE,
     )
 
     class Meta:
@@ -51,6 +59,23 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("merchstore_item", kwargs={"itemID": self.id})
 
+    def update_status(self, commit=True):
+        if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
+            self.status = self.ProductStatusChoices.AVAILABLE
+        elif self.status == self.ProductStatusChoices.AVAILABLE and self.stock == 0:
+            self.status = self.ProductStatusChoices.OUT_OF_STOCK
+        if commit:
+            self.save()
+
+    def reduce_stock(self, value):
+        if value > self.stock:
+            raise ValueError(
+                f"You only have {self.stock} left in stock. You tried to reduce stock by {value} which is more than what is in stock."
+            )
+        self.stock = self.stock - value
+        self.update_status()
+        self.save()
+
 
 class Transaction(models.Model):
 
@@ -62,10 +87,10 @@ class Transaction(models.Model):
         DELIVERED = "Delivered"
 
     buyer = models.ForeignKey(
-        Profile, null=True, on_delete=models.SET_NULL, related_name="Buyer"
+        Profile, null=True, on_delete=models.SET_NULL, related_name="transaction"
     )
     product = models.ForeignKey(
-        Product, null=True, on_delete=models.SET_NULL, related_name="Product"
+        Product, null=True, on_delete=models.SET_NULL, related_name="transaction"
     )
     amount = models.PositiveIntegerField()
     status = models.CharField(
@@ -90,3 +115,4 @@ class Transaction(models.Model):
             + " currently "
             + self.status
         )
+        # Ex: Dino's 5 Chicken Nuggets currently Delivered

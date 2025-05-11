@@ -22,6 +22,10 @@ font-weight: 400;
 	--dark-green: #405d66;
 }
 
+a {
+	color: var(--black);
+}
+
 body {
 	background: linear-gradient(to right, rgba(255,253,244, 0.7) 0 100%), center/32px url("circle.png"), #FFFCF3;
 	display: flex;

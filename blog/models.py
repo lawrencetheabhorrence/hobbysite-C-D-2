@@ -19,8 +19,12 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
 
     title = models.CharField(max_length=255)
-    author = models.OneToOneField(Profile, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(ArticleCategory, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(
+        Profile, on_delete=models.SET_NULL, null=True, related_name="blog_articles"
+    )
+    category = models.ForeignKey(
+        ArticleCategory, null=True, on_delete=models.SET_NULL, related_name="articles"
+    )
     entry = models.TextField()
     header_image = models.ImageField(null=True, upload_to="uploads/blog/%Y/%m/%d/")
     created_on = models.DateTimeField(auto_now_add=True)
@@ -38,7 +42,7 @@ class Article(models.Model):
 class Comment(models.Model):
 
     author = models.ForeignKey(
-        Profile, on_delete=models.SET_NULL, related_name="blog", null=True
+        Profile, on_delete=models.SET_NULL, related_name="blog_comments", null=True
     )
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name="comments"

@@ -1,37 +1,44 @@
-{% extends "blog/base.html" %}
-{% block title %}{% endblock %}
-{% block content %}
-<main>
-    <h1>Blogs</h1>
-    {% if user.is_authenticated %}
-    <section class="user-articles">
-        <h1>Your Articles</h1>
-        <ul>
-            {% for blog in user.profile.articles.all %}
-                {% if blog.author == request.user.profile %}
-                    <li><a href="{% url "blog:article_detail" blog.id %}">{{ blog.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="all-articles">
-        <h1>All Articles</h1>
-        <ul>
-            {% for category in categories %}
-                {% for blog in category.blogs %}
-                    {% if blog.author != request.user.profile %}
-                    <li><a href="{% url "blog:article_detail" blog.id %}">{{ blog.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    </section>
+{% extends 'base.html' %}
+{% load static %}
+	{% block headcontent %}
+	<link rel="stylesheet" href="{% static 'wiki/style.css' %}">
+	{% endblock %}
+	{% block content %}
+	<main class="two-col">
+		{% if user.is_authenticated %}
+		<section class="card user-articles">
+			<section class="top">
+				<h1>Your Articles</h1>
+				<ul class="fullw-list">
+					{% for article in user.profile.blog_articles.all %}
+					<li>
+						<a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a>
+					</li>
+					{% empty %}
+					<li>No articles written by you.</li>
+					{% endfor %}
+				</ul>
+			</section>
+			<a href="{% url 'blog:article_create' %}" class="button">+ Write a New Article</a>
+		</section>
+		{% endif %}
 
-    <a href="{% url "blog:article_create" %}">Create Article</a>
-    
-    {% endif %}
-
-</main>
-
-{% endblock content %}
+		<section class="card all-items">
+			<h1>All Articles</h1>
+			{% for category in categories %}
+			<h2>{{ category.name }}</h2>
+			<ul class="fullw-list">
+				{% for article in category.articles.all %}
+				{% if article.author != user.profile %}
+				<li>
+					<a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a>
+				</li>
+				{% endif %}
+				{% empty %}
+				<li>No articles in this category.</li>
+				{% endfor %}
+			</ul>
+			{% endfor %}
+		</section>
+	</main>
+	{% endblock %}

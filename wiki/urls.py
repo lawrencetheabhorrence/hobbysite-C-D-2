@@ -1,5 +1,10 @@
 from django.urls import path
-from .views import ArticleListView, ArticleCreateView, ArticleDetailView
+from .views import (
+    ArticleListView,
+    ArticleCreateView,
+    ArticleDetailView,
+    ArticleUpdateView,
+)
 
 app_name = "wiki"
 urlpatterns = [
@@ -8,7 +13,7 @@ urlpatterns = [
     path("article/<int:pk>/", ArticleDetailView.as_view(), name="article-detail"),
     path(
         "article/<int:pk>/edit/",
-        views.ArticleUpdateView.as_view(),
+        ArticleUpdateView.as_view(),
         name="article-update",
     ),
 ]

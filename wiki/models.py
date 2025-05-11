@@ -1,4 +1,5 @@
 from django.db import models
+from user_management.models import Profile
 
 
 class ArticleCategory(models.Model):
@@ -16,7 +17,10 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(
-        ArticleCategory, on_delete=models.SET_NULL, null=True, related_name="articles"
+        ArticleCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="wiki_articles",
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -30,8 +34,12 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        Profile, null=True, on_delete=models.SET_NULL, related_name="wiki_comments"
+    )
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="wiki_comments"
+    )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

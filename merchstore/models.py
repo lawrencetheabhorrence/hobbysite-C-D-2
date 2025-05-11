@@ -19,6 +19,10 @@ class ProductType(models.Model):
 
 class Product(models.Model):
 
+    def __init__(self, *args, **kwargs):
+        super(Product, self).__init__(*args, **kwargs)
+        self.update_status()
+
     class ProductStatusChoices(models.TextChoices):
         AVAILABLE = "Available"
         ON_SALE = "On Sale"
@@ -63,6 +67,10 @@ class Product(models.Model):
         self.save()
 
     def reduce_stock(self, value):
+        if value > self.stock:
+            raise ValueError(
+                f"You only have {self.stock} left in stock. You tried to reduce stock by {value} which is more than what is in stock."
+            )
         self.stock = self.stock - value
         self.update_status()
         self.save()

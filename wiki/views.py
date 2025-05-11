@@ -70,5 +70,5 @@ class ArticleDetailView(DetailView):
                 comment.article = article
                 comment.user = request.user
                 comment.save()
-                return redirect("wiki:article-detail", pk=article.pk)
+                return redirect("wiki:article_detail", pk=article.pk)
         return HttpResponse("You must be logged in to comment", status=403)

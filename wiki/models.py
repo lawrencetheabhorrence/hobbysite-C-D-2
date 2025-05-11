@@ -22,7 +22,7 @@ class Article(models.Model):
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="wiki_articles",
+        related_name="articles",
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class Comment(models.Model):
         Profile, null=True, on_delete=models.SET_NULL, related_name="wiki_comments"
     )
     article = models.ForeignKey(
-        Article, on_delete=models.CASCADE, related_name="wiki_comments"
+        Article, on_delete=models.CASCADE, related_name="comments"
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

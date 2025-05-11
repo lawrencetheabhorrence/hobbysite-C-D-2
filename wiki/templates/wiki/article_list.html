@@ -1,34 +1,44 @@
-{% extends 'wiki/base.html' %}
-{% block title %}Wiki Articles{% endblock %}
-{% block content %}
-    <h1 class="title">Wiki Articles</h1>
+{% extends 'base.html' %}
+{% load static %}
+	{% block headcontent %}
+	<link rel="stylesheet" href="{% static 'wiki/style.css' %}">
+	{% endblock %}
+	{% block content %}
+	<main class="two-col">
+		{% if user.is_authenticated %}
+		<section class="card user-articles">
+			<section class="top">
+				<h1>Your Articles</h1>
+				<ul class="fullw-list">
+					{% for article in user.profile.wiki_articles.all %}
+					<li>
+						<a href="{% url 'wiki:article_detail' article.id %}">{{ article.title }}</a>
+					</li>
+					{% empty %}
+					<li>No articles written by you.</li>
+					{% endfor %}
+				</ul>
+			</section>
+			<a href="{% url 'wiki:article_create' %}" class="button">+ Write a New Article</a>
+		</section>
+		{% endif %}
 
-    <a href="{% url 'article-create' %}">Create a new article</a>
-
-    <h2>Your Articles</h2>
-    <ul class="article-list">
-        {% for article in articles %}
-            {% if article.author == user.profile %}
-                <li class="article-heading">
-                <article>
-                    <a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a>
-                    <p class="category">{{ article.category }}</p>
-                    <p>Created on: {{ article.created_on | date }}</p>
-                    <p>Updated on: {{ article.updated_on | date }}</p>
-                </article>
-                <hr>
-            </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    <h2>All Articles</h2>
-    {% for category in categories %}
-        <h3>{{ category.name }}</h3>
-        <ul>
-            {% for article in category.articles.all %}
-                <li><a href="{% url 'article-detail' article.pk %}">{{ article.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
-{% endblock %}
+		<section class="card all-items">
+			<h1>All Articles</h1>
+			{% for category in categories %}
+			<h2>{{ category.name }}</h2>
+			<ul class="fullw-list">
+				{% for article in category.articles.all %}
+				{% if article.author != user.profile %}
+				<li>
+					<a href="{% url 'wiki:article_detail' article.id %}">{{ article.title }}</a>
+				</li>
+				{% endif %}
+				{% empty %}
+				<li>No articles in this category.</li>
+				{% endfor %}
+			</ul>
+			{% endfor %}
+		</section>
+	</main>
+	{% endblock %}

@@ -19,26 +19,26 @@
 							<li><a href="{% url 'merchstore:product_list' %}">Merch</a></li>
 							<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
 							<li><a href="{% url 'forum:index' %}">Forum</a></li>
-							<li><a href="">Wiki</a></li>
-							<li><a href="{% url 'blog:index' %}">Blog</a></li>
+							<li><a href="{% url 'wiki:article_list' %}">Wiki</a></li>
+							<li><a href="{% url 'blog:article_list' %}">Blog</a></li>
 						</ul>
 					</section>
 					<section class="login-section">
 						{% if user.is_authenticated %}
 						<p>{{ user.username }}</p>
-						<a href="">
+						<a href="{% url 'logout' %}">
 							<div class="login-link">
 								<div class="icon">
-									<img src="static/Male User.png" alt="">
+									<img src="{% static 'Male User.png' %}" alt="">
 								</div>
 								<p>Logout</p>
 							</div>
 						</a>
 						{% else %}
-						<a href="">
+						<a href="{% url 'login' %}">
 							<div class="login-link">
 								<div class="icon">
-									<img src="static/Male User.png" alt="">
+									<img src="{% static 'Male User.png' %}" alt="">
 								</div>
 								<p>Login</p>
 							</div>
@@ -56,8 +56,8 @@
 				<li><a href="{% url 'merchstore:product_list' %}">Merch</a></li>
 				<li><a href="{% url 'commissions:commission_list' %}">Commissions</a></li>
 				<li><a href="{% url 'forum:index' %}">Forum</a></li>
-				<li><a href="">Wiki</a></li>
-				<li><a href="{% url 'blog:index' %}">Blog</a></li>
+				<li><a href="{% url 'wiki:article_list' %}">Wiki</a></li>
+				<li><a href="{% url 'blog:article_list' %}">Blog</a></li>
 			</ul>
 		</footer>
 	</body>

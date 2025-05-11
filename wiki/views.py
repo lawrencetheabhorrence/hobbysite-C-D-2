@@ -1,7 +1,8 @@
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from .models import Article, Comment, Image, Category
+from .models import Article, Comment, Image, ArticleCategory
 from .forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -18,14 +19,21 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
+        context["categories"] = ArticleCategory.objects.all()
         return context
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    fields = ["title", "author", "category", "entry", "header_image"]
+    fields = ["title", "category", "entry", "header_image"]
+    success_url = reverse_lazy("wiki:article_list")
     template_name_suffix = "_create"
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        article.author = self.request.user.profile
+        article.save()
+        return super().form_valid(form)
 
 
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
@@ -68,7 +76,7 @@ class ArticleDetailView(DetailView):
             if form.is_valid():
                 comment = form.save(commit=False)
                 comment.article = article
-                comment.user = request.user
+                comment.author = request.user.profile
                 comment.save()
-                return redirect("wiki:article-detail", pk=article.pk)
+                return redirect("wiki:article_detail", pk=article.pk)
         return HttpResponse("You must be logged in to comment", status=403)

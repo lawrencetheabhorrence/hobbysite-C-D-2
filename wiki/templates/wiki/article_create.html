@@ -4,18 +4,16 @@
 {% block title %}Create Article{% endblock %}
 
 {% block content %}
-<main>
-    <h1>Create New Article</h1>
-
+<main class="card">
+    <h1>Write an Article</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
         <button type="submit">Publish</button>
     </form>
 
     <p>
-        <a href="{% url 'article-list' %}">Back to All Articles</a>
+        <a href="{% url 'wiki:article_list' %}">Back to All Articles</a>
     </p>
 </main>
 {% endblock %}

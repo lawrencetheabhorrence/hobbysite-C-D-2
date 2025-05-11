@@ -39,9 +39,9 @@
                 {% for comment in article.comments.all %}
                 <section class="comment">
                     <p class="comment-header">
-                        {{ article.author.user.username }} | {{ article.created_on|date:"m/d/Y" }}
+                        {{ comment.author.user.profile.name }} | {{ comment.created_on|date:"m/d/Y" }}
                     </p>
-                    <p>{{ article.entry|linebreaksbr }}</p>
+                    <p>{{ comment.entry|linebreaksbr }}</p>
                 </section>
                 {% empty %}
                 <p>No comments yet.</p>

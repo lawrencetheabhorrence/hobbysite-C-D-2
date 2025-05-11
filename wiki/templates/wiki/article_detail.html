@@ -15,6 +15,7 @@
                 </section>
                 <a href="{% url 'wiki:article_update' article.id %}" class="button">Edit Post</a>
             </section>
+            <img src="{{ article.header_image }}" alt="">
             <p class="thread-entry">{{ article.entry|linebreaksbr }}</p>
             <section class="related-threads">
                 <h2>Related Threads</h2>

@@ -26,19 +26,19 @@
 					<section class="login-section">
 						{% if user.is_authenticated %}
 						<p>{{ user.username }}</p>
-						<a href="">
+						<a href="{% url 'logout' %}">
 							<div class="login-link">
 								<div class="icon">
-									<img src="media/images/Male User.png" alt="">
+									<img src="{% static 'Male User.png' %}" alt="">
 								</div>
 								<p>Logout</p>
 							</div>
 						</a>
 						{% else %}
-						<a href="">
+						<a href="{% url 'login' %}">
 							<div class="login-link">
 								<div class="icon">
-									<img src="media/images/Male User.png" alt="">
+									<img src="{% static 'Male User.png' %}" alt="">
 								</div>
 								<p>Login</p>
 							</div>

@@ -1,0 +1,13 @@
+{% extends 'merchstore/base.html' %}
+{% block title %}Updating {{product.name}}...{% endblock %}
+{% block content %}
+<main>
+	<section class="content">
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" name="form_type" value="product">Update</button>
+	</form>
+	</section>
+</main>
+{% endblock %}

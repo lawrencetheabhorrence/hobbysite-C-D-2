@@ -1,0 +1,21 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+<main>
+	<h1>Your Cart</h1>
+	{% regroup transactions by product.owner as transactions_by_owner %}
+	{% for transaction in transactions_by_owner %}
+		<section class="product-list">
+			<h2>From {{transaction.grouper}}, you bought:</h2>
+			<br>
+			<ul>
+				{% for entry in transaction.list %}
+					<li>
+						<p>{{ entry }}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+		<br>
+	{% endfor %}
+</main>
+{% endblock %}

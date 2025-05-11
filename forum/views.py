@@ -7,9 +7,9 @@ from user_management.models import Profile
 
 
 class ThreadListView(ListView):
-    model = Thread
+    model = ThreadCategory
     template_name = "forum/index.html"
-    context_object_name = "thread"
+    context_object_name = "threads"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

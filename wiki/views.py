@@ -68,7 +68,7 @@ class ArticleDetailView(DetailView):
             if form.is_valid():
                 comment = form.save(commit=False)
                 comment.article = article
-                comment.user = request.user
+                comment.author = request.user.profile
                 comment.save()
                 return redirect("wiki:article_detail", pk=article.pk)
         return HttpResponse("You must be logged in to comment", status=403)

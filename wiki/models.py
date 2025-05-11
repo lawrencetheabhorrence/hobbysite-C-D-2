@@ -14,7 +14,10 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(
+        ArticleCategory, on_delete=models.SET_NULL, null=True, related_name="articles"
+    )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -23,4 +26,30 @@ class Article(models.Model):
         ordering = ["-created_on"]
 
     def __str__(self):
+        return f"{self.title} by {self.author}"
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_on"]
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.article.title}"
+
+
+class Image(models.Model):
+    article = models.ForeignKey(
+        Article, related_name="images", on_delete=models.CASCADE
+    )
+    image = models.ImageField(upload_to="wiki/images/")
+    description = models.TextField()
+
+    def __str__(self):
+        return f"Image for {self.article.title}"
         return self.title

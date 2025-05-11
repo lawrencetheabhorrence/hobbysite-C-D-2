@@ -16,13 +16,16 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(
-        Profile, null=True, on_delete=models.SET_NULL, related_name="wiki_author"
+        Profile, null=True, on_delete=models.SET_NULL, related_name="wiki_articles"
     )
     category = models.ForeignKey(
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
         related_name="articles",
+    )
+    header_image = models.ImageField(
+        upload_to="wiki/images/", default="images/placeholder.png"
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

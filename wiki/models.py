@@ -15,7 +15,9 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(
+        Profile, null=True, on_delete=models.SET_NULL, related_name="wiki_author"
+    )
     category = models.ForeignKey(
         ArticleCategory,
         on_delete=models.SET_NULL,

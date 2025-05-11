@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from .models import Article, Comment, Image, ArticleCategory
@@ -24,8 +25,15 @@ class ArticleListView(ListView):
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    fields = ["title", "author", "category", "entry", "header_image"]
+    fields = ["title", "category", "entry", "header_image"]
+    success_url = reverse_lazy("wiki:article_list")
     template_name_suffix = "_create"
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        article.author = self.request.user.profile
+        article.save()
+        return super().form_valid(form)
 
 
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):

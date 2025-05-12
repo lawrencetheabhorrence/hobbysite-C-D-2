@@ -1,6 +1,6 @@
 {% extends 'merchstore/base.html' %}
 {% block content %}
-<main>
+<main class="card full-flex">
 	<h1>Your Cart</h1>
 	{% regroup transactions by product.owner as transactions_by_owner %}
 	{% for transaction in transactions_by_owner %}

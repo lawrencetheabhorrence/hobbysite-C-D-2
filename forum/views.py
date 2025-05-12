@@ -31,7 +31,13 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     fields = ["title", "category", "entry"]
 
     def get_success_url(self):
-        return reverse("thread_detail", kwargs={"pk": self.object.pk})
+        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
+
+    def form_valid(self, form):
+        thread = form.save(commit=False)
+        thread.author = self.request.user.profile
+        thread.save()
+        return super().form_valid(form)
 
 
 class ThreadUpdateView(LoginRequiredMixin, UpdateView):
@@ -41,4 +47,4 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     fields = ["title", "category", "entry"]
 
     def get_success_url(self):
-        return reverse("thread_detail", kwargs={"pk": self.object.pk})
+        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})

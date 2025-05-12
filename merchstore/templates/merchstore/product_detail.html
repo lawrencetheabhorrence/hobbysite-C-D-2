@@ -16,7 +16,7 @@
 	</section>
 	<form action="POST">
 		{% csrf_token %}
-		<input type="number" min="1" name="amount" {% if product.stock <= 0 %}disabled="disabled"{% endif %}/>
+		<input type="number" min="1" name="amount" />
 	<button type="submit" name="bought_product" value="{{ product.id }}">Buy</button>
 	</form>
 </main>

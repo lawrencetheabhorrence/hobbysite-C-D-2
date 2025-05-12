@@ -263,3 +263,7 @@ ul.fullw-list {
 	border: 1px solid var(--card-stroke);
 	box-shadow: 0 0 10px 5px rgba(61,45,62,0.03);
 }
+
+.bold {
+	font-weight: 600;
+}

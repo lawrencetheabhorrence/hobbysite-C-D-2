@@ -1,7 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/base.html' %}
 {% block content %}
-<main>
-	<h1>Merchstore</h1>
+<main class="full-flex">
 	<section class="card full-flex">
 		<h1>Your Products</h1>
 		<section class="product-grid">
@@ -18,7 +17,7 @@
 			</section>
 			{% endfor %}
 		</section>
-		<a href="{% url 'product_create' %}">+ Add a new product</a>
+		<a href="{% url 'merchstore:product_create' %}" class="button">+ Add a new product</a>
 	</section>
 	<section class="card full-flex">
 		<h1>All Products</h1>
@@ -40,3 +39,4 @@
 		</section>
 	</section>
 </main>
+{% endblock %}

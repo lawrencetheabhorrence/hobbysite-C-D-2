@@ -1,0 +1,24 @@
+section.user-articles {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+}
+
+ul {
+	list-style-type: disc;
+	margin-bottom: 50px;
+}
+
+h1 {
+	font-size: 1.8em;
+	margin-bottom: 15px;
+	margin-top: 5px;
+}
+
+h2 {
+	font-size: 1.3em;
+	font-weight: 500;
+	border-bottom: 2px dashed var(--dark-teal);
+	margin-top: 0;
+	padding-bottom: 5px;
+}

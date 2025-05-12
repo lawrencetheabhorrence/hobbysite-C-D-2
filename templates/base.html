@@ -31,6 +31,9 @@
 							<div class="icon">
 								<img src="{% static 'Male User.png' %}" alt="">
 							</div>
+							<a href="{% url 'password_reset' %}">
+								<p>Reset Pass</p>
+							</a>
 							<form action="{% url 'logout' %}" method="post">
 								{% csrf_token %}
 								<button type="submit">Logout</button>

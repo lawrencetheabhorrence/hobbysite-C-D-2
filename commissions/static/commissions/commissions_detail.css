@@ -40,3 +40,16 @@ section.job-footer p {
 	font-weight: 500;
 	color: var(--dark-teal);
 }
+
+li.list-item > section {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0;
+	margin: 0;
+}
+
+li.list-item h2 {
+	font-weight: 600;
+}

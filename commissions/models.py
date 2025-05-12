@@ -62,12 +62,15 @@ class Job(models.Model):
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
 
+    def open_manpower(self):
+        accepted_applicants = JobApplication.objects.filter(
+            job=self.id, status=JobApplication.ApplicationStatusOptions.ACCEPTED
+        ).count()
+        return self.manpower_required - accepted_applicants
+
     def accept_applicant(self):
-        if self.status == self.JobStatusOptions.OPEN and self.manpower_required > 0:
-            self.manpower_required -= 1
-            self.save()
-            if self.manpower_required == 0:
-                self.set_full()
+        if self.open_manpower() == 0:
+            self.set_full()
 
     def set_full(self):
         self.status = self.JobStatusOptions.FULL

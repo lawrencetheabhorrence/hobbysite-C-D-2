@@ -1,62 +1,42 @@
-{% extends 'merchstore/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <main>
 	<h1>Merchstore</h1>
-	{% if user.is_authenticated %}
-		<a href="{% url 'merchstore:product_create' %}"><h4>Add your product here</h4></a>
-	{% endif %}
-	{% if user.is_authenticated and user.profile.products.all %}
-		<h3>Your ({{ user.profile.name }}) Items</h3>
-		<section class="product-list">
-			<ul>
-				{% for product in user.profile.products.all %}
-					<li>
-						<article class="product-details">
-							<a href="{% url 'merchstore:product_detail' product.id %}">
-								<h2>{{ product.name }}</h2>
-							</a>
-							{% if product.product_type %}
-								<p class="category-chip">{{ product.product_type }}</p>
-							{% endif %}
-							{% if product.status %}
-								<p class="category-chip">{{ product.status }}</p>
-							{% endif %}
-							<p class="price">Price: P {{ product.price }}</p>
-						</article>
-					</li>
-				{% endfor %}
-			</ul>
-		</section>
-		<h3>Other Products</h3>
-	{% else %}
-		<h3>All Products</h3>
-	{% endif %}
-	<section class="product-list">
-		<ul>
-			{% for product in products %}
-				{% if product.owner != user.profile %}
-					<li>
-						<article class="product-details">
-							<a href="{% url 'merchstore:product_detail' product.id %}">
-								<h2>
-									{{ product.name }}
-									{% if product.owner %}
-									<h3> by {{ product.owner.name }}</h3>
-									{% endif %}
-								</h2>
-							</a>
-							{% if product.product_type %}
-								<p class="category-chip">{{ product.product_type }}</p>
-							{% endif %}
-							{% if product.status %}
-								<p class="category-chip">{{ product.status }}</p>
-							{% endif %}
-							<p class="price">Price: P {{ product.price }}</p>
-						</article>
-					</li>
-				{% endif %}
+	<section class="card full-flex">
+		<h1>Your Products</h1>
+		<section class="product-grid">
+			{% for product in user.profile.products.all %}
+			<section class="product-item">
+				<section>
+					<p class="bold">{{ product.name }}</p>
+					<p>PHP {{ product.price|floatformat:2 }}</p>
+				</section>
+				<section>
+					<p>{{ product.stock }} in stock</p>
+					<p class="status-chip">{{ product.status }}</p>
+				</section>
+			</section>
 			{% endfor %}
-		</ul>
+		</section>
+		<a href="{% url 'product_create' %}">+ Add a new product</a>
+	</section>
+	<section class="card full-flex">
+		<h1>All Products</h1>
+		<section class="product-grid">
+			{% for product in user.profile.products.all %}
+			{% if product.user != user.profile %}
+			<section class="product-item">
+				<section>
+					<p class="bold">{{ product.name }}</p>
+					<p>PHP {{ product.price|floatformat:2 }}</p>
+				</section>
+				<section>
+					<p>{{ product.stock }} in stock</p>
+					<p class="status-chip">{{ product.status }}</p>
+				</section>
+			</section>
+			{% endif %}
+			{% endfor %}
+		</section>
 	</section>
 </main>
-{% endblock %}

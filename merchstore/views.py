@@ -49,7 +49,7 @@ class ProductDetailView(DetailView):
                 Product, pk=request.POST.get("bought_product")
             )
             amount_to_buy = int(request.POST.get("amount"))
-            if affected_product.stock >= amount_to_buy:
+            if affected_product.stock >= amount_to_buy and amount_to_buy > 0:
                 transaction = Transaction()
                 transaction.buyer = request.user.profile
                 transaction.product = affected_product

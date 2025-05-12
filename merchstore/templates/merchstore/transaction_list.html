@@ -1,21 +1,26 @@
 {% extends 'merchstore/base.html' %}
 {% block content %}
-<main>
+<main class="card">
 	<h1>Your Orders</h1>
-	{% regroup transactions by buyer as transactions_by_buyer %}
-	{% for transaction in transactions_by_buyer %}
-		<section class="product-list">
-			<h2>User {{transaction.grouper}} bought:</h2>
-			<br>
+	{% regroup transactions by buyer as buyer_list %}
+	{% for buyer in buyer_list %}
+		<section class="transaction-list">
+			<h2>{{buyer.grouper}}</h2>
 			<ul>
-				{% for entry in transaction.list %}
-					<li>
-						<p>{{ entry }}</p>
+				{% for transaction in buyer.list %}
+					<li class="product-item">
+						<section>
+							<p class="bold">{{ transaction.product.name }}</p>
+							<p>PHP {{ transaction.product.price|floatformat:2 }}</p>
+						</section>
+						<section>
+							<p>{{ transaction.product.stock }} in stock</p>
+							<p class="status-chip">{{ transaction.product.status }}</p>
+						</section>
 					</li>
 				{% endfor %}
 			</ul>
 		</section>
-		<br>
 	{% endfor %}
 </main>
 {% endblock %}

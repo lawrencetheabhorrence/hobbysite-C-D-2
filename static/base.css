@@ -159,7 +159,7 @@ nav ul, footer ul {
 	border-radius: 20px;
 }
 
-input[type="text"], select, textarea {
+input[type="text"], input[type="number"], select, textarea {
 	border-radius: 5px;
 	background-color: white;
 	padding: 5px 10px;
@@ -216,7 +216,6 @@ p.status-chip {
 	background-color: var(--dark-teal);
 	font-weight: 600;
 	border-radius: 30px;
-	max-width: 80px;
 	padding: 5px 15px;
 	font-size: 0.8em;
 	text-align: center;
@@ -262,4 +261,8 @@ ul.fullw-list {
 	background-color: #fffdf4;
 	border: 1px solid var(--card-stroke);
 	box-shadow: 0 0 10px 5px rgba(61,45,62,0.03);
+}
+
+.bold {
+	font-weight: 600;
 }

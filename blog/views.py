@@ -1,5 +1,5 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -35,15 +35,12 @@ class ArticleDetailView(DetailView):
         article = self.get_object()
         form = CommentForm(request.POST)
 
-        if form.is_valid():
-            if request.user.is_authenticated:
-                comment = form.save(commit=False)
-                comment.article = article
-                comment.author = request.user.profile
-                comment.save()
-            else:
-                return HttpResponse("You must be logged in to comment", status=403)
-
+        if form.is_valid() and request.user.is_authenticated:
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user.profile
+            comment.save()
+    
         return redirect("blog:article_detail", pk=article.pk)
 
 

@@ -31,7 +31,7 @@
 				{% for thread in category.threads.all %}
 					{% if thread.author != user.profile %}
 						<li>
-							<a href="{% url 'forum:detail' thread.id %}">{{ thread.title }}</a>
+							<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
 						</li>
 					{% endif %}
 				{% empty %}

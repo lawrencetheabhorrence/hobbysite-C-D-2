@@ -1,8 +1,10 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
+
 from .models import Article, ArticleCategory
 from .forms import CommentForm
 
@@ -18,18 +20,31 @@ class ArticleDetailView(DetailView):
     template_name = "blog/article_detail.html"
     context_object_name = "article"
 
-    def post(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         article = self.get_object()
 
-        if request.user.is_authenticated:
-            form = CommentForm(request.POST)
-            if form.is_valid():
+        context["related_articles"] = (
+            Article.objects.all()
+            .exclude(pk=article.pk)
+            .filter(author=article.author)[:2]
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        article = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            if request.user.is_authenticated:
                 comment = form.save(commit=False)
                 comment.article = article
                 comment.author = request.user.profile
                 comment.save()
-                return redirect("blog:article_detail", pk=article.pk)
-        return HttpResponse("You must be logged in to comment", status=403)
+            else:
+                return HttpResponse("You must be logged in to comment", status=403)
+
+        return redirect("blog:article_detail", pk=article.pk)
 
 
 class ArticleCreateView(CreateView):
@@ -52,3 +67,14 @@ class ArticleUpdateView(UpdateView):
     template_name_suffix = "_update"
     success_url = reverse_lazy("blog:article_list")
     fields = ["title", "category", "entry", "header_image"]
+
+    def get(self, request, *args, **kwargs):
+        self.object = Article
+        context = super().get_context_data(**kwargs)
+        affected_article = get_object_or_404(Article, pk=context["pk"])
+        if (
+            request.user.is_authenticated
+            and request.user.profile != affected_article.author
+        ):
+            return HttpResponseRedirect(reverse_lazy("blog:article_list"))
+        return super().post(request, *args, **kwargs)

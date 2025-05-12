@@ -22,7 +22,7 @@
                     <h2>{{ job.role }}</h2>
                     <p class="status-chip">{{ job.status }}</p>
                     <section class="job-footer">
-                        <p class="manpower">Manpower required: {{ job.manpower_required }}</p>
+                        <p class="manpower">{{ job.open_manpower }} out of {{ job.manpower_required }} slots are still open</p>
                         {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
                         <button type="submit">Apply to Job</button>
                         {% endif %}

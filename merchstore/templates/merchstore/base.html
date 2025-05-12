@@ -4,3 +4,7 @@
 	<link rel="stylesheet" href="{% static 'merchstore/style.css' %}">
 {% endblock %}
 {% block title %}Merchstore{% endblock %}
+{% block extra_links %}
+<li><a href="{% url 'merchstore:cart_list' %}">Cart</a></li>
+<li><a href="{% url 'merchstore:transaction_list' %}">Transactions</a></li>
+{% endblock %}

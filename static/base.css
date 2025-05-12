@@ -97,6 +97,12 @@ div.icon img {
 
 section.login-section * {
 	color: #9b5377;
+	font-size: 1em;
+}
+
+section.login-section button {
+	padding: 0;
+	background: none;
 }
 
 a {
@@ -159,7 +165,7 @@ nav ul, footer ul {
 	border-radius: 20px;
 }
 
-input[type="text"], input[type="number"], select, textarea {
+input[type="text"], input[type="password"], input[type="number"], select, textarea {
 	border-radius: 5px;
 	background-color: white;
 	padding: 5px 10px;

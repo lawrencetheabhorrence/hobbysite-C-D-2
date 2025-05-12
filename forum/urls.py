@@ -5,7 +5,7 @@ from .views import ThreadListView, ThreadDetailView, ThreadCreateView, ThreadUpd
 app_name = "forum"
 urlpatterns = [
     path("threads/", ThreadListView.as_view(), name="index"),
-    path("thread/<int:pk>/", ThreadDetailView.as_view(), name="detail"),
+    path("thread/<int:pk>/", ThreadDetailView.as_view(), name="thread_detail"),
     path("thread/add/", ThreadCreateView.as_view(), name="thread_create"),
     path("thread/<int:pk>/edit/", ThreadUpdateView.as_view(), name="thread_update"),
 ]

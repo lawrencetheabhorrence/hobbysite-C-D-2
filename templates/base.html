@@ -21,19 +21,24 @@
 							<li><a href="{% url 'forum:index' %}">Forum</a></li>
 							<li><a href="{% url 'wiki:article_list' %}">Wiki</a></li>
 							<li><a href="{% url 'blog:article_list' %}">Blog</a></li>
+							{% block extra_links %}{% endblock %}
 						</ul>
 					</section>
 					<section class="login-section">
 						{% if user.is_authenticated %}
 						<p>{{ user.username }}</p>
-						<a href="{% url 'logout' %}">
-							<div class="login-link">
-								<div class="icon">
-									<img src="{% static 'Male User.png' %}" alt="">
-								</div>
-								<p>Logout</p>
+						<div class="login-link">
+							<div class="icon">
+								<img src="{% static 'Male User.png' %}" alt="">
 							</div>
-						</a>
+							<a href="{% url 'password_reset' %}">
+								<p>Reset Pass</p>
+							</a>
+							<form action="{% url 'logout' %}" method="post">
+								{% csrf_token %}
+								<button type="submit">Logout</button>
+							</form>
+						</div>
 						{% else %}
 						<a href="{% url 'login' %}">
 							<div class="login-link">

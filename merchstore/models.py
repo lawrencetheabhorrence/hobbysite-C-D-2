@@ -110,9 +110,7 @@ class Transaction(models.Model):
             self.buyer.name
             + "'s "
             + str(self.amount)
-            + " "
+            + " instances of "
             + self.product.name
-            + " currently "
-            + self.status
         )
-        # Ex: Dino's 5 Chicken Nuggets currently Delivered
+        # Ex: Dino's 5 instances of Chicken Nugget

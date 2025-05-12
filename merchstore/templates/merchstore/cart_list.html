@@ -7,15 +7,15 @@
 		<section class="transaction-list">
 			<h2>{{ transaction.grouper }}</h2>
 			<ul>
-				{% for product in transaction.list %}
+				{% for transaction_entry in transaction.list %}
 					<li class="product-item">
 						<section>
-							<p class="bold">{{ product.name }}</p>
-							<p>PHP {{ product.price|floatformat:2 }}</p>
+							<p class="bold">{{ transaction_entry.product.product_type }}: {{ transaction_entry.product }}</p>
+							<p>PHP {{ transaction_entry.product.price|floatformat:2 }} per item</p>
 						</section>
 						<section>
-							<p>{{ product.stock }} in stock</p>
-							<p class="status-chip">{{ product.status }}</p>
+							<p>{{ transaction_entry.amount }} bought</p>
+							<p class="status-chip">{{ transaction_entry.status }}</p>
 						</section>
 					</li>
 				{% endfor %}

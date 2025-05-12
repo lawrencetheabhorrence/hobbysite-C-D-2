@@ -1,23 +1,35 @@
 {% extends 'merchstore/base.html' %}
 {% block title %}Merch Store: {{product.name}}{% endblock %}
 {% block content %}
-<main class="card product-detail">
-	<h1 class="product-owner">{{ product.owner.name }}</h1>
-	<section class="product-content">
-		<section class="product-header">
-			<h2>{{ product.name }}</h2>
-			<p>PHP {{ product.price|floatformat:2 }}</p>
+	<main class="card product-detail">
+		<h1 class="product-owner">From: {{ product.owner.name }}</h1>
+		<section class="product-content">
+			<section class="product-header">
+				<h2>{{product.product_type}}: {{ product.name }}</h2>
+				<p>PHP {{ product.price|floatformat:2 }}</p>
+			</section>
+			<h2>Description:</h2>
+			<p>{{ product.description }}</p>
+			<hr>
+			<section class="product-footer">
+				<p>{{ product.stock }} in stock</p>
+				<p class="status-chip">{{ product.status }}</p>
+			</section>
 		</section>
-		<p>{{ product.description }}</p>
-		<section class="product-footer">
-			<p>{{ product.stock }} in stock</p>
-			<p class="status-chip">{{ product.status }}</p>
+		<section>
+			{% if product.owner != user.profile %}
+				{% if product.stock != 0 %}
+				<form method="post">
+					{% csrf_token %}
+					<input type="number" min=1 name="amount" />
+					<button type="submit" name="bought_product" value="{{ product.id }}">Buy</button>
+				</form>
+				{% else %}
+					<p>"This Item is Unavailable. Come back next time!"</p>
+				{% endif %}
+			{% else %}
+				<a href="{% url 'merchstore:product_update' product.id %}" class="button">Update Your Product Here!</a>
+			{% endif %}
 		</section>
-	</section>
-	<form action="POST">
-		{% csrf_token %}
-		<input type="number" min="1" name="amount" {% if product.stock <= 0 %}disabled="disabled"{% endif %}/>
-	<button type="submit" name="bought_product" value="{{ product.id }}">Buy</button>
-	</form>
-</main>
+	</main>
 {% endblock %}

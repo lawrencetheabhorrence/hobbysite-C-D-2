@@ -159,7 +159,7 @@ nav ul, footer ul {
 	border-radius: 20px;
 }
 
-input[type="text"], input[type="number"], select, textarea {
+input[type="text"], input[type="password"], input[type="number"], select, textarea {
 	border-radius: 5px;
 	background-color: white;
 	padding: 5px 10px;

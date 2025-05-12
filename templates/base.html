@@ -21,6 +21,7 @@
 							<li><a href="{% url 'forum:index' %}">Forum</a></li>
 							<li><a href="{% url 'wiki:article_list' %}">Wiki</a></li>
 							<li><a href="{% url 'blog:article_list' %}">Blog</a></li>
+							{% block extra_links %}{% endblock %}
 						</ul>
 					</section>
 					<section class="login-section">
@@ -31,7 +32,9 @@
 								<div class="icon">
 									<img src="{% static 'Male User.png' %}" alt="">
 								</div>
-								<p>Logout</p>
+								<form action="{% url 'logout' %}" method="post">
+									<button type="submit" class="logout">Logout</button>
+								</form>
 							</div>
 						</a>
 						{% else %}

@@ -26,14 +26,19 @@ class ProductDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect_to_login(
-                reverse_lazy("merchstore:product_detail", kwargs={"pk": request.POST.get("bought_product")}),
+                reverse_lazy(
+                    "merchstore:product_detail",
+                    kwargs={"pk": request.POST.get("bought_product")},
+                ),
                 reverse("login"),
             )
         else:
             affected_product = get_object_or_404(
                 Product, pk=request.POST.get("bought_product")
             )
-            if len(request.POST.get("amount"))!=0 and affected_product.stock >= int(request.POST.get("amount")):
+            if len(request.POST.get("amount")) != 0 and affected_product.stock >= int(
+                request.POST.get("amount")
+            ):
                 amount_to_buy = int(request.POST.get("amount"))
                 transaction = Transaction()
                 transaction.buyer = request.user.profile
@@ -94,7 +99,9 @@ class CartListView(LoginRequiredMixin, ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        return Transaction.objects.filter(buyer=self.request.user.profile).order_by('product__owner','-created_on')
+        return Transaction.objects.filter(buyer=self.request.user.profile).order_by(
+            "product__owner", "-created_on"
+        )
 
 
 class TransactionListView(LoginRequiredMixin, ListView):
@@ -103,4 +110,6 @@ class TransactionListView(LoginRequiredMixin, ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        return Transaction.objects.filter(product__owner=self.request.user.profile).order_by('buyer','-created_on')
+        return Transaction.objects.filter(
+            product__owner=self.request.user.profile
+        ).order_by("buyer", "-created_on")

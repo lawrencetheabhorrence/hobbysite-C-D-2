@@ -99,6 +99,11 @@ section.login-section * {
 	color: #9b5377;
 }
 
+section.login-section button {
+	padding: 0;
+	background: none;
+}
+
 a {
 	text-decoration: none;
 }

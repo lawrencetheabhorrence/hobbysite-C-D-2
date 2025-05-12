@@ -27,16 +27,15 @@
 					<section class="login-section">
 						{% if user.is_authenticated %}
 						<p>{{ user.username }}</p>
-						<a href="{% url 'logout' %}">
-							<div class="login-link">
-								<div class="icon">
-									<img src="{% static 'Male User.png' %}" alt="">
-								</div>
-								<form action="{% url 'logout' %}" method="post">
-									<button type="submit" class="logout">Logout</button>
-								</form>
+						<div class="login-link">
+							<div class="icon">
+								<img src="{% static 'Male User.png' %}" alt="">
 							</div>
-						</a>
+							<form action="{% url 'logout' %}" method="post">
+								{% csrf_token %}
+								<button type="submit">Logout</button>
+							</form>
+						</div>
 						{% else %}
 						<a href="{% url 'login' %}">
 							<div class="login-link">

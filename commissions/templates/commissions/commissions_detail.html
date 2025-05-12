@@ -10,7 +10,7 @@
         <section>
             <h1>Jobs for {{ commission.title }}</h1>
             {% if user.is_authenticated and commission.creator == user.profile %}
-            <a href="">
+            <a href="{% url 'commissions_update' commission.id %}">
                 <p class="button">Edit Commission</p>
             </a>
             {% endif %}
@@ -19,8 +19,10 @@
             <ul>
                 {% for job in commission.jobs.all %}
                 <li class="list-item">
-                    <h2>{{ job.role }}</h2>
-                    <p class="status-chip">{{ job.status }}</p>
+                    <section class="job-header">
+                        <h2>{{ job.role }}</h2>
+                        <p class="status-chip">{{ job.status }}</p>
+                    </section>
                     <section class="job-footer">
                         <p class="manpower">{{ job.open_manpower }} out of {{ job.manpower_required }} slots are still open</p>
                         {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}

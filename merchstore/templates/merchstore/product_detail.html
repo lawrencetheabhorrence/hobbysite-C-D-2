@@ -1,11 +1,11 @@
 {% extends 'merchstore/base.html' %}
 {% block title %}Merch Store: {{product.name}}{% endblock %}
 {% block content %}
-<main class="card">
-	<p class="bold">{{ product.owner.name }}</p>
+<main class="card product-detail">
+	<h1 class="product-owner">{{ product.owner.name }}</h1>
 	<section class="product-content">
 		<section class="product-header">
-			<h1>{{ product.name }}</h1>
+			<h2>{{ product.name }}</h2>
 			<p>PHP {{ product.price|floatformat:2 }}</p>
 		</section>
 		<p>{{ product.description }}</p>

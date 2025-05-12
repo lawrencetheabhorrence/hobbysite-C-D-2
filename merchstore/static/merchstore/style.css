@@ -25,3 +25,37 @@ section.product-item {
 	justify-content: space-between;
 	align-items: center;
 }
+
+section.product-content {
+	border-bottom: 1px solid var(--dark-teal);
+	margin-bottom: 15px;
+}
+
+h1.product-owner {
+	margin: 5px 0;
+	font-weight: 500;
+}
+
+section.product-content > * {
+	width: 100%;
+	margin: 5px 0;
+}
+
+main.product-detail > *, main.product-detail > section > * {
+	color: var(--dark-teal);
+}
+
+section.product-header, section.product-footer {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+section.product-header * {
+	color: var(--dark-teal);
+}
+
+section.product-header h1 {
+	font:size: 1.3em;
+}

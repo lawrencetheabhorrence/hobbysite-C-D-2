@@ -7,7 +7,7 @@
 			{% for product in user.profile.products.all %}
 			<section class="product-item">
 				<section>
-					<p class="bold">{{ product.name }}</p>
+					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{ product.name }}</p></a>
 					<p>PHP {{ product.price|floatformat:2 }}</p>
 				</section>
 				<section>
@@ -26,7 +26,7 @@
 			{% if product.user != user.profile %}
 			<section class="product-item">
 				<section>
-					<p class="bold">{{ product.name }}</p>
+					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{ product.name }}</p></a>
 					<p>PHP {{ product.price|floatformat:2 }}</p>
 				</section>
 				<section>

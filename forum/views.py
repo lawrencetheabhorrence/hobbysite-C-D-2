@@ -24,9 +24,7 @@ class ThreadDetailView(DetailView):
         thread = self.get_object()
 
         context["related_threads"] = (
-            Thread.objects.all()
-            .exclude(pk=thread.pk)
-            .filter(author=thread.author)[:2]
+            Thread.objects.all().exclude(pk=thread.pk).filter(author=thread.author)[:2]
         )
         return context
 
@@ -39,7 +37,7 @@ class ThreadDetailView(DetailView):
             comment.thread = thread
             comment.author = request.user.profile
             comment.save()
-    
+
         return redirect("forum:thread_detail", pk=thread.pk)
 
 

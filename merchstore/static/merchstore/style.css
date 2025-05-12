@@ -13,13 +13,26 @@ section.product-grid {
 	column-gap: 20px;
 }
 
-section.product-item {
-	border: 1px solid var(--dark-teal);
+.product-item {
 	border-radius: 15px;
 	padding: 10px 15px;
 }
 
-.product-grid > .product-item > section {
+.product-item > * {
+	color: var(--dark-teal);
+}
+
+.product-item p.bold {
+	color: var(--dark-teal);
+	font-size: 1.2em;
+	font-weight: 700;
+}
+
+section.product-item {
+	border: 1px solid var(--dark-teal);
+}
+
+.product-item > section {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -58,4 +71,38 @@ section.product-header * {
 
 section.product-header h1 {
 	font:size: 1.3em;
+}
+
+.transaction-list > * {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 0px;
+	border-bottom: 1px solid var(--card-stroke);
+}
+
+.transaction-list > ul * {
+	padding: 5px;
+	margin: 0;
+	margin-bottom: 5px;
+}
+
+.transaction-list > h2 {
+	padding-top: 0;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	font-weight: 600;
+	border-bottom: 1px solid var(--dark-teal);
+}
+
+.transaction-list {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 10px 15px;
+	border: 1px solid var(--dark-teal);
+	border-radius: 15px;
+}
+
+ul {
+	list-style-type: none;
 }

@@ -2,20 +2,20 @@
 {% block content %}
 <main class="card">
 	<h1>Your Orders</h1>
-	{% regroup transactions by buyer as transactions_by_buyer %}
-	{% for transaction in transactions_by_buyer %}
+	{% regroup transactions by buyer as buyer_list %}
+	{% for buyer in buyer_list %}
 		<section class="transaction-list">
-			<h2>{{transaction.grouper}}</h2>
+			<h2>{{buyer.grouper}}</h2>
 			<ul>
-				{% for product in transaction.list %}
+				{% for transaction in buyer.list %}
 					<li class="product-item">
 						<section>
-							<p class="bold">{{ product.name }}</p>
-							<p>PHP {{ product.price|floatformat:2 }}</p>
+							<p class="bold">{{ transaction.product.name }}</p>
+							<p>PHP {{ transaction.product.price|floatformat:2 }}</p>
 						</section>
 						<section>
-							<p>{{ product.stock }} in stock</p>
-							<p class="status-chip">{{ product.status }}</p>
+							<p>{{ transaction.product.stock }} in stock</p>
+							<p class="status-chip">{{ transaction.product.status }}</p>
 						</section>
 					</li>
 				{% endfor %}

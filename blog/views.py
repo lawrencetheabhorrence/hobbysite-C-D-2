@@ -40,7 +40,7 @@ class ArticleDetailView(DetailView):
             comment.article = article
             comment.author = request.user.profile
             comment.save()
-    
+
         return redirect("blog:article_detail", pk=article.pk)
 
 

@@ -179,3 +179,4 @@ __pycache__/
 *.pyo
 *.pyd
 
+media/

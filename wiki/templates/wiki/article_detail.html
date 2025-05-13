@@ -31,6 +31,18 @@
                 </section>
             </section>
         </section>
+        {% if article.images.objects.exists %}
+            <section class="image-gallery">
+                <h1>Image Gallery</h1>
+                <section class="gallery-content">
+                {% for image in article.images.objects.all %}
+                    <article class="gallery-item">
+                        <div class="gallery-image"><img src="{% url image.url %}" alt="{{ image.description }}"></div>
+                        <p>{{ image.description }}</p>
+                    </article>
+                </section>
+            </section>
+        {% endif %}
 
         <section class="comments-section">
             {% if user.is_authenticated %}

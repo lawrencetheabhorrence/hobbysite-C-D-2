@@ -2,6 +2,7 @@
 {% load static %}
     {% block headcontent %}
     <link rel="stylesheet" href="{% static 'forum/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'wiki/style.css' %}">
     {% endblock %}
     {% block content %}
     <main class="white-bg-detail">
@@ -31,15 +32,16 @@
                 </section>
             </section>
         </section>
-        {% if article.images.objects.exists %}
+        {% if article.images.exists %}
             <section class="image-gallery">
-                <h1>Image Gallery</h1>
-                <section class="gallery-content">
-                {% for image in article.images.objects.all %}
+                <h2>Image Gallery</h2>
+                <section class="image-table">
+                {% for image in article.images.all %}
                     <article class="gallery-item">
-                        <div class="gallery-image"><img src="{% url image.url %}" alt="{{ image.description }}"></div>
+                    <div class="gallery-image"><img src="{{ image.image.url }}" alt="{{ image.description }}"></div>
                         <p>{{ image.description }}</p>
                     </article>
+                {% endfor %}
                 </section>
             </section>
         {% endif %}

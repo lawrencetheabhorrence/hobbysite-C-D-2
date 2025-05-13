@@ -45,7 +45,14 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     fields = ["title", "category", "entry", "header_image"]
+    success_url = reverse_lazy("wiki:article_list")
     template_name_suffix = "_update"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = self.get_object()
+        context["images"] = Image.objects.filter(article=article)
+        return context
 
 
 class ArticleDetailView(DetailView):
@@ -91,6 +98,7 @@ class ArticleDetailView(DetailView):
 class ImageCreateView(CreateView):
     model = Image
     fields = ["image", "description"]
+    success_url = reverse_lazy("wiki:article_list")
     template_name_suffix = "_create"
 
     def form_valid(self, form):
@@ -103,11 +111,10 @@ class ImageCreateView(CreateView):
 class ImageUpdateView(UpdateView):
     model = Image
     fields = ["description"]
+    success_url = reverse_lazy("wiki:article_list")
     template_name_suffix = "_update"
 
 
 class ImageDeleteView(DeleteView):
     model = Image
-    success_url = reverse_lazy(
-        "wiki:article_detail", args=[self.get_object().article.pk]
-    )
+    success_url = reverse_lazy("wiki:article_list")

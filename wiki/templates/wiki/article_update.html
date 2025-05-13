@@ -9,13 +9,30 @@
     {% endblock %}
 
     {% block content %}
-    <section class="card">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Changes</button>
-        </form>
-        <a href="{% url 'wiki:article_detail' article.pk %}"><p>Back to Article</p></a>
-    </section>
-
+    <main>
+        <section class="card">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Changes</button>
+            </form>
+            <a href="{% url 'wiki:article_detail' article.pk %}"><p>Back to Article</p></a>
+        </section>
+        <section class="card">
+            <h1>Your Images</h1>
+            <a href="{% url 'wiki:image_create' object.id %}" class="button">Add Image</a>
+            <section class="image-table">
+                {% for image in images %}
+                <article>
+                    <div><img src="{{ image.image.url }}" alt="{{ image.description }}"></div>
+                    <p>{{ image.description }}</p>
+                    <section class="edit-buttons">
+                        <a href="{% url 'wiki:image_update' image.pk %}" class="button">Edit</a>
+                        <a href="{% url 'wiki:image_delete' image.pk %}" class="button">Delete</a>
+                    </section>
+                </article>
+                {% endfor %}
+            </section>
+        </section>
+    </main>
     {% endblock %}

@@ -112,6 +112,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("MAILGUN_SMTP_SERVER")
+EMAIL_HOST_USER = env("MAILGUN_SMTP_LOGIN")
+EMAIL_HOST_PASSWORD = env("MAILGUN_SMTP_PASSWORD")
+EMAIL_PORT = env("MAILGUN_SMTP_PORT")
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

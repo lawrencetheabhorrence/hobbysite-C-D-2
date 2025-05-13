@@ -1,1 +1,1 @@
-web:gunicorn hobbysite.wsgi
+web: gunicorn hobbysite.wsgi

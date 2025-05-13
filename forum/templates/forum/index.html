@@ -10,7 +10,7 @@
 			<section class="top">
 			<h1>Your Threads</h1>
 			<ul class="fullw-list">
-				{% for thread in user_threads %}
+				{% for thread in user.profile.threads.all %}
 				<li>
 					<a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a>
 				</li>

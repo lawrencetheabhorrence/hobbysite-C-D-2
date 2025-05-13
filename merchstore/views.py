@@ -1,14 +1,13 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
-from django.views import View
+from django.shortcuts import get_object_or_404, reverse
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import FormView, CreateView, UpdateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from .models import ProductType, Product, Transaction, Profile
+from .models import Product, Transaction
 from .forms import ProductCreator
 
 
@@ -16,20 +15,6 @@ class ProductListView(ListView):
     model = Product
     template_name = "merchstore/product_list.html"
     context_object_name = "products"
-
-
-"""
-def merchstoreVariety(request, product_type=""):
-    # This function is deprecated
-    # Shows products of a certain type
-
-    chosen_product_type = get_object_or_404(ProductType, name=product_type)
-    available_items = get_list_or_404(Product, product_type=chosen_product_type)
-
-    context = {"product_kind": chosen_product_type, "items": available_items}
-
-    return render(request, "merchstore/merchstore_variety.html", context)
-"""
 
 
 class ProductDetailView(DetailView):
@@ -41,15 +26,20 @@ class ProductDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect_to_login(
-                reverse_lazy("merchstore:product_detail", kwargs={"pk": context["pk"]}),
+                reverse_lazy(
+                    "merchstore:product_detail",
+                    kwargs={"pk": request.POST.get("bought_product")},
+                ),
                 reverse("login"),
             )
         else:
             affected_product = get_object_or_404(
                 Product, pk=request.POST.get("bought_product")
             )
-            amount_to_buy = int(request.POST.get("amount"))
-            if affected_product.stock >= amount_to_buy and amount_to_buy > 0:
+            if len(request.POST.get("amount")) != 0 and affected_product.stock >= int(
+                request.POST.get("amount")
+            ):
+                amount_to_buy = int(request.POST.get("amount"))
                 transaction = Transaction()
                 transaction.buyer = request.user.profile
                 transaction.product = affected_product
@@ -109,7 +99,9 @@ class CartListView(LoginRequiredMixin, ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        return Transaction.objects.filter(buyer=self.request.user.profile)
+        return Transaction.objects.filter(buyer=self.request.user.profile).order_by(
+            "product__owner", "-created_on"
+        )
 
 
 class TransactionListView(LoginRequiredMixin, ListView):
@@ -118,4 +110,6 @@ class TransactionListView(LoginRequiredMixin, ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        return Transaction.objects.filter(product__owner=self.request.user.profile)
+        return Transaction.objects.filter(
+            product__owner=self.request.user.profile
+        ).order_by("buyer", "-created_on")

@@ -1,13 +1,19 @@
 {% extends 'merchstore/base.html' %}
 {% block content %}
 <main class="full-flex">
+	{% if user.is_authenticated %}
 	<section class="card full-flex">
 		<h1>Your Products</h1>
+		{% if user.profile.products.all|length == 0 %}
+		<h2>Nothing for now. Click below to...</h2>
+		<br>
+		{% endif %}
+		<a href="{% url 'merchstore:product_create' %}" class="button">+ Add a new product</a>
 		<section class="product-grid">
 			{% for product in user.profile.products.all %}
 			<section class="product-item">
 				<section>
-					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{ product.name }}</p></a>
+					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{product.product_type}}: {{ product.name }}</p></a>
 					<p>PHP {{ product.price|floatformat:2 }}</p>
 				</section>
 				<section>
@@ -17,16 +23,17 @@
 			</section>
 			{% endfor %}
 		</section>
-		<a href="{% url 'merchstore:product_create' %}" class="button">+ Add a new product</a>
 	</section>
+	{% endif %}
+	{% if products.all|length != user.profile.products.all|length %}
 	<section class="card full-flex">
 		<h1>All Products</h1>
 		<section class="product-grid">
-			{% for product in user.profile.products.all %}
-			{% if product.user != user.profile %}
+			{% for product in products.all %}
+			{% if product.owner != user.profile %}
 			<section class="product-item">
 				<section>
-					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{ product.name }}</p></a>
+					<a href="{% url 'merchstore:product_detail' product.id %}"><p class="bold">{{product.product_type}}: {{ product.name }}</p></a>
 					<p>PHP {{ product.price|floatformat:2 }}</p>
 				</section>
 				<section>
@@ -38,5 +45,9 @@
 			{% endfor %}
 		</section>
 	</section>
+	{% endif %}
+	{% if products.all|length == 0 and not user.is_authenticated %}
+	<p>Sorry, nothing's for sale. How about you login and make your own products?</p>
+	{% endif %}
 </main>
 {% endblock %}

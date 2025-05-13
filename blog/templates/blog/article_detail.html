@@ -8,15 +8,19 @@
 		<section class="thread-content">
 			<section class="thread-header">
 				<section class="thread-meta">
-					<h1>{{ article.title }}</h1>
+					<h1>{{ article.title }} by {{article.author}}</h1>
 					<span>{{ article.category }}</span>
 					<span>Created On: {{ article.created_on|date:"m/d/Y" }}</span>
 					<span>Updated On: {{ article.updated_on|date:"m/d/Y" }}</span>
 				</section>
+				{% if user.profile == article.author %}
 				<a href="{% url 'blog:article_update' article.id %}" class="button">Edit Post</a>
+				{% endif %}
 			</section>
-			<img src="{{ article.header_image.url }}" alt="">
-			<p class="thread-entry">{{ article.entry|linebreaksbr }}</p>
+			<section class="article-entry">
+				<img src="{{ article.header_image.url }}" alt="">
+				<p class="thread-entry">{{ article.entry|linebreaksbr }}</p>
+			</section>
 			<section class="related-threads">
 				<h2>Related Threads</h2>
 				<section class="related-links">
@@ -31,11 +35,13 @@
 		</section>
 
 		<section class="comments-section">
+			{% if user.is_authenticated %}
 			<form method="post" class="comment-form">
 				{% csrf_token %}
 				<input type="text" name="entry" placeholder="Write a comment..."/>
 				<button type="submit">Post</button>
 			</form>
+			{% endif %}
 			<section class="comments-list">
 				{% for comment in article.comments.all %}
 				<section class="comment">

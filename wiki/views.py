@@ -1,7 +1,13 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import (
+    CreateView,
+    ListView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+)
 from .models import Article, Comment, Image, ArticleCategory
 from .forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -80,3 +86,28 @@ class ArticleDetailView(DetailView):
                 comment.save()
                 return redirect("wiki:article_detail", pk=article.pk)
         return HttpResponse("You must be logged in to comment", status=403)
+
+
+class ImageCreateView(CreateView):
+    model = Image
+    fields = ["image", "description"]
+    template_name_suffix = "_create"
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.article = Article.objects.get(pk=self.kwargs["article_pk"])
+        image.save()
+        return super().form_valid(form)
+
+
+class ImageUpdateView(UpdateView):
+    model = Image
+    fields = ["description"]
+    template_name_suffix = "_update"
+
+
+class ImageDeleteView(DeleteView):
+    model = Image
+    success_url = reverse_lazy(
+        "wiki:article_detail", args=[self.get_object().article.pk]
+    )

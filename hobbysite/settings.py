@@ -134,5 +134,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-DATABASES["default"] = dj_database_url.config(conn_max__age=600, ssl_require=True)
+DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 django_heroku.settings(locals())

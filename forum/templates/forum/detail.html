@@ -8,10 +8,11 @@
     <section class="thread-content">
         <section class="thread-header">
             <section class="thread-meta">
-                <h1>{{ thread.title }} by {{thread.author}}</h1>
-                <span>{{ thread.category }}</span>
-                <span>Created On: {{ thread.created_on|date:"m/d/Y" }}</span>
-                <span>Updated On: {{ thread.updated_on|date:"m/d/Y" }}</span>
+                <h1>{{ thread.title }}</h1>
+                <p>Category: {{ thread.category }}</p>
+                <p>Created On: {{ thread.created_on|date:"m/d/Y" }}</p>
+                <p>Updated On: {{ thread.updated_on|date:"m/d/Y" }}</p>
+                <p>Made By: {{ thread.author }}</p>
             </section>
             {% if user.profile == thread.author %}
             <a href="{% url 'forum:thread_update' thread.id %}" class="button">Edit Post</a>
@@ -40,7 +41,7 @@
         </form>
         {% endif %}
         <section class="comments-list">
-            {% for comment in thread.comments.all %}
+            {% for comment in comments %}
             <section class="comment">
                 <p class="comment-header">
                     {{ comment.author.user.username }} | {{ comment.created_on|date:"m/d/Y" }}

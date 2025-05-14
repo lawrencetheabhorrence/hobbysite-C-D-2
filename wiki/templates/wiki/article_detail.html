@@ -10,10 +10,10 @@
             <section class="thread-header">
                 <section class="thread-meta">
                     <h1>{{ article.title }}</h1>
-                    <span>Category: {{ article.category }}</span>
-                    <span>Created On: {{ article.created_on|date:"m/d/Y" }}</span>
-                    <span>Updated On: {{ article.updated_on|date:"m/d/Y" }}</span>
-                    <span>Entry Author: {{ article.author }}</span>
+                    <p>Category: {{ article.category }}</p>
+                    <p>Created On: {{ article.created_on|date:"m/d/Y" }}</p>
+                    <p>Updated On: {{ article.updated_on|date:"m/d/Y" }}</p>
+                    <p>Entry Author: {{ article.author }}</p>
                 </section>
                 {% if user.profile == article.author %}
                 <a href="{% url 'wiki:article_update' article.id %}" class="button">Edit Post</a>

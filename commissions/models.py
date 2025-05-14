@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinValueValidator
 from user_management.models import Profile
 
 
@@ -58,13 +59,19 @@ class Job(models.Model):
         Commission, on_delete=models.CASCADE, related_name="jobs"
     )
     role = models.TextField(max_length=255)
-    manpower_required = models.PositiveIntegerField()
+    manpower_required = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     status = models.CharField(
         max_length=15, default=JobStatusOptions.OPEN, choices=JobStatusOptions
     )
 
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
+
+    def __str__(self):
+        return self.role
+
+    def get_absolute_url(self):
+        return reverse("commissions:job_view", kwargs={"pk": self.pk})
 
     def open_manpower(self):
         accepted_applicants = JobApplication.objects.filter(
@@ -101,6 +108,12 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["status", "-applied_on"]
+
+    def get_absolute_url(self):
+        return reverse("commissions:job_view", kwargs={"pk": self.job.pk})
+
+    def __str__(self):
+        return f"Application for {self.job}"
 
     def accept_application(self):
         self.status = self.ApplicationStatusOptions.ACCEPTED

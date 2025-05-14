@@ -29,7 +29,7 @@
                     {% for application in user.profile.applications.all %}
                     <li class="list-item">
                         <section>
-                            <a href="{% url 'commissions:commission_detail' commission.id %}"><h2>{{ application.job.commission.title }}</h2></a>
+                            <a href="{% url 'commissions:commission_detail' application.job.commission.id %}"><h2>{{ application.job.commission.title }}</h2></a>
                             <p>{{ application.job.commission.created_on | date }}</p>
                         </section>
                         <p class="status-chip">{{ application.job.commission.status }}</p>
@@ -49,7 +49,7 @@
                 {% for commission in commissions %}
                 <li class="list-item">
                     <section>
-                        <h2>{{ commission.title }}</h2>
+                        <a href="{% url 'commissions:commission_detail' commission.id %}"><h2>{{ commission.title }}</h2></a>
                         <p>{{ commission.created_on | date }}</p>
                     </section>
                     <p class="status-chip">{{ commission.status }}</p>

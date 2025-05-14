@@ -1,10 +1,9 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import ThreadCategory, Thread
+from .models import ThreadCategory, Thread, Comment
 from .forms import CommentForm
 
 
@@ -21,10 +20,18 @@ class ThreadDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        thread = self.get_object()
 
         context["related_threads"] = (
-            Thread.objects.all().exclude(pk=thread.pk).filter(author=thread.author)[:2]
+            Thread.objects.all()
+            .exclude(pk=context["thread"].pk)
+            .filter(category=context["thread"].category)[:2]
         )
+
+        context["comments"] = Comment.objects.filter(thread=thread).order_by(
+            "created_on"
+        )
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -66,9 +73,16 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
 
     def get(self, request, *args, **kwargs):
-        self.object = Thread
-        context = super().get_context_data(**kwargs)
-        affected_thread = get_object_or_404(Thread, pk=context["pk"])
+        affected_thread = get_object_or_404(Thread, pk=self.kwargs["pk"])
         if request.user.profile != affected_thread.author:
-            return HttpResponseRedirect(reverse_lazy("forum:index"))
+            return redirect(reverse_lazy("forum:index"))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        affected_thread = get_object_or_404(Thread, pk=self.kwargs["pk"])
+        if (
+            request.user.is_authenticated
+            and request.user.profile != affected_thread.author
+        ):
+            return redirect(reverse_lazy("forum:index"))
         return super().post(request, *args, **kwargs)

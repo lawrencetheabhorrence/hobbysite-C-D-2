@@ -8,10 +8,11 @@
 		<section class="thread-content">
 			<section class="thread-header">
 				<section class="thread-meta">
-					<h1>{{ article.title }} by {{article.author}}</h1>
-					<span>{{ article.category }}</span>
-					<span>Created On: {{ article.created_on|date:"m/d/Y" }}</span>
-					<span>Updated On: {{ article.updated_on|date:"m/d/Y" }}</span>
+					<h1>{{ article.title }}</h1>
+					<p>Category: {{ article.category }}</p>
+					<p>Created On: {{ article.created_on|date:"m/d/Y" }}</p>
+					<p>Updated On: {{ article.updated_on|date:"m/d/Y" }}</p>
+					<p>Made by: {{ article.author }}</p>
 				</section>
 				{% if user.profile == article.author %}
 				<a href="{% url 'blog:article_update' article.id %}" class="button">Edit Post</a>
@@ -22,7 +23,7 @@
 				<p class="thread-entry">{{ article.entry|linebreaksbr }}</p>
 			</section>
 			<section class="related-threads">
-				<h2>Related Threads</h2>
+				<h2>Related Threads to Author</h2>
 				<section class="related-links">
 					{% for article in related_articles %}
 					<a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a>
@@ -43,7 +44,7 @@
 			</form>
 			{% endif %}
 			<section class="comments-list">
-				{% for comment in article.comments.all %}
+				{% for comment in comments %}
 				<section class="comment">
 					<p class="comment-header">
 						{{ comment.author.user.profile.name }} | {{ comment.created_on|date:"m/d/Y" }}

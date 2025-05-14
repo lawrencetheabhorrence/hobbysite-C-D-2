@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from user_management.models import Profile
 
 
@@ -28,6 +29,9 @@ class Commission(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("commissions:commission_detail", kwargs={"pk": self.pk})
 
     def fill_job(self):
         """

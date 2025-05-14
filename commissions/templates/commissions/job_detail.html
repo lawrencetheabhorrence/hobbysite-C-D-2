@@ -8,8 +8,13 @@
     {% block content %}
     <main class="card">
         <h1>Applicants for {{ job.role }}</h1>
+        {% if request.user.profile == job.commission.creator %}
+            <a href="{% url 'commissions:job_update' job.id %}">
+                <p class="button">Edit Job</p>
+            </a>
+        {% endif %}
         <ul>
-            {% for application in job.applications.all %}
+            {% for application in applications %}
             <li class="list-item">
                 <p>{{ application.applicant.name }}</p>
                 <form method="POST" action="">

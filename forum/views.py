@@ -20,6 +20,7 @@ class ThreadDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        thread = self.get_object()
 
         context["related_threads"] = (
             Thread.objects.all()

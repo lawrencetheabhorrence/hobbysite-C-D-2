@@ -1,3 +1,7 @@
+section.card {
+	margin-bottom: 20px;
+}
+
 section.user-articles {
 	display: flex;
 	flex-flow: column nowrap;
@@ -18,7 +22,44 @@ h1 {
 h2 {
 	font-size: 1.3em;
 	font-weight: 500;
-	border-bottom: 2px dashed var(--dark-teal);
 	margin-top: 0;
-	padding-bottom: 5px;
 }
+
+
+section.image-gallery {
+	border-bottom: 2px dashed var(--dark-teal);
+	padding-bottom: 5px;
+	margin-top: 10px;
+}
+
+
+section.image-table {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding: 10px 15px;
+	margin-top: 25px;
+}
+
+section.image-table > article img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+section.image-table > article {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	padding: 10px;
+}
+
+section.image-table > article div {
+	height: 150px;
+}
+
+article > section.edit-buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 5px;
+}
+

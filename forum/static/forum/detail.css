@@ -54,3 +54,7 @@ form {
 	gap: 5px;
 	margin-bottom: 30px;
 }
+
+section.article-entry {
+	margin-top: 10px;
+}

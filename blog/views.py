@@ -1,11 +1,10 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
-from .models import Article, ArticleCategory
+from .models import Article, ArticleCategory, Comment
 from .forms import CommentForm
 
 
@@ -29,6 +28,11 @@ class ArticleDetailView(DetailView):
             .exclude(pk=article.pk)
             .filter(author=article.author)[:2]
         )
+
+        context["comments"] = Comment.objects.filter(article=article).order_by(
+            "-created_on"
+        )
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -46,10 +50,13 @@ class ArticleDetailView(DetailView):
 
 class ArticleCreateView(CreateView):
     model = Article
-    template_name = "blog/article_create.html"
     template_name_suffix = "_create"
-    success_url = reverse_lazy("blog:article_list")
     fields = ["title", "category", "entry", "header_image"]
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs)
+        return redirect(reverse("blog:article_list"))
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -60,18 +67,19 @@ class ArticleCreateView(CreateView):
 
 class ArticleUpdateView(UpdateView):
     model = Article
-    template_name = "blog/article_update.html"
     template_name_suffix = "_update"
-    success_url = reverse_lazy("blog:article_list")
     fields = ["title", "category", "entry", "header_image"]
 
     def get(self, request, *args, **kwargs):
-        self.object = Article
-        context = super().get_context_data(**kwargs)
-        affected_article = get_object_or_404(Article, pk=context["pk"])
+        affected_article = get_object_or_404(Article, pk=self.kwargs["pk"])
         if (
             request.user.is_authenticated
             and request.user.profile != affected_article.author
         ):
-            return HttpResponseRedirect(reverse_lazy("blog:article_list"))
-        return super().post(request, *args, **kwargs)
+            return redirect(reverse_lazy("blog:article_list"))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs)
+        return redirect(reverse("blog:article_list"))

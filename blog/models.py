@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from user_management.models import Profile
 
 
@@ -7,13 +8,13 @@ class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    def __str__(self):
-
-        return f"{self.name}"
-
     class Meta:
 
         ordering = ["name"]
+
+    def __str__(self):
+
+        return f"{self.name}"
 
 
 class Article(models.Model):
@@ -27,18 +28,21 @@ class Article(models.Model):
     )
     entry = models.TextField()
     header_image = models.ImageField(
-        null=True, upload_to="blog/images/", default="images/placeholder.png"
+        upload_to="blog/images/", default="images/placeholder.png"
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+
+        ordering = ["-created_on"]
 
     def __str__(self):
 
         return f"{self.title}, {self.category}, {self.entry}, {self.created_on}, {self.updated_on}"
 
-    class Meta:
-
-        ordering = ["-created_on"]
+    def get_absolute_url(self):
+        return reverse("blog:article_detail", kwargs={"pk": self.id})
 
 
 class Comment(models.Model):

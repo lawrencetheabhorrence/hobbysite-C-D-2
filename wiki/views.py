@@ -53,12 +53,20 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        self.object = Article
-        context = super().get_context_data(**kwargs)
-        affected_article = get_object_or_404(Article, pk=context["pk"])
+
+        affected_article = get_object_or_404(Article, pk=self.kwargs["pk"])
         if request.user.profile != affected_article.author:
             return redirect(reverse_lazy("wiki:article_list"))
         return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        affected_article = get_object_or_404(Article, pk=self.kwargs["pk"])
+        if (
+            request.user.is_authenticated
+            and request.user.profile != affected_article.author
+        ):
+            return redirect(reverse_lazy("wiki:article_list"))
+        return super().post(request, *args, **kwargs)
 
 
 class ArticleDetailView(DetailView):
@@ -119,6 +127,15 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
         image.save()
         return super().form_valid(form)
 
+    def post(self, request, *args, **kwargs):
+        affected_article = get_object_or_404(Article, pk=self.kwargs["pk"])
+        if (
+            request.user.is_authenticated
+            and request.user.profile != affected_article.author
+        ):
+            return redirect(reverse_lazy("wiki:article_list"))
+        return super().post(request, *args, **kwargs)
+
     def get_success_url(self):
         return Article.objects.get(pk=self.kwargs["pk"]).get_absolute_url()
 
@@ -134,6 +151,15 @@ class ImageUpdateView(LoginRequiredMixin, UpdateView):
             return redirect(reverse_lazy("wiki:article_list"))
         return super().get(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        image = self.get_object()
+        if (
+            request.user.is_authenticated
+            and request.user.profile != image.article.author
+        ):
+            return redirect(reverse_lazy("wiki:article_list"))
+        return super().post(request, *args, **kwargs)
+
     def get_success_url(self):
         image = self.get_object()
         return Article.objects.get(pk=image.article.pk).get_absolute_url()
@@ -147,6 +173,15 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
         if request.user.profile != image.article.author:
             return redirect(reverse_lazy("wiki:article_list"))
         return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        image = self.get_object()
+        if (
+            request.user.is_authenticated
+            and request.user.profile != image.article.author
+        ):
+            return redirect(reverse_lazy("wiki:article_list"))
+        return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
         image = self.get_object()

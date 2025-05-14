@@ -53,6 +53,7 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
+
         affected_article = get_object_or_404(Article, pk=self.kwargs["pk"])
         if request.user.profile != affected_article.author:
             return redirect(reverse_lazy("wiki:article_list"))

@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from user_management.models import Profile
 
 
@@ -44,6 +45,9 @@ class Commission(models.Model):
             self.status = self.CommissionStatusOptions.FULL
             self.save()
 
+    def get_absolute_url(self):
+        return reverse("commissions:commission_detail", kwargs={"pk": self.pk})
+
 
 class Job(models.Model):
     class JobStatusOptions(models.TextChoices):
@@ -62,12 +66,19 @@ class Job(models.Model):
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
 
+    def __str__(self):
+        return self.role
+
+    def open_manpower(self):
+        accepted_applicants = JobApplication.objects.filter(
+            job=self.id, status=JobApplication.ApplicationStatusOptions.ACCEPTED
+        ).count()
+        return self.manpower_required - accepted_applicants
+
     def accept_applicant(self):
-        if self.status == self.JobStatusOptions.OPEN and self.manpower_required > 0:
-            self.manpower_required -= 1
-            self.save()
-            if self.manpower_required == 0:
-                self.set_full()
+        print(self.open_manpower())
+        if self.open_manpower() == 0:
+            self.set_full()
 
     def set_full(self):
         self.status = self.JobStatusOptions.FULL
@@ -94,6 +105,16 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["status", "-applied_on"]
+
+    def __str__(self):
+        return (
+            "Job Application for "
+            + self.job.role
+            + " from "
+            + self.applicant.name
+            + " that is "
+            + self.status
+        )
 
     def accept_application(self):
         self.status = self.ApplicationStatusOptions.ACCEPTED

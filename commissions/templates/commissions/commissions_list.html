@@ -11,34 +11,38 @@
         <section class="card">
             <section>
                 <h1>Your Commissions</h1>
+                <a href="{% url 'commissions:commission_add' %}">
+                    <p class="button full">+ Post a new Commission</p>
+                </a>
                 <ul>
-                    {% for commission in user.profile.commissions.all %}
+                    {% for commission in commissions %}
+                    {% if commission.creator == user.profile %}
                     <li class="list-item">
                         <section>
-                            <h2>{{ commission.title }}</h2>
+                            <a href="{% url 'commissions:commission_detail' commission.id %}"><h2>{{ commission.title }}</h2></a>
                             <p>{{ commission.created_on | date }}</p>
                         </section>
                         <p class="status-chip">{{ commission.status }}</p>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </section>
             <section class="full">
                 <h1>Commissions You Applied To</h1>
                 <ul class="item-list">
-                    {% for application in user.profile.applications.all %}
+                    {% for application in applications %}
+                    {% if application.applicant == user.profile %}
                     <li class="list-item">
                         <section>
-                            <h2>{{ application.job.commission.title }}</h2>
+                            <a href="{% url 'commissions:commission_detail' application.job.commission.id %}"><h2>{{ application.job.commission.title }}</h2></a>
                             <p>{{ application.job.commission.created_on | date }}</p>
                         </section>
                         <p class="status-chip">{{ application.job.commission.status }}</p>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
-                <a href="{% url "commissions:add_commission" %}">
-                    <p class="button full">+ Post a new Commission</p>
-                </a>
             </section>
         </section>
         {% endif %}
@@ -49,7 +53,7 @@
                 {% for commission in commissions.all %}
                 <li class="list-item">
                     <section>
-                        <h2>{{ commission.title }}</h2>
+                        <a href="{% url 'commissions:commission_detail' commission.id %}"><h2>{{ commission.title }}</h2></a>
                         <p>{{ commission.created_on | date }}</p>
                     </section>
                     <p class="status-chip">{{ commission.status }}</p>

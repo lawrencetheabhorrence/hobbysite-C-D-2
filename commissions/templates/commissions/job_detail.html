@@ -10,14 +10,18 @@
         <h1>Applicants for {{ job.role }}</h1>
         <ul>
             {% for application in job.applications.all %}
+            {% if application.status == "Accepted" or application.status == "Pending" %}
             <li class="list-item">
                 <p>{{ application.applicant.name }}</p>
+                {% if user.profile == manager and application.status == "Pending" %}
                 <form method="POST" action="">
                     {% csrf_token %}
                     <button name="accept" type="submit" value="{{ application.id }}">Accept</button>
                     <button name="reject" type="submit" value="{{ application.id }}">Reject</button>
                 </form>
+                {% endif %}
             </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </main>

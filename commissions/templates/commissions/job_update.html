@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Update Job Specs {% endblock %}
+
+{% block content %}
+<main class="card">
+    <h1>Update Job</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+</main>
+{% endblock %}

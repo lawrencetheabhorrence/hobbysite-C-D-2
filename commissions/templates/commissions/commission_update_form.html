@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<main>
+	<section class="card">
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Update Commission</button>
+		</form>
+	<section class="card">
+        <h3>Jobs Involved</h3>
+        <a href="{% url 'commissions:job_create' object.id %}" class="button">Create Job</a>
+        {% for job in jobs %}
+        <h2>{{ job.role }}</h2>
+        <a href="{% url 'commissions:job_update' job.pk %}" class="button">Edit</a>
+        <a href="{% url 'commissions:job_delete' job.pk %}" class="button">Delete</a>
+        {% endfor %}
+	</section>
+</main>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Commission
+from .models import Commission, Job, JobApplication
 
 
 class CommissionAdmin(admin.ModelAdmin):
@@ -16,3 +16,5 @@ class CommissionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Commission, CommissionAdmin)
+admin.site.register(Job)
+admin.site.register(JobApplication)

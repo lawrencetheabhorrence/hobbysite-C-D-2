@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from user_management.models import Profile
 
 
@@ -36,6 +37,9 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.author}"
+
+    def get_absolute_url(self):
+        return reverse("wiki:article_detail", kwargs={"pk": self.id})
 
 
 class Comment(models.Model):

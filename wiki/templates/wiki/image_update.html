@@ -1,23 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Create Article{% endblock %}
+{% block title %}Update Image Description{% endblock %}
 
 {% block content %}
 <main class="card">
-    {% if user.is_authenticated %}
-    <h1>Write an Article</h1>
+    <h1>Update Image description</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Publish</button>
     </form>
-
-    <p>
-        <a href="{% url 'blog:article_list' %}">Back to All Articles</a>
-    </p>
-    {% else %}
-    <p>Please log-in to access</p>
-    {% endif %}
 </main>
 {% endblock %}

@@ -4,6 +4,9 @@ from .views import (
     ArticleCreateView,
     ArticleDetailView,
     ArticleUpdateView,
+    ImageCreateView,
+    ImageUpdateView,
+    ImageDeleteView,
 )
 
 app_name = "wiki"
@@ -16,4 +19,7 @@ urlpatterns = [
         ArticleUpdateView.as_view(),
         name="article_update",
     ),
+    path("article/<int:pk>/image/add/", ImageCreateView.as_view(), name="image_create"),
+    path("image/<int:pk>/edit/", ImageUpdateView.as_view(), name="image_update"),
+    path("image/<int:pk>/delete/", ImageDeleteView.as_view(), name="image_delete"),
 ]

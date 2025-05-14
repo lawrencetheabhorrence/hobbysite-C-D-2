@@ -2,7 +2,7 @@
 {% block title %}Updating {{product.name}}...{% endblock %}
 {% block content %}
 <main>
-	<section class="content">
+	<section class="card full-flex">
 	<form method="post">
 		{% csrf_token %}
 		{{ form.as_p }}

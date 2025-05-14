@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="card">
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">+ Add Job</button>
+	</form>
+</main>
+{% endblock %}

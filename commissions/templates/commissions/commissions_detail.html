@@ -10,9 +10,12 @@
         <section>
             <h1>Jobs for {{ commission.title }}</h1>
             {% if user.is_authenticated and commission.creator == user.profile %}
-            <a href="{% url 'commissions_update' commission.id %}">
-                <p class="button">Edit Commission</p>
-            </a>
+                <a href="{% url 'commissions:commission_update' commission.id %}">
+                    <p class="button">Edit Commission</p>
+                </a>
+                <a href="{% url 'commissions:job_create' commission.id %}">
+                    <p class="button">Add Job</p>
+                </a>
             {% endif %}
         </section>
         <section>
@@ -26,7 +29,14 @@
                     <section class="job-footer">
                         <p class="manpower">{{ job.open_manpower }} out of {{ job.manpower_required }} slots are still open</p>
                         {% if user.is_authenticated and commission.status == "Open" and object.creator != user.profile %}
-                        <button type="submit">Apply to Job</button>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Apply to Job</button>
+                        </form>
+                        {% elif object.creator == user.profile %}
+                        <a href="{% url 'commissions:job_view' job.id %}">
+                            <p class="button">Manage Applicants</p>
+                        </a>
                         {% endif %}
                     </section>
                 </li>

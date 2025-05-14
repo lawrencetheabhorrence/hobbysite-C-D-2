@@ -9,6 +9,10 @@ li.list-item * {
 	margin: 5px;
 }
 
+li.list-item {
+	margin-bottom: 15px;
+}
+
 h1 {
 	font-size: 1.5em;
 }
@@ -35,7 +39,7 @@ section.job-footer {
 	margin: 12px 0;
 }
 
-section.job-footer p {
+section.job-footer > p {
 	font-family: "Fredoka";
 	font-weight: 500;
 	color: var(--dark-teal);
@@ -52,4 +56,8 @@ li.list-item > section {
 
 li.list-item h2 {
 	font-weight: 600;
+}
+
+a.button, a.button *, a p.button {
+	color: white;
 }

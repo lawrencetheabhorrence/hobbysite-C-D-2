@@ -10,11 +10,14 @@
             <section class="thread-header">
                 <section class="thread-meta">
                     <h1>{{ article.title }}</h1>
-                    <span>{{ article.category }}</span>
+                    <span>Category: {{ article.category }}</span>
                     <span>Created On: {{ article.created_on|date:"m/d/Y" }}</span>
                     <span>Updated On: {{ article.updated_on|date:"m/d/Y" }}</span>
+                    <span>Entry Author: {{ article.author }}</span>
                 </section>
+                {% if user.profile == article.author %}
                 <a href="{% url 'wiki:article_update' article.id %}" class="button">Edit Post</a>
+                {% endif %}
             </section>
             <section class="article-entry">
                 <img src="{{ article.header_image.url }}" alt="">
@@ -55,7 +58,7 @@
                 </form>
             {% endif %}
             <section class="comments-list">
-                {% for comment in article.comments.all %}
+                {% for comment in comments %}
                 <section class="comment">
                     <p class="comment-header">
                         {{ comment.author.user.profile.name }} | {{ comment.created_on|date:"m/d/Y" }}

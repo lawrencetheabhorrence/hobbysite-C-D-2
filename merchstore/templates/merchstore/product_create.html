@@ -2,7 +2,7 @@
 {% block title %}Product Creation{% endblock %}
 {% block content %}
 <main>
-	<section class="content">
+	<section class="card full-flex">
 		<form method="post">
 			{% csrf_token %}
 			<p>{{form.owner.label_tag}}{{user.profile.name}}{{form.owner}}</p>

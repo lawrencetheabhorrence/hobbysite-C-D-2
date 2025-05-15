@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.core.validators import MinValueValidator
 from user_management.models import Profile
 
 
@@ -29,6 +31,9 @@ class Commission(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("commissions:commission_detail", kwargs={"pk": self.pk})
+
     def fill_job(self):
         """
         This method is called everytime a job is filled. It then checks if all jobs are filled and updates the status of the commission.
@@ -54,7 +59,7 @@ class Job(models.Model):
         Commission, on_delete=models.CASCADE, related_name="jobs"
     )
     role = models.TextField(max_length=255)
-    manpower_required = models.PositiveIntegerField()
+    manpower_required = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     status = models.CharField(
         max_length=15, default=JobStatusOptions.OPEN, choices=JobStatusOptions
     )
@@ -62,12 +67,21 @@ class Job(models.Model):
     class Meta:
         ordering = ["status", "-manpower_required", "role"]
 
+    def __str__(self):
+        return self.role
+
+    def get_absolute_url(self):
+        return reverse("commissions:job_view", kwargs={"pk": self.pk})
+
+    def open_manpower(self):
+        accepted_applicants = JobApplication.objects.filter(
+            job=self.id, status=JobApplication.ApplicationStatusOptions.ACCEPTED
+        ).count()
+        return self.manpower_required - accepted_applicants
+
     def accept_applicant(self):
-        if self.status == self.JobStatusOptions.OPEN and self.manpower_required > 0:
-            self.manpower_required -= 1
-            self.save()
-            if self.manpower_required == 0:
-                self.set_full()
+        if self.open_manpower() == 0:
+            self.set_full()
 
     def set_full(self):
         self.status = self.JobStatusOptions.FULL
@@ -94,6 +108,12 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["status", "-applied_on"]
+
+    def get_absolute_url(self):
+        return reverse("commissions:job_view", kwargs={"pk": self.job.pk})
+
+    def __str__(self):
+        return f"Application for {self.job}"
 
     def accept_application(self):
         self.status = self.ApplicationStatusOptions.ACCEPTED

@@ -57,7 +57,7 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("merchstore_item", kwargs={"itemID": self.id})
+        return reverse("merchstore:product_detail", kwargs={"pk": self.id})
 
     def update_status(self, commit=True):
         if self.status == self.ProductStatusChoices.OUT_OF_STOCK and self.stock > 0:
